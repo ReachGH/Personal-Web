@@ -18,7 +18,6 @@ export const experience = [
     location: "Brisbane, Australia",
     description:
       "Contributed to a client onboarding platform and its CRM integration. Worked across React, Angular and Rails, investigated data consistency issues, and expanded regression tests with senior developers and business stakeholders.",
-    tags: ["Full-stack development", "Integration", "Regression testing"],
   },
   {
     company: "K9 Security Services",
@@ -27,7 +26,6 @@ export const experience = [
     location: "Australia",
     description:
       "Helped a small security business establish its website. Provide practical technology advice and troubleshooting as the owner’s primary IT contact.",
-    tags: ["Web development", "Technical support"],
   },
   {
     company: "Sabai Code",
@@ -36,7 +34,6 @@ export const experience = [
     location: "Phnom Penh, Cambodia",
     description:
       "Led mobile development for a grocery marketplace prototype and contributed to the backend. Met farmers and business stakeholders to turn day-to-day challenges into application requirements.",
-    tags: ["React Native", "Node.js", "Requirements gathering"],
   },
 ];
 

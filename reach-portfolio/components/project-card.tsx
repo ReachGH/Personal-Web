@@ -24,7 +24,7 @@ export function ProjectCard({
       <div className="project-card-content">
         <div className="project-category">
           <span>{project.category}</span>
-          <span>{project.year}</span>
+          {project.year && <span>{project.year}</span>}
         </div>
         <Link className="project-title-link" href={`/projects/${project.slug}`}>
           <h3>{project.name}</h3>

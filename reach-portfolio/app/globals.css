@@ -92,17 +92,6 @@ svg {
   letter-spacing: 1.6px;
   line-height: 1.6;
 }
-.section-kicker {
-  color: var(--muted);
-  margin-bottom: 24px;
-}
-.status-dot {
-  height: 6px;
-  width: 6px;
-  border-radius: 50%;
-  background: #65734b;
-  box-shadow: 0 0 0 4px #65734b12;
-}
 .orange {
   color: var(--accent);
 }
@@ -195,14 +184,6 @@ svg {
   display: inline-flex;
   align-items: center;
 }
-.header-location {
-  display: inline-block;
-  font-size: var(--text-detail);
-  line-height: 1.6;
-}
-.header-location > span {
-  color: var(--muted);
-}
 .primary-nav {
   display: flex;
   align-items: center;
@@ -234,28 +215,14 @@ svg {
   color: var(--ink);
 }
 .hero {
-  padding-top: 51px;
-}
-.hero-intro {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.hero-intro .eyebrow {
-  color: #556044;
-  font-size: 9px;
-}
-.hero-edition {
-  font-size: 9px;
-  letter-spacing: 1.4px;
-  color: var(--muted);
+  padding-top: 0;
 }
 .hero-grid {
   display: grid;
   grid-template-columns: 1.8fr 1fr;
   gap: 18px;
   align-items: center;
-  padding-block: 59px 68px;
+  padding-block: 80px 72px;
 }
 .hero-greeting {
   display: flex;
@@ -311,7 +278,7 @@ svg {
   position: relative;
   overflow: clip;
   overflow-clip-margin: 14px;
-  height: 340px;
+  height: 290px;
   width: 100%;
   max-width: 350px;
   margin: 0 0 0 auto;
@@ -380,69 +347,8 @@ svg {
   color: var(--accent);
   transform: rotate(12deg);
 }
-.art-coordinate {
-  position: absolute;
-  top: 290px;
-  left: 9px;
-  color: #646d59;
-  font-size: 8px;
-  letter-spacing: 1.6px;
-  transform: rotate(-90deg);
-  transform-origin: top left;
-}
-.art-note {
-  position: absolute;
-  bottom: 0;
-  right: -6px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 20px 21px;
-  min-width: 264px;
-  background: #fffefa;
-  box-shadow: 0 10px 35px #333a2510;
-  border: 1px solid #e2e4d9;
-  border-radius: 5px;
-  transform: rotate(-5deg);
-  font-size: 12px;
-  line-height: 1.7;
-  color: var(--muted);
-}
-.art-note strong {
-  font-weight: 500;
-  color: var(--ink);
-}
-.art-note > svg {
-  color: var(--accent);
-  margin-left: auto;
-}
-.art-note-dot {
-  height: 5px;
-  width: 5px;
-  background: var(--accent);
-  border-radius: 50%;
-}
-.hero-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  border-top: 1px solid var(--line);
-  padding-block: 22px;
-  color: var(--muted);
-  font-size: var(--text-detail);
-}
-.hero-bottom > span:first-child,
-.hero-bottom > a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.hero-bottom > a {
-  color: var(--ink);
-}
 .work-section {
-  padding-top: 79px;
+  padding-top: 60px;
 }
 .section-heading {
   display: flex;
@@ -457,9 +363,6 @@ h2 {
   letter-spacing: -2px;
   line-height: 1.15;
   text-wrap: balance;
-}
-.muted-heading {
-  color: #868a7c;
 }
 .section-heading > p {
   font-size: 0.9375rem;
@@ -1172,10 +1075,6 @@ h2 {
   font-weight: 500;
   letter-spacing: -0.6px;
 }
-.other-heading > span {
-  font-size: 0.8125rem;
-  color: var(--muted);
-}
 .other-projects {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1234,12 +1133,6 @@ h2 {
   letter-spacing: -0.6px;
   margin-top: 9px;
 }
-.other-project h5 {
-  font-weight: 400;
-  font-size: 0.8125rem;
-  margin-top: 6px;
-  color: var(--muted);
-}
 .other-project p {
   font-size: 0.9375rem;
   line-height: 1.8;
@@ -1256,8 +1149,8 @@ h2 {
 }
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 100px;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 70px;
 }
 .about-heading {
   position: relative;
@@ -1266,26 +1159,6 @@ h2 {
   font-size: 55px;
   line-height: 1.08;
   letter-spacing: -2.5px;
-}
-.serif-word {
-  font-family: Georgia, serif;
-  font-weight: 400;
-  font-style: italic;
-  color: var(--accent);
-}
-.about-asterisk {
-  width: 60px;
-  height: 60px;
-  margin-top: 49px;
-  color: var(--accent);
-  transform: rotate(14deg);
-}
-.about-caption {
-  display: block;
-  font-size: 8px;
-  letter-spacing: 1.1px;
-  color: var(--muted);
-  margin-top: 24px;
 }
 .about-copy > p {
   margin-top: 19px;
@@ -1299,26 +1172,6 @@ h2 {
   line-height: 1.6;
   margin-top: -3px;
   letter-spacing: -0.3px;
-}
-.about-copy > .text-link {
-  margin-top: 23px;
-}
-.about-principles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 22px;
-  padding-top: 25px;
-  margin-top: 31px;
-  border-top: 1px solid #d6d9cb;
-}
-.about-principles > span {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: var(--text-detail);
-}
-.about-principles svg {
-  color: #6b775a;
 }
 .experience-section .section-heading {
   margin-bottom: 41px;
@@ -1374,14 +1227,6 @@ h2 {
   font-size: var(--text-body);
   line-height: 1.8;
 }
-.experience-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 14px;
-  margin-top: 15px;
-  font-size: var(--text-detail);
-  color: #616a55;
-}
 .skills-section {
   background: #f0f1e9;
 }
@@ -1389,16 +1234,6 @@ h2 {
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   gap: 80px;
-}
-.skills-intro > p {
-  color: var(--muted);
-  margin-top: 23px;
-  font-size: 0.9375rem;
-  line-height: 1.8;
-}
-.toolkit-icon {
-  margin-top: 38px;
-  color: #82916e;
 }
 .skill-group {
   display: flex;
@@ -1413,11 +1248,6 @@ h2 {
 .skill-group:last-child {
   border: none;
   padding-bottom: 0;
-}
-.skill-number {
-  font-size: 9px;
-  color: #5d6a50;
-  padding-top: 4px;
 }
 .skill-group h3 {
   font-size: 17px;
@@ -1486,10 +1316,6 @@ h2 {
 .award-card > svg {
   color: #857344;
 }
-.award-card > svg:last-child {
-  margin-left: auto;
-  color: #929883;
-}
 .award-card .small-label {
   font-size: var(--text-label);
   letter-spacing: 1px;
@@ -1518,39 +1344,21 @@ h2 {
 .contact-inner > div {
   min-width: 0;
 }
-.contact-section .eyebrow {
-  font-size: var(--text-label);
-  letter-spacing: 1.2px;
-  color: #5d694b;
-}
 .contact-section h2 {
   position: relative;
   font-size: 59px;
   letter-spacing: -2.5px;
-  margin-top: 30px;
+  margin-top: 0;
   line-height: 1.09;
   width: max-content;
   max-width: 100%;
-}
-.contact-section h2 > span {
-  font-family: Georgia, serif;
-  color: var(--accent);
-  font-style: italic;
-}
-.contact-asterisk {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  right: -65px;
-  top: 4px;
-  color: var(--accent);
-  transform: rotate(13deg);
 }
 .contact-section p {
   font-size: var(--text-body);
   color: #546343;
   line-height: 1.8;
   margin-top: 25px;
+  max-width: 470px;
 }
 .contact-email {
   display: inline-flex;
@@ -1569,13 +1377,6 @@ h2 {
 .contact-side {
   padding-top: 15px;
 }
-.contact-side-label {
-  display: block;
-  color: #546343;
-  font-size: var(--text-label);
-  letter-spacing: 1.3px;
-  margin-bottom: 17px;
-}
 .contact-side > a {
   display: flex;
   align-items: center;
@@ -1591,58 +1392,21 @@ h2 {
 .contact-side > a:hover {
   color: var(--accent);
 }
-.contact-location {
-  display: flex;
-  gap: 11px;
-  margin-top: 27px;
-  color: #546343;
-  font-size: 0.8125rem;
-  line-height: 1.9;
-}
-.contact-location svg {
-  margin-top: 2px;
-}
 .footer-main {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding-block: 41px;
-  border-bottom: 1px solid var(--line);
-}
-.footer-main .brand {
-  font-size: 32px;
-}
-.footer-main p {
+  padding-block: 28px;
+  border-bottom: 0;
+  font-size: var(--text-detail);
   color: var(--muted);
-  font-size: 0.8125rem;
 }
 .back-top {
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: var(--text-detail);
-}
-.footer-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  color: var(--muted);
-  font-size: var(--text-detail);
-  padding-block: 22px 28px;
-}
-.footer-bottom > div {
-  display: flex;
-  gap: 21px;
-}
-.footer-bottom a {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-}
-.footer-bottom a:hover {
-  color: var(--accent);
 }
 .case-hero {
   padding-top: 37px;
@@ -1658,9 +1422,6 @@ h2 {
   justify-content: space-between;
   padding-top: 58px;
   margin-bottom: 20px;
-}
-.case-kicker .eyebrow {
-  color: var(--accent);
 }
 .case-hero h1 {
   font-size: clamp(52px, 7.2vw, 94px);
@@ -1690,7 +1451,7 @@ h2 {
 }
 .case-facts {
   display: grid;
-  grid-template-columns: 1.1fr 0.7fr 0.7fr 1.5fr;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 20px;
   padding-block: 25px;
   margin-block: 37px 33px;
@@ -1918,10 +1679,6 @@ h2 {
 .case-aside nav > a:hover {
   color: var(--accent);
 }
-.case-aside > .text-link {
-  margin-top: 32px;
-  font-size: 0.8125rem;
-}
 .case-content {
   max-width: 710px;
 }
@@ -1968,12 +1725,6 @@ h2 {
   padding-top: 31px;
   border-top: 1px solid var(--line);
 }
-.case-section-number {
-  font-size: 10px;
-  color: var(--accent);
-  display: block;
-  margin-bottom: 15px;
-}
 .case-section h2 {
   font-size: 29px;
   letter-spacing: -1px;
@@ -2001,11 +1752,6 @@ h2 {
   background: #e7ebdc;
   border-radius: 5px;
   margin-top: 55px;
-}
-.case-takeaway > svg {
-  color: #788963;
-  display: block;
-  margin-bottom: 16px;
 }
 .case-takeaway .eyebrow {
   font-size: var(--text-label);
@@ -2165,9 +1911,6 @@ h2 {
   .about-heading h2 {
     font-size: 49px;
   }
-  .about-principles {
-    gap: 17px;
-  }
   .experience-row {
     grid-template-columns: 0.7fr 1.1fr 1.4fr;
     gap: 20px;
@@ -2180,11 +1923,6 @@ h2 {
   }
   .contact-section h2 {
     font-size: 51px;
-  }
-  .contact-asterisk {
-    right: -48px;
-    width: 30px;
-    height: 30px;
   }
   .case-body {
     grid-template-columns: 195px 1fr;
@@ -2204,15 +1942,9 @@ h2 {
   .hero-art {
     transform: scale(0.72);
   }
-  .header-location {
-    display: none;
-  }
   .hero-description {
     max-width: 330px;
     font-size: 14px;
-  }
-  .hero-bottom {
-    font-size: 9px;
   }
   .project-card-featured {
     grid-template-columns: 1.15fr 1fr;
@@ -2312,9 +2044,6 @@ h2 {
   .about-copy > p {
     font-size: 13px;
   }
-  .about-principles {
-    gap: 12px;
-  }
   .experience-row {
     grid-template-columns: 0.8fr 1.5fr;
   }
@@ -2349,11 +2078,6 @@ h2 {
   }
   .contact-section h2 {
     font-size: 43px;
-  }
-  .contact-asterisk {
-    right: -41px;
-    width: 25px;
-    height: 25px;
   }
   .contact-email {
     font-size: 18px;
@@ -2477,15 +2201,7 @@ h2 {
     padding: 12px 16px;
   }
   .hero {
-    padding-top: 31px;
-  }
-  .hero-intro .eyebrow {
-    font-size: 7px;
-    letter-spacing: 1px;
-  }
-  .hero-edition {
-    font-size: 7px;
-    letter-spacing: 1px;
+    padding-top: 0;
   }
   .hero-grid {
     padding-block: 42px 43px;
@@ -2520,27 +2236,9 @@ h2 {
   .hero-art {
     display: none;
   }
-  .hero-bottom {
-    padding-block: 19px;
-    font-size: 8px;
-  }
-  .hero-bottom > span:nth-child(2) {
-    display: none;
-  }
-  .hero-bottom > a {
-    gap: 5px;
-  }
-  .hero-bottom > a > svg {
-    width: 12px;
-  }
   h2 {
     font-size: 36px;
     letter-spacing: -1.5px;
-  }
-  .section-kicker {
-    font-size: 8px;
-    margin-bottom: 19px;
-    letter-spacing: 1.3px;
   }
   .section-heading {
     gap: 20px;
@@ -2675,9 +2373,6 @@ h2 {
   .other-heading h3 {
     font-size: 21px;
   }
-  .other-heading > span {
-    font-size: 10px;
-  }
   .other-projects {
     grid-template-columns: 1fr;
   }
@@ -2696,9 +2391,6 @@ h2 {
     margin-block: 14px 21px;
     max-width: 450px;
   }
-  .other-project h5 {
-    font-size: 11px;
-  }
   .other-stack {
     font-size: 9px;
   }
@@ -2709,32 +2401,11 @@ h2 {
   .about-heading h2 {
     font-size: 43px;
   }
-  .about-asterisk {
-    position: absolute;
-    right: 20px;
-    top: 51px;
-    width: 47px;
-    height: 47px;
-    margin: 0;
-  }
-  .about-caption {
-    margin-top: 18px;
-    font-size: 7px;
-  }
   .about-copy > .about-lead {
     font-size: 20px;
   }
   .about-copy > p {
     font-size: 13px;
-  }
-  .about-copy > .text-link {
-    font-size: 12px;
-  }
-  .about-principles {
-    gap: 20px;
-  }
-  .about-principles > span {
-    font-size: 9px;
   }
   .experience-section .section-heading {
     flex-direction: column;
@@ -2770,9 +2441,6 @@ h2 {
   .experience-detail p {
     font-size: 12px;
   }
-  .experience-tags {
-    font-size: 8px;
-  }
   .skills-layout {
     grid-template-columns: 1fr;
     gap: 39px;
@@ -2782,17 +2450,6 @@ h2 {
   }
   .skills-intro h2 {
     font-size: 38px;
-  }
-  .skills-intro > p {
-    margin-top: 19px;
-    font-size: 12px;
-  }
-  .toolkit-icon {
-    position: absolute;
-    right: 20px;
-    top: 31px;
-    width: 40px;
-    height: 40px;
   }
   .skill-group {
     gap: 20px;
@@ -2839,9 +2496,6 @@ h2 {
     font-size: 11px;
     line-height: 1.8;
   }
-  .award-card > svg:last-child {
-    display: none;
-  }
   .award-card > svg:first-child {
     width: 23px;
   }
@@ -2854,17 +2508,11 @@ h2 {
   }
   .contact-section h2 {
     font-size: 46px;
-    margin-top: 25px;
+    margin-top: 0;
   }
   .contact-section p {
     font-size: 12px;
     margin-top: 23px;
-  }
-  .contact-asterisk {
-    right: -42px;
-    top: 2px;
-    width: 28px;
-    height: 28px;
   }
   .contact-email {
     font-size: 22px;
@@ -2878,31 +2526,10 @@ h2 {
     font-size: 12px;
     padding-block: 17px;
   }
-  .contact-side-label {
-    margin-bottom: 9px;
-  }
-  .contact-location {
-    margin-top: 24px;
-    font-size: 11px;
-  }
   .footer-main {
     padding-block: 31px;
     gap: 10px;
     flex-wrap: wrap;
-  }
-  .footer-main p {
-    order: 3;
-    width: 100%;
-    margin-top: 12px;
-    font-size: 10px;
-  }
-  .footer-bottom {
-    flex-wrap: wrap;
-    font-size: 8px;
-    gap: 17px;
-  }
-  .footer-bottom > span:nth-child(2) {
-    display: none;
   }
   .case-hero {
     padding-top: 25px;
@@ -2916,9 +2543,6 @@ h2 {
     flex-direction: column;
     gap: 11px;
     margin-bottom: 17px;
-  }
-  .case-kicker .eyebrow {
-    font-size: 9px;
   }
   .case-kicker .small-label {
     font-size: 9px;
@@ -3125,9 +2749,6 @@ h2 {
     gap: 11px;
     margin-top: 18px;
   }
-  .case-aside > .text-link {
-    display: none;
-  }
   .case-overview h2 {
     font-size: 32px;
   }
@@ -3202,9 +2823,6 @@ h2 {
   }
   .hero-description {
     font-size: 13px;
-  }
-  .hero-bottom {
-    font-size: 7px;
   }
   .section-heading {
     align-items: flex-start;
@@ -3335,22 +2953,6 @@ h2 {
   .about-heading h2 {
     font-size: 41px;
   }
-  .about-asterisk {
-    width: 35px;
-    height: 35px;
-    right: 13px;
-    top: 60px;
-  }
-  .about-principles {
-    gap: 14px;
-  }
-  .about-principles > span {
-    font-size: 8px;
-    gap: 5px;
-  }
-  .about-principles svg {
-    width: 14px;
-  }
   .education-heading h2 {
     font-size: 29px;
   }
@@ -3361,11 +2963,6 @@ h2 {
     font-size: clamp(31px, 9.7vw, 40px);
     letter-spacing: -1.7px;
   }
-  .contact-asterisk {
-    right: -25px;
-    width: 23px;
-    height: 23px;
-  }
   .contact-email {
     font-size: clamp(16px, 4.6vw, 18px);
     gap: 15px;
@@ -3373,9 +2970,6 @@ h2 {
   }
   .contact-email svg {
     width: 20px;
-  }
-  .desktop-break {
-    display: none;
   }
   .case-hero h1 {
     font-size: 45px;

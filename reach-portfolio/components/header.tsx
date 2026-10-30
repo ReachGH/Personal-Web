@@ -52,11 +52,6 @@ export function Header() {
         <Link href="/" className="brand-link" onClick={() => setOpen(false)}>
           <Brand />
         </Link>
-        <span className="header-location">
-          Software developer
-          <br />
-          <span>Gold Coast, Australia</span>
-        </span>
         <button
           ref={toggle}
           type="button"

@@ -7,16 +7,15 @@ export type CaseSection = {
 };
 export type Project = {
   slug: ProjectSlug;
-  number: string;
   name: string;
   subtitle: string;
   category: string;
-  year: string;
+  year?: string;
   status: string;
   summary: string;
   role: string;
-  organisation: string;
-  period: string;
+  organisation?: string;
+  period?: string;
   stack: string[];
   introduction: string;
   contributions: string[];
@@ -28,7 +27,6 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "onboardhq",
-    number: "01",
     name: "OnboardHQ",
     subtitle: "From scattered steps to a shared workflow.",
     category: "Full-stack · CRM integration",
@@ -87,7 +85,6 @@ export const projects: Project[] = [
         title: "Demonstrate, test, refine",
         paragraphs: [
           "A working demonstration used dummy data and was shown to business stakeholders. The project evolved from a standalone application toward integration with existing business workflows.",
-          "This case study describes an internship contribution and demonstration project. It does not claim a full production launch or quantified business savings.",
         ],
       },
     ],
@@ -98,7 +95,6 @@ export const projects: Project[] = [
   },
   {
     slug: "sabai-code",
-    number: "02",
     name: "Sabai Code",
     subtitle: "A shorter path from farm to basket.",
     category: "Mobile · Full-stack prototype",
@@ -133,13 +129,6 @@ export const projects: Project[] = [
           "My work involved translating requirements into marketplace functionality, connecting the mobile application to backend services, and refining the prototype with stakeholder feedback. Technical ownership also meant communicating what could be built and what needed further clarification.",
         ],
       },
-      {
-        title: "Keep the outcome in perspective",
-        paragraphs: [
-          "The result was an investor-funded grocery marketplace prototype. It was not publicly launched. There are no claimed customer numbers, revenue figures or download metrics.",
-          "The illustration here communicates the project concept. It is not presented as an original application screenshot or evidence of a specific historical interface.",
-        ],
-      },
     ],
     takeaway:
       "The most useful requirements often come from listening. Meeting farmers made the connection between an application feature and someone’s everyday work much more tangible.",
@@ -148,17 +137,13 @@ export const projects: Project[] = [
   },
   {
     slug: "self-hosted-infrastructure",
-    number: "03",
     name: "Minecraft & Palworld",
     subtitle: "Self-hosted infrastructure, beyond localhost.",
     category: "Personal · Infrastructure & networking",
-    year: "Personal project",
     status: "Hands-on self-hosting & troubleshooting",
     summary:
       "Two game-server setups, with different challenges: VPS-assisted Minecraft connectivity and a Docker-hosted Palworld server. A practical education in what runs underneath.",
     role: "Personal project",
-    organisation: "Independent",
-    period: "Ongoing learning",
     stack: ["Docker Compose", "Node.js", "VPS", "SSH", "TCP/IP", "UDP"],
     introduction:
       "Running a game server gave me a reason to learn networking, containers and remote administration through real problems. Minecraft and Palworld involved separate setups, each with its own constraints.",
@@ -194,7 +179,7 @@ export const projects: Project[] = [
         title: "Automate carefully",
         paragraphs: [
           "A Node.js Discord bot supported Minecraft availability monitoring and status reporting. I also explored server-readiness checks, wake-on-join behaviour and ways to reduce idle resource use.",
-          "Scheduled restarts and more advanced start/stop ideas were explored or tested. They are not presented here as a completed production automation system. The two hosting environments remain distinct in the illustration below.",
+          "Scheduled restarts and more advanced start/stop ideas remained exploratory.",
         ],
       },
     ],
@@ -208,7 +193,6 @@ export const projects: Project[] = [
 export const otherProjects = [
   {
     name: "Minecraft status bot",
-    subtitle: "Minecraft Server Monitoring Discord Bot",
     category: "Personal project",
     icon: "bot",
     description:
@@ -217,8 +201,7 @@ export const otherProjects = [
     href: null,
   },
   {
-    name: "A little more organised",
-    subtitle: "React Native To-Do Application",
+    name: "React Native To-Do App",
     category: "Study project",
     icon: "tasks",
     description:
@@ -227,8 +210,7 @@ export const otherProjects = [
     href: null,
   },
   {
-    name: "Learning to see",
-    subtitle: "CIFAR-10 Image Classification",
+    name: "CIFAR-10 Image Classification",
     category: "University coursework",
     icon: "image",
     description:

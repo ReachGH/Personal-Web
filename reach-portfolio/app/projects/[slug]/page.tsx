@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  ArrowLeft,
-  ArrowRight,
-  ArrowUpRight,
-  Check,
-  Lightbulb,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { ProjectVisual } from "@/components/project-visual";
 import { Contact } from "@/components/contact";
 import { projects } from "@/data/projects";
@@ -55,7 +49,6 @@ export default async function ProjectPage({
             <ArrowLeft size={16} /> All selected work
           </Link>
           <div className="case-kicker">
-            <span className="eyebrow">CASE STUDY / {project.number}</span>
             <span className="small-label">{project.category}</span>
           </div>
           <h1>
@@ -72,14 +65,18 @@ export default async function ProjectPage({
               <dt>MY ROLE</dt>
               <dd>{project.role}</dd>
             </div>
-            <div>
-              <dt>CONTEXT</dt>
-              <dd>{project.organisation}</dd>
-            </div>
-            <div>
-              <dt>PERIOD</dt>
-              <dd>{project.period}</dd>
-            </div>
+            {project.organisation && (
+              <div>
+                <dt>CONTEXT</dt>
+                <dd>{project.organisation}</dd>
+              </div>
+            )}
+            {project.period && (
+              <div>
+                <dt>PERIOD</dt>
+                <dd>{project.period}</dd>
+              </div>
+            )}
             <div>
               <dt>BUILT WITH</dt>
               <dd>{project.stack.join(" · ")}</dd>
@@ -102,17 +99,10 @@ export default async function ProjectPage({
               ))}
               <a href="#takeaway">What I took away</a>
             </nav>
-            <Link href="/#contact" className="text-link">
-              Let’s talk <ArrowUpRight size={15} />
-            </Link>
           </aside>
           <div className="case-content">
             <section id="overview" className="case-overview">
-              <span className="eyebrow section-kicker">THE OVERVIEW</span>
-              <h2>
-                A real problem.
-                <br />A practical place to start.
-              </h2>
+              <h2>Overview</h2>
               <p className="case-introduction">{project.introduction}</p>
               <div className="contribution-box">
                 <h3>Where I contributed</h3>
@@ -132,7 +122,6 @@ export default async function ProjectPage({
                 className="case-section"
                 key={section.title}
               >
-                <span className="case-section-number">0{index + 1}</span>
                 <h2>{section.title}</h2>
                 {section.paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
@@ -147,7 +136,6 @@ export default async function ProjectPage({
               </section>
             ))}
             <section id="takeaway" className="case-takeaway">
-              <Lightbulb size={25} strokeWidth={1.5} />
               <span className="eyebrow">WHAT I TOOK AWAY</span>
               <p>{project.takeaway}</p>
             </section>
