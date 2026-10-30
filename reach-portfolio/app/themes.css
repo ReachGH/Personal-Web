@@ -1,0 +1,139 @@
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #171c18;
+  --white: #1e251f;
+  --ink: #e8ece2;
+  --muted: #adb6a6;
+  --line: #3b4538;
+  --accent: #ec9876;
+  --sage: #2b3529;
+}
+
+:root[data-theme="dark"] .site-header {
+  background: #171c18f5;
+}
+:root[data-theme="dark"] .button-dark {
+  background: #dce5d2;
+  color: #1c251a;
+}
+:root[data-theme="dark"] .button-dark:hover {
+  background: #b9cda6;
+}
+:root[data-theme="dark"] .skip-link {
+  color: var(--paper);
+}
+:root[data-theme="dark"] .greeting-line {
+  background: #77866b;
+}
+:root[data-theme="dark"] .nav-resume,
+:root[data-theme="dark"] .tags > span,
+:root[data-theme="dark"] .skill-group,
+:root[data-theme="dark"] .award-card,
+:root[data-theme="dark"] .contribution-box,
+:root[data-theme="dark"] .contact-email,
+:root[data-theme="dark"] .contact-side > a {
+  border-color: var(--line);
+}
+
+:root[data-theme="dark"] .project-card-featured {
+  background: #242c23;
+}
+:root[data-theme="dark"] .about-section {
+  background: #1f271f;
+}
+:root[data-theme="dark"] .skills-section {
+  background: #1d251e;
+}
+:root[data-theme="dark"] .award-card,
+:root[data-theme="dark"] .contribution-box {
+  background: #252e23;
+}
+:root[data-theme="dark"] .contact-section {
+  background: #252f23;
+}
+:root[data-theme="dark"] .case-takeaway {
+  background: #2c3728;
+}
+
+:root[data-theme="dark"] .tags > span,
+:root[data-theme="dark"] .other-stack,
+:root[data-theme="dark"] .about-copy > p:not(.about-lead),
+:root[data-theme="dark"] .skill-context,
+:root[data-theme="dark"] .skill-items,
+:root[data-theme="dark"] .degree-card > svg,
+:root[data-theme="dark"] .contact-section p,
+:root[data-theme="dark"] .case-subtitle,
+:root[data-theme="dark"] .case-status,
+:root[data-theme="dark"] .case-introduction,
+:root[data-theme="dark"] .contribution-box li,
+:root[data-theme="dark"] .case-section p,
+:root[data-theme="dark"] .case-points,
+:root[data-theme="dark"] .case-takeaway .eyebrow {
+  color: var(--muted);
+}
+:root[data-theme="dark"] .award-card > svg,
+:root[data-theme="dark"] .award-card .small-label {
+  color: #d4bf8b;
+}
+:root[data-theme="dark"] .case-points li::marker {
+  color: #acbe99;
+}
+
+:root[data-theme="dark"] .art-circle {
+  background: #2f3c2b;
+}
+:root[data-theme="dark"] .art-glyph {
+  color: #b9c9a7;
+}
+:root[data-theme="dark"] .art-orbit {
+  border-color: #4a5941;
+}
+:root[data-theme="dark"] .art-grid {
+  background-image:
+    linear-gradient(#82947518 1px, transparent 1px),
+    linear-gradient(90deg, #82947518 1px, transparent 1px);
+}
+
+/* Keep the illustrated interfaces legible, like light artwork in a dark gallery. */
+:root[data-theme="dark"] .concept-label {
+  background: #e5edda;
+  color: #3a4a2e;
+  border-color: #7b8e6a;
+}
+:root[data-theme="dark"] .onboard-window,
+:root[data-theme="dark"] .sync-note,
+:root[data-theme="dark"] .phone {
+  color: #252921;
+  color-scheme: light;
+}
+:root[data-theme="dark"] .onboard-scene {
+  background: #303c2a;
+}
+:root[data-theme="dark"] .grocery-scene {
+  background: #353a2c;
+}
+:root[data-theme="dark"] .grocery-type {
+  color: #d0dbb9;
+}
+:root[data-theme="dark"] .grocery-orbit {
+  border-color: #65764f;
+}
+:root[data-theme="dark"] .floating-leaf {
+  color: #a9bc8b;
+}
+:root[data-theme="dark"] .farm-note,
+:root[data-theme="dark"] .scene-caption {
+  color: #c0cdb0;
+}
+:root[data-theme="dark"] .supporting-sketch-bot {
+  background: #2b3728;
+}
+:root[data-theme="dark"] .supporting-sketch-tasks {
+  background: #3c3027;
+}
+:root[data-theme="dark"] .supporting-sketch-image {
+  background: #293640;
+}
+:root[data-theme="dark"] .sketch-connection {
+  color: #c1cdb9;
+}

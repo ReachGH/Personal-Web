@@ -1,14 +1,16 @@
 @import "tailwindcss";
+@import "./themes.css";
 
 @theme inline {
-  --color-paper: #f8f7f3;
-  --color-ink: #252921;
-  --color-accent: #bb4c2c;
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-accent: var(--accent);
   --font-body: var(--font-sans);
   --font-heading: var(--font-display);
 }
 
 :root {
+  color-scheme: light;
   --paper: #f8f7f3;
   --white: #fffefa;
   --ink: #252921;
@@ -167,7 +169,37 @@ svg {
   display: flex;
   align-items: center;
   min-height: 92px;
-  gap: 45px;
+  gap: 24px;
+}
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.theme-toggle:hover {
+  background: var(--sage);
+  border-color: var(--muted);
+}
+.theme-toggle:disabled {
+  cursor: wait;
+}
+.theme-sun,
+:root[data-theme="dark"] .theme-moon {
+  display: none;
+}
+:root[data-theme="dark"] .theme-sun {
+  display: block;
 }
 .brand {
   display: inline-block;
@@ -2282,6 +2314,7 @@ h2 {
   }
   .header-inner {
     min-height: 74px;
+    gap: 8px;
   }
   .brand {
     font-size: 33px;

@@ -4,6 +4,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { profile } from "@/data/profile";
 import { isPublished, siteUrl } from "@/lib/site";
+import { themeInitScript } from "@/lib/theme";
 import "./globals.css";
 
 const sans = localFont({
@@ -50,15 +51,21 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f8f7f3",
-  colorScheme: "light",
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-AU" className={`${sans.variable} ${display.variable}`}>
+    <html
+      lang="en-AU"
+      className={`${sans.variable} ${display.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body id="top">
         <a href="#main-content" className="skip-link">
           Skip to content

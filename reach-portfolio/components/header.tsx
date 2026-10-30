@@ -5,6 +5,7 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Brand } from "./brand";
 import { profile } from "@/data/profile";
+import { ThemeToggle } from "./theme-toggle";
 
 const links = [
   { href: "/#work", label: "Work" },
@@ -94,6 +95,7 @@ export function Header() {
             Résumé <ArrowUpRight size={15} />
           </a>
         </nav>
+        <ThemeToggle />
       </div>
     </header>
   );

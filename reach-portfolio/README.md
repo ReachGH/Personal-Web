@@ -24,6 +24,12 @@ npm run start
 
 The production build prerenders the homepage, three case studies, social image, icons, robots and sitemap. There is no database, contact backend, analytics or authentication. Email opens the visitor’s email application.
 
+## Light and dark themes
+
+The header toggle follows the system colour preference until a visitor chooses a theme. Choices are saved locally, work across page navigation and reloads, and synchronise between tabs. If browser storage is unavailable, the toggle still works for the current page session. A small head script applies the theme before React loads to avoid a light flash.
+
+Dark colours are in `app/themes.css`; shared light colours and layout styles remain in `app/globals.css`. Theme behaviour lives in `components/theme-toggle.tsx` and `lib/theme.ts`. No theme library or server-side preference storage is required.
+
 ## Browser checks
 
 ```powershell

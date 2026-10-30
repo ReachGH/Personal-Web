@@ -1,6 +1,6 @@
 # Local validation
 
-Verified on 30 October 2026 with Node.js 24, Next.js 16.4.3 and installed Google Chrome on Windows.
+Application and theme checks updated on 31 October 2026 with Node.js 24, Next.js 16.4.3 and installed Google Chrome on Windows. Dependency, PDF and original asset checks are retained from the initial validation on 30 October.
 
 | Check                                 | Result                                                                                                                             |
 | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
@@ -9,13 +9,15 @@ Verified on 30 October 2026 with Node.js 24, Next.js 16.4.3 and installed Google
 | TypeScript, strict mode               | Passed                                                                                                                             |
 | Prettier formatting                   | Passed                                                                                                                             |
 | Next.js production build              | Passed; public pages prerendered                                                                                                   |
-| Playwright desktop and mobile suite   | 18 tests passed                                                                                                                    |
+| Playwright desktop and mobile suite   | 34 tests passed, covering both light and dark themes                                                                               |
 | Automated accessibility               | No WCAG 2 A/AA or 2.1 AA rule violations reported by axe on the homepage and three case studies at the tested desktop/mobile sizes |
 | Responsive layout                     | Checked at 320, 390, 768 and 1440 CSS pixels; no document overflow                                                                 |
 | Manual visual review                  | Desktop/mobile homepage, project cards, case studies, social preview and public résumé reviewed                                    |
 | Public PDF privacy                    | Phone and unapproved company metric absent from text extraction and decoded PDF objects                                            |
 | Git exclusions                        | Original résumé, supplied screenshots, private checklist and local QA/tooling excluded                                             |
 
-The browser suite checks public-page responses, client runtime errors, accessibility, featured-project count, case-study navigation, next-project links, mobile menu behaviour, Escape focus restoration, email/social links, an actual résumé download, metadata, icons, social image, review-mode robots/sitemap, 404s, keyboard skip navigation, reduced motion and narrow-screen overflow.
+The browser suite checks public-page responses, client runtime errors, accessibility in both themes, featured-project count, case-study navigation, next-project links, mobile menu behaviour, Escape focus restoration, email/social links, an actual résumé download, metadata, icons, social image, review-mode robots/sitemap, 404s, keyboard skip navigation, reduced motion and narrow-screen overflow.
+
+Theme checks cover live system preference changes, keyboard switching, persistence across reloads and navigation, browser toolbar colour, cross-tab synchronisation, unavailable browser storage and applying the saved theme before React loads. Dark-mode screenshots were also reviewed on desktop and mobile.
 
 Automated checks do not replace testing with actual assistive technology or every browser/device. The website has not been deployed. Publication wording and the final hosting domain still need the owner’s review.
