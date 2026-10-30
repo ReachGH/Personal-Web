@@ -1,0 +1,21 @@
+# Local validation
+
+Verified on 30 October 2026 with Node.js 24, Next.js 16.4.3 and installed Google Chrome on Windows.
+
+| Check                                 | Result                                                                                                                             |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Dependency installation and npm audit | Successful; zero reported vulnerabilities                                                                                          |
+| ESLint, with zero warnings allowed    | Passed                                                                                                                             |
+| TypeScript, strict mode               | Passed                                                                                                                             |
+| Prettier formatting                   | Passed                                                                                                                             |
+| Next.js production build              | Passed; public pages prerendered                                                                                                   |
+| Playwright desktop and mobile suite   | 18 tests passed                                                                                                                    |
+| Automated accessibility               | No WCAG 2 A/AA or 2.1 AA rule violations reported by axe on the homepage and three case studies at the tested desktop/mobile sizes |
+| Responsive layout                     | Checked at 320, 390, 768 and 1440 CSS pixels; no document overflow                                                                 |
+| Manual visual review                  | Desktop/mobile homepage, project cards, case studies, social preview and public résumé reviewed                                    |
+| Public PDF privacy                    | Phone and unapproved company metric absent from text extraction and decoded PDF objects                                            |
+| Git exclusions                        | Original résumé, supplied screenshots, private checklist and local QA/tooling excluded                                             |
+
+The browser suite checks public-page responses, client runtime errors, accessibility, featured-project count, case-study navigation, next-project links, mobile menu behaviour, Escape focus restoration, email/social links, an actual résumé download, metadata, icons, social image, review-mode robots/sitemap, 404s, keyboard skip navigation, reduced motion and narrow-screen overflow.
+
+Automated checks do not replace testing with actual assistive technology or every browser/device. The website has not been deployed. Publication wording and the final hosting domain still need the owner’s review.
