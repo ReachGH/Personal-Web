@@ -1,0 +1,13 @@
+.tools/
+.qa/
+reach-portfolio/node_modules/
+reach-portfolio/.next/
+reach-portfolio/out/
+reach-portfolio/test-results/
+reach-portfolio/playwright-report/
+reach-portfolio/.env*
+!reach-portfolio/.env.example
+reach-portfolio/*.tsbuildinfo
+Images/
+In_Sovanreach_Resume.pdf
+PUBLICATION_REVIEW.md
