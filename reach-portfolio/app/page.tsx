@@ -1,18 +1,16 @@
 import {
   ArrowDownRight,
   ArrowUpRight,
-  Bot,
-  CheckCheck,
   GraduationCap,
-  Image as ImageIcon,
   MapPin,
   Trophy,
 } from "lucide-react";
 import { Asterisk } from "@/components/brand";
 import { Contact } from "@/components/contact";
 import { ProjectCard } from "@/components/project-card";
+import { SupportingProjects } from "@/components/supporting-projects";
 import { experience, skills } from "@/data/profile";
-import { otherProjects, projects } from "@/data/projects";
+import { projects } from "@/data/projects";
 
 export default function Home() {
   return (
@@ -83,43 +81,7 @@ export default function Home() {
               />
             ))}
           </div>
-          <div className="other-heading">
-            <h3>Other projects</h3>
-          </div>
-          <div className="other-projects">
-            {otherProjects.map((project) => {
-              const Icon =
-                project.icon === "bot"
-                  ? Bot
-                  : project.icon === "tasks"
-                    ? CheckCheck
-                    : ImageIcon;
-              return (
-                <article className="other-project" key={project.name}>
-                  <div className="other-project-top">
-                    <span className={`other-icon other-icon-${project.icon}`}>
-                      <Icon size={22} strokeWidth={1.5} />
-                    </span>
-                    {project.href && (
-                      <a
-                        className="small-arrow"
-                        href={project.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`View ${project.name} source on GitHub`}
-                      >
-                        <ArrowUpRight size={21} />
-                      </a>
-                    )}
-                  </div>
-                  <span className="small-label">{project.category}</span>
-                  <h4>{project.name}</h4>
-                  <p>{project.description}</p>
-                  <div className="other-stack">{project.stack.join(" · ")}</div>
-                </article>
-              );
-            })}
-          </div>
+          <SupportingProjects />
         </div>
       </section>
 

@@ -190,7 +190,16 @@ export const projects: Project[] = [
   },
 ];
 
-export const otherProjects = [
+type SupportingProject = {
+  name: string;
+  category: string;
+  icon: "bot" | "tasks" | "image";
+  description: string;
+  stack: string[];
+  href: string | null;
+};
+
+export const otherProjects: SupportingProject[] = [
   {
     name: "Minecraft status bot",
     category: "Personal project",
