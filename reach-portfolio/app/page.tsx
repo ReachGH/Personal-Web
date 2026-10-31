@@ -61,7 +61,9 @@ export default function Home() {
                 />
               </div>
             </PortraitOrbit>
-            <figcaption className="hero-greeting">Hi, I’m Reach !</figcaption>
+            <figcaption className="hero-greeting">
+              Hi, I’m Reach<span className="orange">.</span>
+            </figcaption>
           </figure>
         </div>
       </section>
