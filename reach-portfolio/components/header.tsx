@@ -15,12 +15,23 @@ const links = [
   { href: "/#contact", label: "Contact" },
 ];
 
+let headerScrolled = false;
+
 function subscribeToScroll(onChange: () => void) {
-  window.addEventListener("scroll", onChange, { passive: true });
-  return () => window.removeEventListener("scroll", onChange);
+  const update = () => {
+    // Separate thresholds prevent flickering when scrolling around the trigger.
+    const next = headerScrolled ? window.scrollY > 32 : window.scrollY > 96;
+    if (next !== headerScrolled) {
+      headerScrolled = next;
+      onChange();
+    }
+  };
+  window.addEventListener("scroll", update, { passive: true });
+  update();
+  return () => window.removeEventListener("scroll", update);
 }
 
-const getScrolled = () => window.scrollY > 80;
+const getScrolled = () => headerScrolled;
 const getServerScrolled = () => false;
 
 export function Header() {
@@ -31,6 +42,7 @@ export function Header() {
     getServerScrolled,
   );
   const compact = pathname === "/" && !scrolled;
+  const BrandLink = pathname === "/" ? "a" : Link;
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   const nav = useRef<HTMLElement>(null);
@@ -67,58 +79,65 @@ export function Header() {
     <header className="site-header" data-compact={compact}>
       <div className="header-surface">
         <div className="container header-inner">
-          <Link
-            href="/"
+          <BrandLink
+            href={pathname === "/" ? "#top" : "/"}
             className="brand-link"
             aria-hidden={compact}
             tabIndex={compact ? -1 : undefined}
             onClick={() => setOpen(false)}
           >
             <Brand />
-          </Link>
-          <button
-            ref={toggle}
-            type="button"
-            className="menu-toggle"
-            aria-controls="primary-navigation"
-            aria-expanded={open}
-            aria-label={open ? "Close navigation" : "Open navigation"}
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <X size={23} /> : <Menu size={23} />}
-          </button>
-          <nav
-            ref={nav}
-            id="primary-navigation"
-            aria-label="Primary navigation"
-            className={`primary-nav ${open ? "is-open" : ""}`}
-            onBlur={(event) => {
-              if (
-                !event.currentTarget.contains(event.relatedTarget as Node) &&
-                event.relatedTarget !== toggle.current
-              )
-                setOpen(false);
-            }}
-          >
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
+          </BrandLink>
+          <div className="header-actions">
+            <button
+              ref={toggle}
+              type="button"
+              className="menu-toggle"
+              aria-controls="primary-navigation"
+              aria-expanded={open}
+              aria-label={open ? "Close navigation" : "Open navigation"}
+              onClick={() => setOpen(!open)}
+            >
+              {open ? <X size={20} /> : <Menu size={20} />}
+              <span className="menu-label" aria-hidden="true">
+                {open ? "Close" : "Menu"}
+              </span>
+            </button>
+            <nav
+              ref={nav}
+              id="primary-navigation"
+              aria-label="Primary navigation"
+              className={`primary-nav ${open ? "is-open" : ""}`}
+              onBlur={(event) => {
+                if (
+                  !event.currentTarget.contains(event.relatedTarget as Node) &&
+                  event.relatedTarget !== toggle.current
+                )
+                  setOpen(false);
+              }}
+            >
+              {links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+            <div className="header-utilities">
+              <a
+                className="nav-resume"
+                href={profile.resume}
+                download
                 onClick={() => setOpen(false)}
               >
-                {link.label}
-              </Link>
-            ))}
-            <a
-              className="nav-resume"
-              href={profile.resume}
-              download
-              onClick={() => setOpen(false)}
-            >
-              Résumé <ArrowUpRight size={15} />
-            </a>
-          </nav>
-          <ThemeToggle />
+                Résumé <ArrowUpRight size={15} />
+              </a>
+              <ThemeToggle />
+            </div>
+          </div>
         </div>
       </div>
     </header>

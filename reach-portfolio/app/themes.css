@@ -19,7 +19,6 @@
 :root[data-theme="dark"] .skip-link {
   color: var(--paper);
 }
-:root[data-theme="dark"] .nav-resume,
 :root[data-theme="dark"] .tags > span,
 :root[data-theme="dark"] .skill-group,
 :root[data-theme="dark"] .award-card,
