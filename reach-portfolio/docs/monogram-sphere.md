@@ -1,6 +1,6 @@
 # Three.js monogram sphere
 
-The orbiting `r.` is a matte, rotating Three.js sphere with soft diffuse shading and no specular reflection. Its lettering is painted onto a procedural canvas texture and wraps around the surface. A second mark on the opposite hemisphere becomes visible as the sphere turns. The sphere follows the existing tilted CSS orbit, including its near/far size changes and occlusion behind the portrait.
+The orbiting `r.` is a matte Three.js sphere with soft diffuse shading and no specular reflection. It tumbles around all three axes, completing full turns around X, Y and Z in 16, 12 and 20 seconds of active animation respectively. Matching monograms sit on opposite hemispheres. The sphere follows the existing 24-second tilted CSS orbit, including its near/far size changes and occlusion behind the portrait. Pausing stops both the tumble and the orbit; resuming preserves their positions.
 
 ## Rendering budget
 

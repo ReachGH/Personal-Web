@@ -58,6 +58,8 @@ export function createMonogramSphere(
   let lastFrame = 0;
   let lastDraw = 0;
   const frameInterval = 1000 / 30;
+  const fullTurn = Math.PI * 2;
+  const spinDuration = 12000;
 
   function render() {
     if (!disposed) renderer.render(scene, camera);
@@ -103,7 +105,10 @@ export function createMonogramSphere(
     const elapsed = now - lastFrame;
     if (elapsed < frameInterval) return;
     lastFrame = now - (elapsed % frameInterval);
-    sphere.rotation.y += Math.min(now - lastDraw, 100) * 0.00022;
+    const turn = (Math.min(now - lastDraw, 100) / spinDuration) * fullTurn;
+    sphere.rotation.x = (sphere.rotation.x + turn * 0.75) % fullTurn;
+    sphere.rotation.y = (sphere.rotation.y + turn) % fullTurn;
+    sphere.rotation.z = (sphere.rotation.z + turn * 0.6) % fullTurn;
     lastDraw = now;
     render();
   }
