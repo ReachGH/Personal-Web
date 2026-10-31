@@ -9,9 +9,6 @@
   --sage: #2b3529;
 }
 
-:root[data-theme="dark"] .site-header {
-  background: #171c18f5;
-}
 :root[data-theme="dark"] .button-dark {
   background: #dce5d2;
   color: #1c251a;

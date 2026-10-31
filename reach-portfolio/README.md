@@ -30,6 +30,10 @@ The header toggle follows the system colour preference until a visitor chooses a
 
 Dark colours are in `app/themes.css`; shared light colours and layout styles remain in `app/globals.css`. Theme behaviour lives in `components/theme-toggle.tsx` and `lib/theme.ts`. No theme library or server-side preference storage is required.
 
+## Header navigation
+
+The homepage starts with a compact, centered navigation bar and no wordmark. After scrolling 80 pixels, the bar expands across the viewport and reveals `reach.`; returning to the top restores the compact version. Its reserved layout height prevents the hero from jumping during the transition. Case-study pages always show the full header. On mobile, the compact bar holds the menu and theme controls, with a wider dropdown for navigation. Reduced-motion preferences disable the transition, and the hidden wordmark is removed from keyboard navigation.
+
 ## Hero portrait
 
 The hero uses the owner's supplied photo with its background removed. The transparent asset is `public/images/reach-portrait.png`; the layout is in `app/page.tsx` and `app/globals.css`. The layout crops the bottom 10%, keeping most of the folded arms visible, with a gradual fade over the final 15% of the frame. The portrait sits close to the headline, with a compact greeting directly below it; on narrow screens, the portrait precedes the headline. See [portrait provenance and the exact edit prompt](docs/portrait-asset.md) for the built-in imagegen workflow used to prepare the asset.
