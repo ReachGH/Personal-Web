@@ -9,12 +9,13 @@ Application, theme, screenshot composition and project grouping checks updated o
 | TypeScript, strict mode               | Passed                                                                                                                             |
 | Prettier formatting                   | Passed                                                                                                                             |
 | Next.js production build              | Passed; public pages prerendered                                                                                                   |
-| Playwright desktop and mobile suite   | Full 36-test suite passed previously; 8 affected checks rerun for the portrait hero                                                |
+| Playwright desktop and mobile suite   | Full 36-test suite passed previously; 12 affected checks passed for the portrait orbit, including six new animation checks         |
 | Automated accessibility               | No WCAG 2 A/AA or 2.1 AA rule violations reported by axe on the homepage and three case studies at the tested desktop/mobile sizes |
 | Responsive layout                     | Checked at 320, 390, 768, 900 and 1440 CSS pixels; no document overflow or clipped screenshot frames                               |
 | Manual visual review                  | Desktop/mobile homepage, project cards, case studies, social preview and public résumé reviewed                                    |
 | Public PDF privacy                    | Phone and unapproved company metric absent from text extraction and decoded PDF objects                                            |
 | Hero portrait                         | 10% bottom crop verified; full-viewport composition reviewed in both themes from 320 to 1920px, with a gradual 15% lower fade      |
+| Portrait orbit                        | Full motion path checked in both themes at seven widths from 320 to 1920px; pause/resume and static reduced-motion mode passed     |
 | Screenshot assets                     | Seven owner-approved images included, displayed inline with responsive sizing and descriptive alternatives                         |
 | Git exclusions                        | Original résumé, source Images/ folder, private checklist and local QA/tooling excluded; approved screenshot copies are included   |
 

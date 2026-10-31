@@ -4,7 +4,7 @@ Asset: `public/images/reach-portrait.png` (1086 × 1448 PNG with transparency).
 
 Source: the owner's supplied photograph. The background was removed using the built-in imagegen tool in background-extraction edit mode. The transparent output is stored in this repository; the original photograph is not included. Next.js serves responsive versions through `next/image`.
 
-The homepage crops the bottom 10% of the portrait, keeping the face and most of the folded arms visible. A gradual CSS gradient fades the final 15% of the visible frame into the page. The PNG itself remains unchanged. A compact greeting sits directly below the photo, and no decorative background is added behind the portrait. On narrow screens, the portrait and greeting precede the headline.
+The homepage crops the bottom 10% of the portrait, keeping the face and most of the folded arms visible. A gradual CSS gradient fades the final 15% of the visible frame into the page. The PNG itself remains unchanged. A compact greeting sits below the photo, with room for the orbit above it. The original `r.` monogram follows a tilted, full-height elliptical path, passing behind the portrait on the far side. Its upright lettering, changing scale, subtle lighting, fine halo and two trailing dots suggest an orbiting planet. The animation can be paused and respects reduced-motion preferences. On narrow screens, the portrait and greeting precede the headline.
 
 ## Edit prompt
 

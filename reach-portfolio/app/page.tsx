@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import portrait from "@/public/images/reach-portrait.png";
 import { Contact } from "@/components/contact";
+import { PortraitOrbit } from "@/components/portrait-orbit";
 import { ProjectCard } from "@/components/project-card";
 import { SupportingProjects } from "@/components/supporting-projects";
 import { experience, skills } from "@/data/profile";
@@ -49,15 +50,17 @@ export default function Home() {
             </div>
           </div>
           <figure className="hero-portrait">
-            <div className="portrait-frame">
-              <Image
-                src={portrait}
-                alt="Reach smiling, wearing glasses and a light blue shirt."
-                className="portrait-image"
-                sizes="(max-width: 767px) 220px, (max-width: 900px) 280px, (max-width: 1100px) 330px, 360px"
-                preload
-              />
-            </div>
+            <PortraitOrbit>
+              <div className="portrait-frame">
+                <Image
+                  src={portrait}
+                  alt="Reach smiling, wearing glasses and a light blue shirt."
+                  className="portrait-image"
+                  sizes="(max-width: 767px) 220px, (max-width: 900px) 270px, (max-width: 1100px) 330px, 360px"
+                  preload
+                />
+              </div>
+            </PortraitOrbit>
             <figcaption className="hero-greeting">
               Hi, I’m Reach<span className="orange">.</span>
             </figcaption>

@@ -34,6 +34,8 @@ Dark colours are in `app/themes.css`; shared light colours and layout styles rem
 
 The hero uses the owner's supplied photo with its background removed. The transparent asset is `public/images/reach-portrait.png`; the layout is in `app/page.tsx` and `app/globals.css`. The layout crops the bottom 10%, keeping most of the folded arms visible, with a gradual fade over the final 15% of the frame. The portrait sits close to the headline, with a compact greeting directly below it; on narrow screens, the portrait precedes the headline. See [portrait provenance and the exact edit prompt](docs/portrait-asset.md) for the built-in imagegen workflow used to prepare the asset.
 
+The original `r.` monogram circles the whole portrait on a tilted, 24-second orbit. Subtle lighting, a fine halo and two small trailing dots give it a planet-like appearance. It stays upright, shrinking behind the portrait on the far side and growing as it comes forward. `components/portrait-orbit.tsx` provides a pause/resume control; reduced-motion preferences show a stationary monogram without the trail.
+
 ## Browser checks
 
 ```powershell
