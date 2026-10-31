@@ -39,6 +39,32 @@ test("all three case studies open and cycle to the next project", async ({
 }) => {
   await page.goto("/");
   await expect(page.locator(".project-card")).toHaveCount(3);
+  const professional = page.getByRole("region", {
+    name: "Professional work",
+    exact: true,
+  });
+  const personal = page.getByRole("region", {
+    name: "Personal projects",
+    exact: true,
+  });
+  const study = page.getByRole("region", {
+    name: "Study projects",
+    exact: true,
+  });
+  await expect(professional.locator(".project-title-link")).toHaveText([
+    "OnboardHQ",
+    "Sabai Code",
+  ]);
+  await expect(personal.locator(".project-title-link")).toHaveText([
+    "Minecraft & Palworld",
+  ]);
+  await expect(personal.locator(".other-project h3")).toHaveText([
+    "Minecraft status bot",
+  ]);
+  await expect(study.locator(".other-project h3")).toHaveText([
+    "React Native To-Do App",
+    "CIFAR-10 Image Classification",
+  ]);
   for (const route of routes.slice(1)) {
     await page.goto("/");
     await page.locator(`.project-visual-link[href="${route}"]`).click();
