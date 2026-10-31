@@ -10,6 +10,6 @@ npm run dev
 
 Open [localhost:3000](http://localhost:3000). See the [application README](reach-portfolio/README.md) for checks, content maintenance and Vercel setup.
 
-The original company applications are reference-only and have not been modified. Company screenshots, the original résumé and private publication notes are excluded from this repository. The downloadable résumé is a public copy with private fields removed. All project visuals are labelled conceptual illustrations.
+The original company applications are reference-only and have not been modified. Owner-approved OnboardHQ screenshots and EzePick prototype screens are included in `reach-portfolio/public/projects/`. The infrastructure visual is labelled as a concept illustration. The original résumé and private publication notes are excluded; the downloadable résumé is a public copy with private fields removed.
 
 This repository is prepared for deployment; the website has not been published. Review the content before deploying.

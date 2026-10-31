@@ -51,6 +51,50 @@ test("all three case studies open and cycle to the next project", async ({
   }
 });
 
+test("original project screenshots load and open at full size", async ({
+  page,
+  request,
+}) => {
+  await page.goto("/");
+  await expect(page.locator(".project-card .screenshot-preview")).toHaveCount(
+    2,
+  );
+  await expect(page.locator(".project-card .concept-label")).toHaveCount(1);
+
+  for (const [slug, count] of [
+    ["onboardhq", 4],
+    ["sabai-code", 3],
+  ] as const) {
+    await page.goto(`/projects/${slug}`);
+    const links = page.locator(".screenshot-link");
+    await expect(links).toHaveCount(count);
+    await expect(page.locator(".case-figure .concept-label")).toHaveCount(0);
+    for (const link of await links.all()) {
+      const image = link.locator("img");
+      await image.scrollIntoViewIfNeeded();
+      await expect(image).toBeVisible();
+      await expect
+        .poll(() =>
+          image.evaluate(
+            (element: HTMLImageElement) =>
+              element.complete && element.naturalWidth > 0,
+          ),
+        )
+        .toBe(true);
+      const original = await request.get((await link.getAttribute("href"))!);
+      expect(original.status()).toBe(200);
+      expect(original.headers()["content-type"]).toMatch(/^image\//);
+    }
+    const first = links.first();
+    const originalPath = await first.getAttribute("href");
+    const popupEvent = page.waitForEvent("popup");
+    await first.click();
+    const popup = await popupEvent;
+    await expect(popup).toHaveURL(originalPath!);
+    await popup.close();
+  }
+});
+
 test("navigation, contact and resume links work", async ({
   page,
 }, testInfo) => {

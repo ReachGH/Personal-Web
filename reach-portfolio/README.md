@@ -39,17 +39,18 @@ npm run test:e2e
 
 Tests use installed Google Chrome, start a production server on `127.0.0.1:3100` when needed, and run desktop and Pixel-sized Chromium profiles. To use Playwright’s bundled Chromium instead, remove `channel: "chrome"` from both projects in `playwright.config.ts` and run `npx playwright install chromium`.
 
-The suite covers the four public pages, automated WCAG A/AA checks, runtime errors, case-study navigation, mobile-menu dismissal and focus, résumé downloads, contact destinations, metadata, missing routes, keyboard skip navigation, reduced motion and 320px overflow. It saves local full-page screenshots under `test-results/`. Browser automation supplements manual visual review; it is not a claim of universal browser or assistive-technology compatibility.
+The suite covers the four public pages, automated WCAG A/AA checks, runtime errors, case-study navigation, screenshot loading and full-size links, mobile-menu dismissal and focus, résumé downloads, contact destinations, metadata, missing routes, keyboard skip navigation, reduced motion and 320px overflow. It saves local full-page screenshots under `test-results/`. Browser automation supplements manual visual review; it is not a claim of universal browser or assistive-technology compatibility.
 
 ## Structure
 
 ```text
 app/                  Homepage, case studies, layout, styles and metadata
-components/           Navigation, project cards, concept visuals and shared sections
+components/           Navigation, project screenshots, infrastructure diagram and shared sections
 data/profile.ts       Contact, experience and skill categories
 data/projects.ts      Three featured stories and three supporting projects
+data/screenshots.ts   Original project images, descriptions and full-size links
 lib/site.ts           Deployment origin and indexing configuration
-public/               Sanitised downloadable résumé
+public/               Sanitised résumé and owner-approved project screenshots
 scripts/              Optional résumé preparation tool
 tests/                Browser and accessibility checks
 ```
@@ -58,8 +59,10 @@ tests/                Browser and accessibility checks
 
 - Edit `data/profile.ts` for contact links, experience and skills. Education and the short introduction are in `app/page.tsx`.
 - Edit `data/projects.ts` for project copy, contribution summaries, technologies and supporting-project links. Featured project routes are generated from this data. Keep project slugs stable when revising copy.
-- The three featured visuals are code-native illustrations in `components/project-visual.tsx`, styled in `app/globals.css`. They are deliberately identified as conceptual; no company screenshot is used. The grocery illustration is a new visual interpretation, not the original prototype interface. The infrastructure illustration distinguishes the Minecraft and Palworld setups.
-- To replace an illustration with an approved screenshot, place an optimised image in `public/projects/`, render it using `next/image` in `ProjectVisual`, provide accurate alternative text, and update the `visualNote` in project data. Check permission, visible customer information and image metadata first.
+- OnboardHQ and Sabai Code use the supplied original screenshots, approved by the owner for the portfolio and repository. The Sabai Code images show the EzePick grocery prototype. `data/screenshots.ts` stores static image imports, alternative text and captions; `components/project-screenshots.tsx` renders responsive previews and full-size links. The original files are preserved in `public/projects/`, while `next/image` serves appropriately sized previews.
+- Screenshot layouts and dark backgrounds are in `app/project-screenshots.css`. On small screens the homepage shows one grocery screen; the case study retains all three. OnboardHQ has a dashboard cover and three additional screenshots in its case study.
+- The infrastructure illustration remains code-native in `components/project-visual.tsx`, styled in `app/globals.css`. It distinguishes the Minecraft and Palworld setups and is explicitly labelled conceptual.
+- To add or replace a screenshot, place the reviewed image in `public/projects/`, update its entry in `data/screenshots.ts` and the project's `visualNote` if needed. Check permission and visible information for new assets before including them.
 - There are no invented GitHub project links. Only the verified CIFAR-10 repository is linked for the supporting projects.
 
 ## Updating the résumé
@@ -91,7 +94,7 @@ No credentials or service environment variables are required. Do not connect an 
 
 ## Publication review
 
-The private `PUBLICATION_REVIEW.md` in the workspace root is intentionally Git-ignored. It records facts requiring review, evidence sources and excluded assets. Company internals and trial figures are not bundled into this app. Degree completion is still stated as expected November 2026. The Sabai Code work is explicitly a prototype; OnboardHQ is not described as a production launch.
+The private `PUBLICATION_REVIEW.md` in the workspace root is intentionally Git-ignored. It records facts requiring review, evidence sources and excluded assets. The supplied screenshots were explicitly approved by the owner; other company internals and trial figures remain excluded. Degree completion is still stated as expected November 2026. The Sabai Code work is explicitly a prototype; OnboardHQ is not described as a production launch.
 
 ## Technical references
 
