@@ -91,7 +91,7 @@ export const projects: Project[] = [
     takeaway:
       "Real software has to fit the way people already work. Integration, reliable data and careful verification mattered as much as building the interface.",
     visualNote:
-      "Conceptual interface illustration, created for this portfolio. It uses fictional content and is not a company screenshot.",
+      "Original OnboardHQ screenshots showing the CRM integration and client portal.",
   },
   {
     slug: "sabai-code",
@@ -133,7 +133,7 @@ export const projects: Project[] = [
     takeaway:
       "The most useful requirements often come from listening. Meeting farmers made the connection between an application feature and someone’s everyday work much more tangible.",
     visualNote:
-      "Conceptual mobile interface designed for this portfolio, not an authentic screenshot. Product names and prices are illustrative.",
+      "Original EzePick grocery prototype screens from the Sabai Code project. The prototype was not publicly launched.",
   },
   {
     slug: "self-hosted-infrastructure",

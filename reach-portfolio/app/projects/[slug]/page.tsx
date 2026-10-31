@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { ProjectVisual } from "@/components/project-visual";
+import { ProjectScreenshotGallery } from "@/components/project-screenshots";
 import { Contact } from "@/components/contact";
 import { projects } from "@/data/projects";
 
@@ -98,6 +99,9 @@ export default async function ProjectPage({
                 </a>
               ))}
               <a href="#takeaway">What I took away</a>
+              {project.slug === "onboardhq" && (
+                <a href="#screenshots">Screenshots</a>
+              )}
             </nav>
           </aside>
           <div className="case-content">
@@ -141,6 +145,7 @@ export default async function ProjectPage({
             </section>
           </div>
         </div>
+        <ProjectScreenshotGallery slug={project.slug} />
         <div className="container next-project">
           <span className="eyebrow">NEXT CASE STUDY</span>
           <Link href={`/projects/${next.slug}`}>
