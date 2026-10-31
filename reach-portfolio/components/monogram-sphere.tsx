@@ -51,7 +51,6 @@ export function MonogramSphere({ paused }: { paused: boolean }) {
         if (cancelled || !shouldRun()) return;
         scene = module.createMonogramSphere(host!, fail);
         host!.dataset.sphereState = "ready";
-        scene.setActive(shouldRun());
       } catch {
         if (!cancelled) fail();
       } finally {
@@ -62,7 +61,6 @@ export function MonogramSphere({ paused }: { paused: boolean }) {
     function refresh() {
       shell.dataset.orbitSuspended = String(!inView || document.hidden);
       const running = shouldRun();
-      scene?.setActive(running);
       if (!running) {
         if (idle !== undefined) window.cancelIdleCallback(idle);
         if (timer !== undefined) window.clearTimeout(timer);

@@ -23,12 +23,12 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
-test("sphere has bounded rendering cost and stops when paused or offscreen", async ({
+test("sphere stays front-facing without continuous WebGL redraws", async ({
   page,
 }) => {
   await page.goto("/");
   const canvas = page.locator(".monogram-sphere canvas");
-  await expect(canvas).toHaveAttribute("data-render-state", "running", {
+  await expect(canvas).toHaveAttribute("data-render-state", "static", {
     timeout: 20000,
   });
   await expect(canvas).toHaveAttribute("data-draw-calls", "1");
@@ -40,29 +40,46 @@ test("sphere has bounded rendering cost and stops when paused or offscreen", asy
   ).toBeLessThanOrEqual(160);
 
   const before = await countDraws(page);
-  const started = Date.now();
+  const moon = page.locator(".portrait-moon");
+  const firstPosition = await moon.boundingBox();
   await page.waitForTimeout(1000);
   const draws = (await countDraws(page)) - before;
-  expect(draws).toBeGreaterThan(0);
-  expect(draws).toBeLessThanOrEqual(
-    Math.ceil(((Date.now() - started) * 30) / 1000) + 2,
-  );
+  expect(draws).toBe(0);
+  const nextPosition = await moon.boundingBox();
+  expect(
+    Math.hypot(
+      nextPosition!.x - firstPosition!.x,
+      nextPosition!.y - firstPosition!.y,
+    ),
+  ).toBeGreaterThan(2);
 
   await page.getByRole("button", { name: "Pause orbit animation" }).click();
-  await expect(canvas).toHaveAttribute("data-render-state", "idle");
+  await expect(page.locator(".portrait-orbit-shell")).toHaveAttribute(
+    "data-orbit-paused",
+    "true",
+  );
   const pausedDraws = await countDraws(page);
   await page.waitForTimeout(200);
   expect(await countDraws(page)).toBe(pausedDraws);
 
   await page.getByRole("button", { name: "Play orbit animation" }).click();
-  await expect(canvas).toHaveAttribute("data-render-state", "running");
+  await expect(page.locator(".portrait-orbit-shell")).toHaveAttribute(
+    "data-orbit-paused",
+    "false",
+  );
   await page.locator("#contact").scrollIntoViewIfNeeded();
-  await expect(canvas).toHaveAttribute("data-render-state", "idle");
+  await expect(page.locator(".portrait-orbit-shell")).toHaveAttribute(
+    "data-orbit-suspended",
+    "true",
+  );
   const offscreenDraws = await countDraws(page);
   await page.waitForTimeout(200);
   expect(await countDraws(page)).toBe(offscreenDraws);
   await page.locator(".hero").scrollIntoViewIfNeeded();
-  await expect(canvas).toHaveAttribute("data-render-state", "running");
+  await expect(page.locator(".portrait-orbit-shell")).toHaveAttribute(
+    "data-orbit-suspended",
+    "false",
+  );
 
   // Exercise the visibility-change handler without depending on headless tab focus.
   await page.evaluate(() => {
@@ -72,7 +89,10 @@ test("sphere has bounded rendering cost and stops when paused or offscreen", asy
     });
     document.dispatchEvent(new Event("visibilitychange"));
   });
-  await expect(canvas).toHaveAttribute("data-render-state", "idle");
+  await expect(page.locator(".portrait-orbit-shell")).toHaveAttribute(
+    "data-orbit-suspended",
+    "true",
+  );
   const hiddenDraws = await countDraws(page);
   await page.waitForTimeout(200);
   expect(await countDraws(page)).toBe(hiddenDraws);
@@ -80,7 +100,10 @@ test("sphere has bounded rendering cost and stops when paused or offscreen", asy
     Reflect.deleteProperty(document, "hidden");
     document.dispatchEvent(new Event("visibilitychange"));
   });
-  await expect(canvas).toHaveAttribute("data-render-state", "running");
+  await expect(page.locator(".portrait-orbit-shell")).toHaveAttribute(
+    "data-orbit-suspended",
+    "false",
+  );
 });
 
 test("sphere uses the static fallback for reduced motion and follows live changes", async ({
@@ -98,10 +121,10 @@ test("sphere uses the static fallback for reduced motion and follows live change
     timeout: 20000,
   });
   const canvas = host.locator("canvas");
-  await expect(canvas).toHaveAttribute("data-render-state", "running");
+  await expect(canvas).toHaveAttribute("data-render-state", "static");
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(canvas).toBeHidden();
-  await expect(canvas).toHaveAttribute("data-render-state", "idle");
+  await expect(canvas).toHaveAttribute("data-render-state", "static");
   await expect(host.locator(".monogram-sphere-fallback")).toBeVisible();
 });
 

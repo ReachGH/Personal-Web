@@ -1,15 +1,15 @@
 # Three.js monogram sphere
 
-The orbiting `r.` is a matte Three.js sphere with soft diffuse shading and no specular reflection. It tumbles around all three axes, completing full turns around X, Y and Z in 16, 12 and 20 seconds of active animation respectively. Matching monograms sit on opposite hemispheres. The sphere follows the existing 24-second tilted CSS orbit, including its near/far size changes and occlusion behind the portrait. Pausing stops both the tumble and the orbit; resuming preserves their positions.
+The orbiting `r.` is a matte Three.js sphere with soft diffuse shading and no specular reflection. It keeps a fixed, front-facing orientation so the visible monogram stays readable. Matching monograms remain on opposite hemispheres. The sphere follows the existing 24-second tilted CSS orbit, including its near/far size changes and occlusion behind the portrait. Pausing stops the orbit; resuming preserves its position.
 
 ## Rendering budget
 
-- One mesh, one material, one draw call per frame, and 1,472 triangles (`SphereGeometry(1, 32, 24)`).
+- One mesh, one material, one draw call per update, and 1,472 triangles (`SphereGeometry(1, 32, 24)`).
 - A small transparent WebGL canvas follows the badge. Its drawing buffer uses at most 2× device resolution and never exceeds 160 × 160 pixels. The portrait, track and trail remain DOM/CSS.
-- A 30 fps render cap. Pausing, scrolling the portrait offscreen, hiding the tab or requesting reduced motion cancels the animation frame loop. CSS orbital motion also pauses when the portrait is offscreen or the tab is hidden.
+- On-demand rendering: draw at initialization and when the theme or drawing-buffer size changes. There is no WebGL animation-frame loop. CSS handles the orbit and pauses when requested, offscreen or in a hidden tab.
 - No specular highlights, shadows, post-processing, environment maps, controls, model loaders or React Three Fiber. Soft diffuse lighting uses one hemisphere light and two directional lights with a Lambert material.
-- One locally generated 512 × 256 texture; no model or texture network requests. Theme changes redraw the existing texture, and a ResizeObserver updates the buffer only when its size changes. No React state updates or layout measurements occur in the frame loop.
-- Geometry, material, texture, renderer, WebGL context, observers and animation callbacks are released on unmount. Context loss switches to the CSS fallback.
+- One locally generated 512 × 256 texture; no model or texture network requests. Theme changes redraw the existing texture, and a ResizeObserver updates the buffer only when its size changes. No per-frame JavaScript work is needed for the sphere.
+- Geometry, material, texture, renderer, WebGL context and observers are released on unmount. Context loss switches to the CSS fallback.
 
 ## Loading and fallback
 
@@ -21,15 +21,15 @@ Three.js adds JavaScript compared with the earlier CSS-only badge. In the measur
 
 Measured with installed Chrome on Windows on 31 October 2026, using a production build, a 1440 × 900 viewport and device scale factor 2:
 
-| Measurement                              | Result                                            |
-| ---------------------------------------- | ------------------------------------------------- |
-| Active rendering                         | Approximately 30 fps                              |
-| Draw calls / triangles per frame         | 1 / 1,472                                         |
-| Drawing buffer in this configuration     | 124 × 124 pixels                                  |
-| Draws during a 250 ms pause              | 0                                                 |
-| Draws during a 250 ms offscreen interval | 0                                                 |
-| Cleanup after client navigation          | 4 buffers, 1 texture and 1 shader program deleted |
-| Initial reduced-motion page              | No WebGL canvas or deferred sphere chunks         |
+| Measurement                                          | Result                                            |
+| ---------------------------------------------------- | ------------------------------------------------- |
+| WebGL redraws while the CSS orbit moves for 1 second | 0                                                 |
+| Draw calls / triangles per update                    | 1 / 1,472                                         |
+| Drawing buffer in this configuration                 | 124 × 124 pixels                                  |
+| Draws during a 200 ms pause                          | 0                                                 |
+| Draws during a 200 ms offscreen interval             | 0                                                 |
+| Cleanup after client navigation                      | 4 buffers, 1 texture and 1 shader program deleted |
+| Initial reduced-motion page                          | No WebGL canvas or deferred sphere chunks         |
 
 These measurements check the rendering budget and lifecycle behavior; they are not a battery benchmark or a guarantee of frame rate on every device. The browser tests additionally check hidden-tab event handling, live reduced-motion changes, unavailable WebGL, context loss and remounting after navigation. The hidden-tab test dispatches a visibility-change event with an overridden visibility value, so it exercises the handler without depending on headless tab focus.
 

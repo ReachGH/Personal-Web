@@ -2,23 +2,23 @@
 
 Application, theme, screenshot composition and project grouping checks updated on 31 October 2026 with Node.js 24, Next.js 16.4.3 and installed Google Chrome on Windows. Dependency and PDF checks are retained from the initial validation on 30 October.
 
-| Check                                 | Result                                                                                                                                    |
-| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Dependency installation and npm audit | Runtime audit: zero vulnerabilities; full audit reports 16 moderate development-tool findings in the existing ESLint/minimatch tree       |
-| ESLint, with zero warnings allowed    | Passed                                                                                                                                    |
-| TypeScript, strict mode               | Passed                                                                                                                                    |
-| Prettier formatting                   | Passed                                                                                                                                    |
-| Next.js production build              | Passed; public pages prerendered                                                                                                          |
-| Playwright desktop and mobile suite   | Full 36-test suite passed previously; 20 focused hero/orbit/WebGL checks passed, including 14 orbit and sphere lifecycle checks           |
-| Automated accessibility               | No WCAG 2 A/AA or 2.1 AA rule violations reported by axe on the homepage and three case studies at the tested desktop/mobile sizes        |
-| Responsive layout                     | Checked at 320, 390, 768, 900 and 1440 CSS pixels; no document overflow or clipped screenshot frames                                      |
-| Manual visual review                  | Desktop/mobile homepage, project cards, case studies, social preview and public résumé reviewed                                           |
-| Public PDF privacy                    | Phone and unapproved company metric absent from text extraction and decoded PDF objects                                                   |
-| Hero portrait                         | 10% bottom crop verified; full-viewport composition reviewed in both themes from 320 to 1920px, with a gradual 15% lower fade             |
-| Portrait orbit                        | Full motion path checked in both themes at seven widths from 320 to 1920px; pause/resume and static reduced-motion mode passed            |
-| Three.js sphere                       | 1 draw call, 1,472 triangles, bounded drawing buffer; idle rendering, reduced motion, unavailable WebGL, context loss and remounts passed |
-| Screenshot assets                     | Seven owner-approved images included, displayed inline with responsive sizing and descriptive alternatives                                |
-| Git exclusions                        | Original résumé, source Images/ folder, private checklist and local QA/tooling excluded; approved screenshot copies are included          |
+| Check                                 | Result                                                                                                                              |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Dependency installation and npm audit | Runtime audit: zero vulnerabilities; full audit reports 16 moderate development-tool findings in the existing ESLint/minimatch tree |
+| ESLint, with zero warnings allowed    | Passed                                                                                                                              |
+| TypeScript, strict mode               | Passed                                                                                                                              |
+| Prettier formatting                   | Passed                                                                                                                              |
+| Next.js production build              | Passed; public pages prerendered                                                                                                    |
+| Playwright desktop and mobile suite   | Full 36-test suite passed previously; 14 orbit/sphere checks rerun for the front-facing, on-demand renderer                         |
+| Automated accessibility               | No WCAG 2 A/AA or 2.1 AA rule violations reported by axe on the homepage and three case studies at the tested desktop/mobile sizes  |
+| Responsive layout                     | Checked at 320, 390, 768, 900 and 1440 CSS pixels; no document overflow or clipped screenshot frames                                |
+| Manual visual review                  | Desktop/mobile homepage, project cards, case studies, social preview and public résumé reviewed                                     |
+| Public PDF privacy                    | Phone and unapproved company metric absent from text extraction and decoded PDF objects                                             |
+| Hero portrait                         | 10% bottom crop verified; full-viewport composition reviewed in both themes from 320 to 1920px, with a gradual 15% lower fade       |
+| Portrait orbit                        | Full motion path checked in both themes at seven widths from 320 to 1920px; pause/resume and static reduced-motion mode passed      |
+| Three.js sphere                       | 1 draw call per update, 1,472 triangles; zero continuous redraws during CSS orbit; fallback and lifecycle checks passed             |
+| Screenshot assets                     | Seven owner-approved images included, displayed inline with responsive sizing and descriptive alternatives                          |
+| Git exclusions                        | Original résumé, source Images/ folder, private checklist and local QA/tooling excluded; approved screenshot copies are included    |
 
 The browser suite checks public-page responses, client runtime errors, accessibility in both themes, project grouping and professional-work priority, featured-project count, inline screenshot loading without open-image controls, case-study navigation, next-project links, mobile menu behaviour, Escape focus restoration, email/social links, an actual résumé download, metadata, icons, social image, review-mode robots/sitemap, 404s, keyboard skip navigation, reduced motion and narrow-screen overflow.
 

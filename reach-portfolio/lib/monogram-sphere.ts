@@ -32,7 +32,6 @@ export function createMonogramSphere(
   // Three.js sets an inline display value; leave visibility to our motion CSS.
   canvas.style.display = "";
   canvas.setAttribute("aria-hidden", "true");
-  canvas.dataset.maxFps = "30";
   renderer.setClearColor(0x000000, 0);
   const scene = new Scene();
   const camera = new OrthographicCamera(-1.12, 1.12, 1.12, -1.12, 0.1, 10);
@@ -43,7 +42,7 @@ export function createMonogramSphere(
   const geometry = new SphereGeometry(1, 32, 24);
   const material = new MeshLambertMaterial({ map: texture });
   const sphere = new Mesh(geometry, material);
-  sphere.rotation.set(0.12, 0.15, -0.08);
+  sphere.rotation.set(0, 0, 0);
   scene.add(sphere);
   scene.add(new HemisphereLight(0xffffff, 0xaeb99d, 2));
   const key = new DirectionalLight(0xfff8ed, 1.1);
@@ -52,14 +51,7 @@ export function createMonogramSphere(
   rim.position.set(3, 1, -2);
   scene.add(key, rim);
 
-  let active = false;
   let disposed = false;
-  let frame = 0;
-  let lastFrame = 0;
-  let lastDraw = 0;
-  const frameInterval = 1000 / 30;
-  const fullTurn = Math.PI * 2;
-  const spinDuration = 12000;
 
   function render() {
     if (!disposed) renderer.render(scene, camera);
@@ -75,7 +67,7 @@ export function createMonogramSphere(
     context!.textBaseline = "middle";
     const letterWidth = context!.measureText("r").width;
     const dotWidth = context!.measureText(".").width;
-    // Repeat on opposite hemispheres so the mark returns as the sphere turns.
+    // Keep the two-sided branding while the visible mark faces the viewer.
     for (const centre of [128, 384]) {
       const left = centre - (letterWidth + dotWidth) / 2;
       context!.fillStyle = "#252e21";
@@ -99,33 +91,6 @@ export function createMonogramSphere(
     }
   }
 
-  function animate(now: number) {
-    if (!active || disposed) return;
-    frame = requestAnimationFrame(animate);
-    const elapsed = now - lastFrame;
-    if (elapsed < frameInterval) return;
-    lastFrame = now - (elapsed % frameInterval);
-    const turn = (Math.min(now - lastDraw, 100) / spinDuration) * fullTurn;
-    sphere.rotation.x = (sphere.rotation.x + turn * 0.75) % fullTurn;
-    sphere.rotation.y = (sphere.rotation.y + turn) % fullTurn;
-    sphere.rotation.z = (sphere.rotation.z + turn * 0.6) % fullTurn;
-    lastDraw = now;
-    render();
-  }
-
-  function setActive(next: boolean) {
-    if (disposed || active === next) return;
-    active = next;
-    canvas.dataset.renderState = next ? "running" : "idle";
-    if (next) {
-      lastFrame = performance.now();
-      lastDraw = lastFrame;
-      frame = requestAnimationFrame(animate);
-    } else {
-      cancelAnimationFrame(frame);
-    }
-  }
-
   const resizeObserver = new ResizeObserver(resize);
   const themeObserver = new MutationObserver(updateTheme);
   themeObserver.observe(document.documentElement, {
@@ -139,13 +104,11 @@ export function createMonogramSphere(
   resizeObserver.observe(host);
   canvas.dataset.drawCalls = String(renderer.info.render.calls);
   canvas.dataset.triangles = String(renderer.info.render.triangles);
-  canvas.dataset.renderState = "idle";
+  canvas.dataset.renderState = "static";
 
   return {
-    setActive,
     dispose() {
       if (disposed) return;
-      setActive(false);
       disposed = true;
       resizeObserver.disconnect();
       themeObserver.disconnect();
