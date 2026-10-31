@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Leaf } from "lucide-react";
 import type { ProjectSlug } from "@/data/projects";
 import { projectScreenshots, type ProjectScreenshot } from "@/data/screenshots";
 
@@ -35,20 +34,19 @@ export function ScreenshotArtwork({ slug }: { slug: ProjectSlug }) {
       <div className="screenshot-art-canvas">
         {mobile ? (
           <>
-            <Leaf className="art-produce-leaf leaf-one" aria-hidden="true" />
-            <Leaf className="art-produce-leaf leaf-two" aria-hidden="true" />
-            <PhoneScreen
-              screenshot={screenshots[1]}
-              className="art-phone-shop"
-            />
-            <PhoneScreen
-              screenshot={screenshots[2]}
-              className="art-phone-product"
-            />
             <PhoneScreen
               screenshot={screenshots[0]}
               className="art-phone-home"
             />
+            <div className="art-product-detail">
+              <div className="art-product-screen">
+                <Image
+                  src={screenshots[2].image}
+                  alt="Spring onions and their price in riel in the EzePick product screen."
+                  sizes="(max-width: 767px) 150px, 210px"
+                />
+              </div>
+            </div>
           </>
         ) : (
           <>

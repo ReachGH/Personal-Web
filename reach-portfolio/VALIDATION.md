@@ -9,7 +9,7 @@ Application, theme, screenshot composition and project grouping checks updated o
 | TypeScript, strict mode               | Passed                                                                                                                             |
 | Prettier formatting                   | Passed                                                                                                                             |
 | Next.js production build              | Passed; public pages prerendered                                                                                                   |
-| Playwright desktop and mobile suite   | All 36 tests passed                                                                                                                |
+| Playwright desktop and mobile suite   | Full 36-test suite passed; 6 affected checks rerun for the EzePick preview redesign                                                |
 | Automated accessibility               | No WCAG 2 A/AA or 2.1 AA rule violations reported by axe on the homepage and three case studies at the tested desktop/mobile sizes |
 | Responsive layout                     | Checked at 320, 390, 768, 900 and 1440 CSS pixels; no document overflow or clipped screenshot frames                               |
 | Manual visual review                  | Desktop/mobile homepage, project cards, case studies, social preview and public résumé reviewed                                    |
@@ -23,6 +23,6 @@ Theme checks cover live system preference changes, keyboard switching, persisten
 
 The original OnboardHQ and EzePick images replace the two conceptual interfaces. The supplied images were confirmed safe by the owner. Desktop and mobile screenshot previews, the OnboardHQ gallery and the three EzePick screens were visually reviewed in light and dark themes. The infrastructure diagram remains explicitly conceptual.
 
-Professional work now leads the homepage in two larger cards, followed by distinct personal and study sections. Professional and personal case studies identify their context. The screenshot compositions use overlapping CRM/client windows and three fanned EzePick phone frames; readable full-size case-study views are retained. Screenshot frame bounds were checked in both themes at all five responsive widths above.
+Professional work leads the homepage in two larger cards, followed by distinct personal and study sections. Professional and personal case studies identify their context. The screenshot compositions use overlapping CRM/client windows and one EzePick phone with a smaller product-detail card; readable full-size case-study views are retained. The EzePick preview uses two screenshots, with all three originals retained in its case study. Screenshot frame bounds were checked in both themes at all five responsive widths above.
 
 Automated checks do not replace testing with actual assistive technology or every browser/device. The website has not been deployed. Publication wording and the final hosting domain still need the owner’s review.
