@@ -141,7 +141,7 @@ export const projects: Project[] = [
   {
     slug: "self-hosted-infrastructure",
     kind: "personal",
-    name: "Minecraft & Palworld",
+    name: "Gaming Server Hosting",
     subtitle: "Self-hosted infrastructure, beyond localhost.",
     category: "Infrastructure & networking",
     status: "Hands-on self-hosting & troubleshooting",

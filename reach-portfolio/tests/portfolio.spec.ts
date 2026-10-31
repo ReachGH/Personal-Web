@@ -56,7 +56,7 @@ test("all three case studies open and cycle to the next project", async ({
     "Sabai Code",
   ]);
   await expect(personal.locator(".project-title-link")).toHaveText([
-    "Minecraft & Palworld",
+    "Gaming Server Hosting",
   ]);
   await expect(personal.locator(".other-project h3")).toHaveText([
     "Minecraft status bot",
