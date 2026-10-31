@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import { Pause, Play } from "lucide-react";
+import { MonogramSphere } from "@/components/monogram-sphere";
 
 export function PortraitOrbit({ children }: { children: ReactNode }) {
   const [paused, setPaused] = useState(false);
@@ -12,7 +13,7 @@ export function PortraitOrbit({ children }: { children: ReactNode }) {
         <span className="portrait-orbit-track" aria-hidden="true" />
         <span className="portrait-orbit-plane" aria-hidden="true">
           <span className="portrait-moon">
-            r<span>.</span>
+            <MonogramSphere paused={paused} />
           </span>
           <span className="portrait-moon-trail" />
           <span className="portrait-moon-trail portrait-moon-trail-faint" />
