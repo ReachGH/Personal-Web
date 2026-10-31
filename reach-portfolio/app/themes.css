@@ -22,9 +22,6 @@
 :root[data-theme="dark"] .skip-link {
   color: var(--paper);
 }
-:root[data-theme="dark"] .greeting-line {
-  background: #77866b;
-}
 :root[data-theme="dark"] .nav-resume,
 :root[data-theme="dark"] .tags > span,
 :root[data-theme="dark"] .skill-group,
@@ -77,21 +74,6 @@
 }
 :root[data-theme="dark"] .case-points li::marker {
   color: #acbe99;
-}
-
-:root[data-theme="dark"] .art-circle {
-  background: #2f3c2b;
-}
-:root[data-theme="dark"] .art-glyph {
-  color: #b9c9a7;
-}
-:root[data-theme="dark"] .art-orbit {
-  border-color: #4a5941;
-}
-:root[data-theme="dark"] .art-grid {
-  background-image:
-    linear-gradient(#82947518 1px, transparent 1px),
-    linear-gradient(90deg, #82947518 1px, transparent 1px);
 }
 :root[data-theme="dark"] .concept-label {
   background: #e5edda;

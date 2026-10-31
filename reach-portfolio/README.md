@@ -30,6 +30,10 @@ The header toggle follows the system colour preference until a visitor chooses a
 
 Dark colours are in `app/themes.css`; shared light colours and layout styles remain in `app/globals.css`. Theme behaviour lives in `components/theme-toggle.tsx` and `lib/theme.ts`. No theme library or server-side preference storage is required.
 
+## Hero portrait
+
+The hero uses the owner's supplied photo with its background removed. The transparent asset is `public/images/reach-portrait.png`; the layout is in `app/page.tsx` and `app/globals.css`. The greeting sits below the portrait, and the portrait appears before the headline on narrow screens. See [portrait provenance and the exact edit prompt](docs/portrait-asset.md) for the built-in imagegen workflow used to prepare it.
+
 ## Browser checks
 
 ```powershell
@@ -50,7 +54,7 @@ data/profile.ts       Contact, experience and skill categories
 data/projects.ts      Three featured stories and three supporting projects
 data/screenshots.ts   Original project images, descriptions and captions
 lib/site.ts           Deployment origin and indexing configuration
-public/               Sanitised résumé and owner-approved project screenshots
+public/               Sanitised résumé, hero portrait and approved project screenshots
 scripts/              Optional résumé preparation tool
 tests/                Browser and accessibility checks
 ```

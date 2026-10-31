@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -5,7 +6,7 @@ import {
   MapPin,
   Trophy,
 } from "lucide-react";
-import { Asterisk } from "@/components/brand";
+import portrait from "@/public/images/reach-portrait.png";
 import { Contact } from "@/components/contact";
 import { ProjectCard } from "@/components/project-card";
 import { SupportingProjects } from "@/components/supporting-projects";
@@ -18,9 +19,6 @@ export default function Home() {
       <section className="hero container" aria-labelledby="hero-title">
         <div className="hero-grid">
           <div className="hero-copy">
-            <p className="hero-greeting">
-              Hi, I’m Reach. <span className="greeting-line" />
-            </p>
             <h1 id="hero-title">
               A little curiosity.
               <br />A lot of{" "}
@@ -50,16 +48,18 @@ export default function Home() {
               </a>
             </div>
           </div>
-          <div className="hero-art" aria-hidden="true">
-            <div className="art-grid" />
-            <div className="art-orbit orbit-one" />
-            <div className="art-orbit orbit-two" />
-            <div className="art-circle" />
-            <div className="art-glyph">
-              r<span>.</span>
-            </div>
-            <Asterisk className="art-asterisk" />
-          </div>
+          <figure className="hero-portrait">
+            <Image
+              src={portrait}
+              alt="Reach smiling, wearing glasses and a light blue shirt."
+              className="portrait-image"
+              sizes="(max-width: 767px) 220px, (max-width: 900px) 240px, (max-width: 1100px) 280px, 320px"
+              preload
+            />
+            <figcaption className="hero-greeting">
+              Hi, I’m Reach<span className="orange">.</span>
+            </figcaption>
+          </figure>
         </div>
       </section>
 

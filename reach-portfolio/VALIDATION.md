@@ -9,11 +9,12 @@ Application, theme, screenshot composition and project grouping checks updated o
 | TypeScript, strict mode               | Passed                                                                                                                             |
 | Prettier formatting                   | Passed                                                                                                                             |
 | Next.js production build              | Passed; public pages prerendered                                                                                                   |
-| Playwright desktop and mobile suite   | Full 36-test suite passed previously; 10 affected checks rerun after removing full-size image controls                             |
+| Playwright desktop and mobile suite   | Full 36-test suite passed previously; 8 affected checks rerun for the portrait hero                                                |
 | Automated accessibility               | No WCAG 2 A/AA or 2.1 AA rule violations reported by axe on the homepage and three case studies at the tested desktop/mobile sizes |
 | Responsive layout                     | Checked at 320, 390, 768, 900 and 1440 CSS pixels; no document overflow or clipped screenshot frames                               |
 | Manual visual review                  | Desktop/mobile homepage, project cards, case studies, social preview and public résumé reviewed                                    |
 | Public PDF privacy                    | Phone and unapproved company metric absent from text extraction and decoded PDF objects                                            |
+| Hero portrait                         | Transparent PNG verified with an alpha range of 0–255; portrait and greeting fit both themes at 320, 390, 768, 1024 and 1440px     |
 | Screenshot assets                     | Seven owner-approved images included, displayed inline with responsive sizing and descriptive alternatives                         |
 | Git exclusions                        | Original résumé, source Images/ folder, private checklist and local QA/tooling excluded; approved screenshot copies are included   |
 
