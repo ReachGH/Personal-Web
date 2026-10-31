@@ -49,13 +49,15 @@ export default function Home() {
             </div>
           </div>
           <figure className="hero-portrait">
-            <Image
-              src={portrait}
-              alt="Reach smiling, wearing glasses and a light blue shirt."
-              className="portrait-image"
-              sizes="(max-width: 767px) 220px, (max-width: 900px) 240px, (max-width: 1100px) 280px, 320px"
-              preload
-            />
+            <div className="portrait-frame">
+              <Image
+                src={portrait}
+                alt="Reach smiling, wearing glasses and a light blue shirt."
+                className="portrait-image"
+                sizes="(max-width: 767px) 220px, (max-width: 900px) 280px, (max-width: 1100px) 330px, 360px"
+                preload
+              />
+            </div>
             <figcaption className="hero-greeting">
               Hi, I’m Reach<span className="orange">.</span>
             </figcaption>

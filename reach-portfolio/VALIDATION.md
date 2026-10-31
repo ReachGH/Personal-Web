@@ -14,7 +14,7 @@ Application, theme, screenshot composition and project grouping checks updated o
 | Responsive layout                     | Checked at 320, 390, 768, 900 and 1440 CSS pixels; no document overflow or clipped screenshot frames                               |
 | Manual visual review                  | Desktop/mobile homepage, project cards, case studies, social preview and public résumé reviewed                                    |
 | Public PDF privacy                    | Phone and unapproved company metric absent from text extraction and decoded PDF objects                                            |
-| Hero portrait                         | Transparent PNG verified with an alpha range of 0–255; portrait and greeting fit both themes at 320, 390, 768, 1024 and 1440px     |
+| Hero portrait                         | 10% bottom crop verified; full-viewport composition reviewed in both themes from 320 to 1920px, with a gradual 15% lower fade      |
 | Screenshot assets                     | Seven owner-approved images included, displayed inline with responsive sizing and descriptive alternatives                         |
 | Git exclusions                        | Original résumé, source Images/ folder, private checklist and local QA/tooling excluded; approved screenshot copies are included   |
 

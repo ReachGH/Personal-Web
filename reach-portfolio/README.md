@@ -32,7 +32,7 @@ Dark colours are in `app/themes.css`; shared light colours and layout styles rem
 
 ## Hero portrait
 
-The hero uses the owner's supplied photo with its background removed. The transparent asset is `public/images/reach-portrait.png`; the layout is in `app/page.tsx` and `app/globals.css`. The greeting sits below the portrait, and the portrait appears before the headline on narrow screens. See [portrait provenance and the exact edit prompt](docs/portrait-asset.md) for the built-in imagegen workflow used to prepare it.
+The hero uses the owner's supplied photo with its background removed. The transparent asset is `public/images/reach-portrait.png`; the layout is in `app/page.tsx` and `app/globals.css`. The layout crops the bottom 10%, keeping most of the folded arms visible, with a gradual fade over the final 15% of the frame. The portrait sits close to the headline, with a compact greeting directly below it; on narrow screens, the portrait precedes the headline. See [portrait provenance and the exact edit prompt](docs/portrait-asset.md) for the built-in imagegen workflow used to prepare the asset.
 
 ## Browser checks
 
