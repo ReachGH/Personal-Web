@@ -39,7 +39,7 @@ npm run test:e2e
 
 Tests use installed Google Chrome, start a production server on `127.0.0.1:3100` when needed, and run desktop and Pixel-sized Chromium profiles. To use Playwright’s bundled Chromium instead, remove `channel: "chrome"` from both projects in `playwright.config.ts` and run `npx playwright install chromium`.
 
-The suite covers the four public pages, automated WCAG A/AA checks, runtime errors, case-study navigation, screenshot loading and full-size links, mobile-menu dismissal and focus, résumé downloads, contact destinations, metadata, missing routes, keyboard skip navigation, reduced motion and 320px overflow. It saves local full-page screenshots under `test-results/`. Browser automation supplements manual visual review; it is not a claim of universal browser or assistive-technology compatibility.
+The suite covers the four public pages, automated WCAG A/AA checks, runtime errors, case-study navigation, inline screenshot loading, mobile-menu dismissal and focus, résumé downloads, contact destinations, metadata, missing routes, keyboard skip navigation, reduced motion and 320px overflow. It saves local full-page screenshots under `test-results/`. Browser automation supplements manual visual review; it is not a claim of universal browser or assistive-technology compatibility.
 
 ## Structure
 
@@ -48,7 +48,7 @@ app/                  Homepage, case studies, layout, styles and metadata
 components/           Navigation, project screenshots, infrastructure diagram and shared sections
 data/profile.ts       Contact, experience and skill categories
 data/projects.ts      Three featured stories and three supporting projects
-data/screenshots.ts   Original project images, descriptions and full-size links
+data/screenshots.ts   Original project images, descriptions and captions
 lib/site.ts           Deployment origin and indexing configuration
 public/               Sanitised résumé and owner-approved project screenshots
 scripts/              Optional résumé preparation tool
@@ -60,9 +60,9 @@ tests/                Browser and accessibility checks
 - Edit `data/profile.ts` for contact links, experience and skills. Education and the short introduction are in `app/page.tsx`.
 - Edit `data/projects.ts` for project copy, contribution summaries, technologies and supporting-project links. Featured project routes are generated from this data. Keep project slugs stable when revising copy.
 - The homepage leads with professional work (Carelever and Sabai Code), then personal projects (hosting and the status bot), then study projects. The `kind` field in `data/projects.ts` determines each group; both professional case studies get a larger card. Case-study headings also identify professional or personal work.
-- OnboardHQ and Sabai Code use the supplied original screenshots, approved by the owner for the portfolio and repository. The Sabai Code images show the EzePick grocery prototype. `data/screenshots.ts` stores static image imports, alternative text and captions; `components/project-screenshots.tsx` renders responsive previews and full-size links. The original files are preserved in `public/projects/`, while `next/image` serves appropriately sized previews.
+- OnboardHQ and Sabai Code use the supplied original screenshots, approved by the owner for the portfolio and repository. The Sabai Code images show the EzePick grocery prototype. `data/screenshots.ts` stores static image imports, alternative text and captions; `components/project-screenshots.tsx` renders responsive inline images. The original files are preserved in `public/projects/`, while `next/image` serves appropriately sized previews.
 - Homepage cards use layered real screenshots: overlapping CRM/client windows for OnboardHQ, and one main EzePick phone with a smaller product-detail card. `components/screenshot-artwork.tsx` and `app/screenshot-artwork.css` control the composition, light/dark backgrounds and hover/focus motion. CSS clips the grocery images' surrounding artboard margins and selects the product detail; the image files remain unchanged. Motion respects the existing reduced-motion setting.
-- Case-study screenshots remain flat and readable, with all original images available at full size. Their layouts are in `app/project-screenshots.css`. OnboardHQ has a dashboard cover and three additional screenshots; Sabai Code retains all three prototype screens, stacked on narrow screens.
+- Case-study screenshots are displayed directly with short titles and captions. Their layouts are in `app/project-screenshots.css`. OnboardHQ has a dashboard cover and three additional screenshots; Sabai Code retains all three prototype screens, stacked on narrow screens.
 - The infrastructure illustration remains code-native in `components/project-visual.tsx`, styled in `app/globals.css`. It distinguishes the Minecraft and Palworld setups and is explicitly labelled conceptual.
 - To add or replace a screenshot, place the reviewed image in `public/projects/`, update its entry in `data/screenshots.ts` and the project's `visualNote` if needed. Check permission and visible information for new assets before including them.
 - There are no invented GitHub project links. Only the verified CIFAR-10 repository is linked for the supporting projects.

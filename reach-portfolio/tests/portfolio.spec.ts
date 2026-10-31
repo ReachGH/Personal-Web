@@ -77,10 +77,7 @@ test("all three case studies open and cycle to the next project", async ({
   }
 });
 
-test("original project screenshots load and open at full size", async ({
-  page,
-  request,
-}) => {
+test("project screenshots load as inline images", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator(".project-card .screenshot-preview")).toHaveCount(
     2,
@@ -92,11 +89,11 @@ test("original project screenshots load and open at full size", async ({
     ["sabai-code", 3],
   ] as const) {
     await page.goto(`/projects/${slug}`);
-    const links = page.locator(".screenshot-link");
-    await expect(links).toHaveCount(count);
+    const images = page.locator(".case-figure img, .screenshot-gallery img");
+    await expect(images).toHaveCount(count);
+    await expect(page.getByText("Full size", { exact: true })).toHaveCount(0);
     await expect(page.locator(".case-figure .concept-label")).toHaveCount(0);
-    for (const link of await links.all()) {
-      const image = link.locator("img");
+    for (const image of await images.all()) {
       await image.scrollIntoViewIfNeeded();
       await expect(image).toBeVisible();
       await expect
@@ -107,17 +104,13 @@ test("original project screenshots load and open at full size", async ({
           ),
         )
         .toBe(true);
-      const original = await request.get((await link.getAttribute("href"))!);
-      expect(original.status()).toBe(200);
-      expect(original.headers()["content-type"]).toMatch(/^image\//);
+      expect(
+        await image.evaluate(
+          (element) => element.closest("a, button") !== null,
+        ),
+        "Screenshots are displayed directly without an open-image control",
+      ).toBe(false);
     }
-    const first = links.first();
-    const originalPath = await first.getAttribute("href");
-    const popupEvent = page.waitForEvent("popup");
-    await first.click();
-    const popup = await popupEvent;
-    await expect(popup).toHaveURL(originalPath!);
-    await popup.close();
   }
 });
 

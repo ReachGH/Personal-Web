@@ -46,40 +46,22 @@
 .visual-large.screenshot-mobile img {
   max-height: none;
 }
-.screenshot-link {
+.screenshot-item {
   display: block;
   min-width: 0;
 }
-.screenshot-link img {
+.screenshot-item img {
   display: block;
   width: 100%;
   height: auto;
   border: 1px solid var(--line);
   border-radius: 5px;
 }
-.screenshot-link-label {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 6px 16px;
+.screenshot-title {
   margin-top: 14px;
   color: var(--ink);
   font-size: var(--text-supporting);
   line-height: 1.6;
-}
-.screenshot-link-label > span {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--muted);
-}
-.screenshot-preview .screenshot-link-label > span {
-  color: inherit;
-}
-.screenshot-link:hover .screenshot-link-label {
-  text-decoration: underline;
-  text-underline-offset: 4px;
 }
 .screenshot-gallery {
   padding-bottom: 80px;

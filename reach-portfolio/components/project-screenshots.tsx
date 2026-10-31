@@ -1,10 +1,9 @@
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
 import type { ProjectSlug } from "@/data/projects";
 import { projectScreenshots, type ProjectScreenshot } from "@/data/screenshots";
 import { ScreenshotArtwork } from "./screenshot-artwork";
 
-function ScreenshotLink({
+function ScreenshotImage({
   screenshot,
   sizes,
 }: {
@@ -12,21 +11,10 @@ function ScreenshotLink({
   sizes: string;
 }) {
   return (
-    <a
-      className="screenshot-link"
-      href={screenshot.original}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`Open ${screenshot.title} screenshot at full size (opens in a new tab)`}
-    >
+    <div className="screenshot-item">
       <Image src={screenshot.image} alt={screenshot.alt} sizes={sizes} />
-      <span className="screenshot-link-label">
-        {screenshot.title}
-        <span>
-          Full size <ArrowUpRight size={16} aria-hidden="true" />
-        </span>
-      </span>
-    </a>
+      <p className="screenshot-title">{screenshot.title}</p>
+    </div>
   );
 }
 
@@ -52,8 +40,8 @@ export function ScreenshotPreview({
     >
       <div className="screenshot-preview-grid">
         {visibleScreenshots.map((screenshot) => (
-          <ScreenshotLink
-            key={screenshot.original}
+          <ScreenshotImage
+            key={screenshot.image.src}
             screenshot={screenshot}
             sizes={sizes}
           />
@@ -77,8 +65,8 @@ export function ProjectScreenshotGallery({ slug }: { slug: ProjectSlug }) {
       <h2 id="screenshots-heading">Inside the workflow</h2>
       <div className="screenshot-gallery-grid">
         {screenshots.map((screenshot, index) => (
-          <figure key={screenshot.original}>
-            <ScreenshotLink
+          <figure key={screenshot.image.src}>
+            <ScreenshotImage
               screenshot={screenshot}
               sizes={
                 index === 0
