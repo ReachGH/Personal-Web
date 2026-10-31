@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   authors: [{ name: profile.name, url: profile.github }],
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Reach — A little curiosity. A lot of building.",
+    title: "Hi, I’m Reach. — Software Developer",
     description: profile.description,
     type: "website",
     locale: "en_AU",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Reach — Software Developer. A little curiosity. A lot of building.",
+        alt: "Hi, I’m Reach. I take my side quests seriously.",
       },
     ],
   },

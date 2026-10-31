@@ -100,7 +100,7 @@ test("portrait orbit stays still when reduced motion is requested", async ({
   ).toBeHidden();
 });
 
-test("full portrait orbit stays inside the screen and above the greeting", async ({
+test("full portrait orbit stays inside the screen and clear of the hero copy", async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });
@@ -118,16 +118,17 @@ test("full portrait orbit stays inside the screen and above the greeting", async
         const moon = stage
           .querySelector(".portrait-moon")!
           .getBoundingClientRect();
-        const caption = document
-          .querySelector(".hero-greeting")!
+        const copy = document
+          .querySelector(".hero-copy")!
           .getBoundingClientRect();
+        const hero = document.querySelector(".hero")!.getBoundingClientRect();
         return {
           left: moon.left,
           right: moon.right,
           top: moon.top,
           bottom: moon.bottom,
           width: moon.width,
-          captionTop: caption.top,
+          lowerLimit: innerWidth <= 760 ? copy.top : hero.bottom,
           stageHeight: stage.getBoundingClientRect().height,
           viewportWidth: innerWidth,
           documentWidth: document.documentElement.scrollWidth,
@@ -136,7 +137,7 @@ test("full portrait orbit stays inside the screen and above the greeting", async
     expect(bounds.left).toBeGreaterThanOrEqual(0);
     expect(bounds.right).toBeLessThanOrEqual(bounds.viewportWidth);
     expect(bounds.documentWidth).toBeLessThanOrEqual(bounds.viewportWidth);
-    expect(bounds.bottom).toBeLessThan(bounds.captionTop);
+    expect(bounds.bottom).toBeLessThan(bounds.lowerLimit);
     positions.push(bounds.top / bounds.stageHeight);
     sizes.push(bounds.width);
   }

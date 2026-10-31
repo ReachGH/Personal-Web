@@ -1,11 +1,5 @@
 import Image from "next/image";
-import {
-  ArrowDownRight,
-  ArrowUpRight,
-  GraduationCap,
-  MapPin,
-  Trophy,
-} from "lucide-react";
+import { GraduationCap, MapPin, Trophy } from "lucide-react";
 import portrait from "@/public/images/reach-portrait.png";
 import { Contact } from "@/components/contact";
 import { PortraitOrbit } from "@/components/portrait-orbit";
@@ -21,10 +15,9 @@ export default function Home() {
         <div className="hero-grid">
           <div className="hero-copy">
             <h1 id="hero-title">
-              A little curiosity.
-              <br />A lot of{" "}
-              <span className="hero-building">
-                building
+              Hi, I’m{" "}
+              <span className="hero-name">
+                Reach
                 <svg viewBox="0 0 430 18" fill="none" aria-hidden="true">
                   <path
                     d="M3 12C112 2 290 1 427 8M35 16c103-6 211-7 338-3"
@@ -36,18 +29,12 @@ export default function Home() {
               </span>
               <span className="orange">.</span>
             </h1>
+            <p className="hero-intro">I take my side quests seriously.</p>
             <p className="hero-description">
-              I build software that solves real problems — from web and mobile
-              apps to the systems that keep them running.
+              I’m studying Computer Science on the Gold Coast. Outside class, I
+              build apps, tinker with game servers, and chase ideas just to see
+              where they go.
             </p>
-            <div className="hero-actions">
-              <a href="#work" className="button button-dark">
-                Explore my work <ArrowDownRight size={18} />
-              </a>
-              <a href="#contact" className="hero-contact">
-                Let’s talk <ArrowUpRight size={17} />
-              </a>
-            </div>
           </div>
           <figure className="hero-portrait">
             <PortraitOrbit>
@@ -61,9 +48,6 @@ export default function Home() {
                 />
               </div>
             </PortraitOrbit>
-            <figcaption className="hero-greeting">
-              Hi, I’m Reach<span className="orange">.</span>
-            </figcaption>
           </figure>
         </div>
       </section>
@@ -114,35 +98,6 @@ export default function Home() {
           <h2 id="study-projects-title">Study projects</h2>
         </div>
         <SupportingProjects kind="study" />
-      </section>
-
-      <section
-        id="about"
-        className="about-section section-pad"
-        aria-labelledby="about-title"
-      >
-        <div className="container about-grid">
-          <div className="about-heading">
-            <h2 id="about-title">About me</h2>
-          </div>
-          <div className="about-copy">
-            <p className="about-lead">
-              I’m Sovanreach In — Reach for short. I’m a Computer Science
-              student based on the Gold Coast, Australia.
-            </p>
-            <p>
-              My path into software has taken me from meeting farmers in
-              Cambodia to building business workflows in Australia. Along the
-              way, I’ve worked on mobile apps, full-stack web applications and
-              the occasional stubborn game server.
-            </p>
-            <p>
-              I enjoy working through unfamiliar problems, whether that means
-              understanding a user’s workflow, debugging an integration or
-              getting a self-hosted service running reliably.
-            </p>
-          </div>
-        </div>
       </section>
 
       <section
