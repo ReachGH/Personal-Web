@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import type { ProjectSlug } from "@/data/projects";
 import { projectScreenshots, type ProjectScreenshot } from "@/data/screenshots";
+import { ScreenshotArtwork } from "./screenshot-artwork";
 
 function ScreenshotLink({
   screenshot,
@@ -38,37 +39,25 @@ export function ScreenshotPreview({
 }) {
   const screenshots = projectScreenshots[slug];
   if (!screenshots) return null;
+  if (!large) return <ScreenshotArtwork slug={slug} />;
   const mobile = slug === "sabai-code";
   const visibleScreenshots = mobile ? screenshots : screenshots.slice(0, 1);
   const sizes = mobile
-    ? large
-      ? "(max-width: 640px) 300px, (max-width: 1000px) 28vw, 300px"
-      : "(max-width: 640px) 190px, 160px"
-    : large
-      ? "(max-width: 1400px) 90vw, 1240px"
-      : "(max-width: 767px) 90vw, (max-width: 1400px) 53vw, 740px";
+    ? "(max-width: 640px) 300px, (max-width: 1000px) 28vw, 300px"
+    : "(max-width: 1400px) 90vw, 1240px";
 
   return (
     <div
-      className={`project-visual screenshot-preview ${mobile ? "screenshot-mobile" : "screenshot-desktop"} ${large ? "visual-large" : ""}`}
+      className={`project-visual screenshot-preview ${mobile ? "screenshot-mobile" : "screenshot-desktop"} visual-large`}
     >
       <div className="screenshot-preview-grid">
-        {visibleScreenshots.map((screenshot) =>
-          large ? (
-            <ScreenshotLink
-              key={screenshot.original}
-              screenshot={screenshot}
-              sizes={sizes}
-            />
-          ) : (
-            <Image
-              key={screenshot.original}
-              src={screenshot.image}
-              alt={screenshot.alt}
-              sizes={sizes}
-            />
-          ),
-        )}
+        {visibleScreenshots.map((screenshot) => (
+          <ScreenshotLink
+            key={screenshot.original}
+            screenshot={screenshot}
+            sizes={sizes}
+          />
+        ))}
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ export type CaseSection = {
 };
 export type Project = {
   slug: ProjectSlug;
+  kind: "professional" | "personal";
   name: string;
   subtitle: string;
   category: string;
@@ -27,6 +28,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "onboardhq",
+    kind: "professional",
     name: "OnboardHQ",
     subtitle: "From scattered steps to a shared workflow.",
     category: "Full-stack · CRM integration",
@@ -95,6 +97,7 @@ export const projects: Project[] = [
   },
   {
     slug: "sabai-code",
+    kind: "professional",
     name: "Sabai Code",
     subtitle: "A shorter path from farm to basket.",
     category: "Mobile · Full-stack prototype",
@@ -137,9 +140,10 @@ export const projects: Project[] = [
   },
   {
     slug: "self-hosted-infrastructure",
+    kind: "personal",
     name: "Minecraft & Palworld",
     subtitle: "Self-hosted infrastructure, beyond localhost.",
-    category: "Personal · Infrastructure & networking",
+    category: "Infrastructure & networking",
     status: "Hands-on self-hosting & troubleshooting",
     summary:
       "Two game-server setups, with different challenges: VPS-assisted Minecraft connectivity and a Docker-hosted Palworld server. A practical education in what runs underneath.",
@@ -191,6 +195,7 @@ export const projects: Project[] = [
 ];
 
 type SupportingProject = {
+  kind: "personal" | "study";
   name: string;
   category: string;
   icon: "bot" | "tasks" | "image";
@@ -202,6 +207,7 @@ type SupportingProject = {
 export const otherProjects: SupportingProject[] = [
   {
     name: "Minecraft status bot",
+    kind: "personal",
     category: "Personal project",
     icon: "bot",
     description:
@@ -211,6 +217,7 @@ export const otherProjects: SupportingProject[] = [
   },
   {
     name: "React Native To-Do App",
+    kind: "study",
     category: "Study project",
     icon: "tasks",
     description:
@@ -220,6 +227,7 @@ export const otherProjects: SupportingProject[] = [
   },
   {
     name: "CIFAR-10 Image Classification",
+    kind: "study",
     category: "University coursework",
     icon: "image",
     description:

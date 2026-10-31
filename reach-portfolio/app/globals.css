@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "./themes.css";
 @import "./project-screenshots.css";
+@import "./screenshot-artwork.css";
 
 @theme inline {
   --color-paper: var(--paper);
@@ -408,6 +409,27 @@ h2 {
   grid-template-columns: 1fr 1fr;
   gap: 46px 30px;
 }
+.project-collection {
+  padding-block: 58px 80px;
+  border-top: 1px solid var(--line);
+}
+.project-collection h2 {
+  font-size: 36px;
+  letter-spacing: -1.4px;
+}
+.personal-projects-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 30px;
+}
+.personal-projects-grid > .other-projects {
+  grid-template-columns: minmax(0, 1fr);
+  align-self: start;
+}
+.study-projects {
+  padding-top: 0;
+  border-top: 0;
+}
 .project-card {
   min-width: 0;
 }
@@ -618,17 +640,9 @@ h2 {
   color: #d1dec5;
   border-color: #6b7b5e;
 }
-.other-heading {
-  margin-block: 72px 26px;
-}
-.other-heading h3 {
-  font-size: 22px;
-  font-weight: 500;
-  letter-spacing: -0.6px;
-}
 .other-projects {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
 }
 .other-project {
@@ -777,7 +791,7 @@ h2 {
   font-size: var(--text-label);
   letter-spacing: 0.3px;
 }
-.other-project h4 {
+.other-project h3 {
   font-size: 21px;
   font-weight: 500;
   letter-spacing: -0.6px;
@@ -2175,18 +2189,22 @@ h2 {
   .other-project-content {
     padding: 22px;
   }
-  .other-project h4 {
+  .other-project h3 {
     font-size: 20px;
   }
 }
 
 @media (min-width: 1001px) and (max-width: 1200px) {
-  .other-project h4 {
+  .other-project h3 {
     min-height: 2.6em;
   }
 }
 
 @media (max-width: 1000px) {
+  .personal-projects-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
+  }
   .other-projects {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -2213,7 +2231,7 @@ h2 {
     transform: rotate(-5deg) scale(0.8);
     flex-shrink: 0;
   }
-  .other-project h4 {
+  .other-project h3 {
     min-height: 0;
     font-size: 21px;
   }
@@ -2234,18 +2252,33 @@ h2 {
 }
 
 @media (max-width: 540px) {
-  .other-heading {
-    margin-top: 52px;
+  .project-collection {
+    padding-block: 40px 54px;
+  }
+  .project-collection h2 {
+    font-size: 30px;
+  }
+  .study-projects {
+    padding-top: 0;
   }
   .other-project-content {
     padding: 24px;
   }
-  .other-project h4 {
+  .other-project h3 {
     min-height: 0;
     font-size: 22px;
   }
   .other-project-footer {
     min-height: 0;
+  }
+}
+
+@media (min-width: 1001px) {
+  .personal-projects-grid .supporting-sketch {
+    height: 240px;
+  }
+  .personal-projects-grid .bot-sketch {
+    transform: scale(1.25);
   }
 }
 

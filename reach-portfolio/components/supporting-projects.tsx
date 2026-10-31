@@ -59,14 +59,12 @@ function ProjectSketch({ kind }: { kind: "bot" | "tasks" | "image" }) {
   );
 }
 
-export function SupportingProjects() {
+export function SupportingProjects({ kind }: { kind: "personal" | "study" }) {
   return (
-    <section className="other-section" aria-labelledby="other-projects-title">
-      <div className="other-heading">
-        <h3 id="other-projects-title">Other projects</h3>
-      </div>
-      <div className="other-projects">
-        {otherProjects.map((project) => (
+    <div className="other-projects">
+      {otherProjects
+        .filter((project) => project.kind === kind)
+        .map((project) => (
           <article
             className={`other-project other-project-${project.icon}`}
             key={project.name}
@@ -74,7 +72,7 @@ export function SupportingProjects() {
             <ProjectSketch kind={project.icon} />
             <div className="other-project-content">
               <span className="small-label">{project.category}</span>
-              <h4>{project.name}</h4>
+              <h3>{project.name}</h3>
               <p>{project.description}</p>
               <div className="other-project-footer">
                 <ul
@@ -100,7 +98,6 @@ export function SupportingProjects() {
             </div>
           </article>
         ))}
-      </div>
-    </section>
+    </div>
   );
 }

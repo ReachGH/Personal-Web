@@ -50,7 +50,13 @@ export default async function ProjectPage({
             <ArrowLeft size={16} /> All selected work
           </Link>
           <div className="case-kicker">
-            <span className="small-label">{project.category}</span>
+            <span className="small-label">
+              {project.kind === "professional"
+                ? "Professional work"
+                : "Personal project"}
+              {" / "}
+              {project.category}
+            </span>
           </div>
           <h1>
             {project.name}

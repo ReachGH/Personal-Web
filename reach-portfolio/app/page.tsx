@@ -70,19 +70,45 @@ export default function Home() {
       >
         <div className="container">
           <div className="section-heading">
-            <h2 id="work-title">Selected work</h2>
+            <h2 id="work-title">Professional work</h2>
           </div>
-          <div className="projects-grid">
-            {projects.map((project, index) => (
-              <ProjectCard
-                key={project.slug}
-                project={project}
-                featured={index === 0}
-              />
-            ))}
+          <div className="projects-grid professional-projects">
+            {projects
+              .filter((project) => project.kind === "professional")
+              .map((project) => (
+                <ProjectCard key={project.slug} project={project} featured />
+              ))}
           </div>
-          <SupportingProjects />
         </div>
+      </section>
+
+      <section
+        id="personal-projects"
+        className="container project-collection"
+        aria-labelledby="personal-projects-title"
+      >
+        <div className="section-heading">
+          <h2 id="personal-projects-title">Personal projects</h2>
+        </div>
+        <div className="personal-projects-grid">
+          {projects
+            .filter((project) => project.kind === "personal")
+            .map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          <SupportingProjects kind="personal" />
+        </div>
+      </section>
+
+      <section
+        id="study-projects"
+        className="container project-collection study-projects"
+        aria-labelledby="study-projects-title"
+      >
+        <div className="section-heading">
+          <h2 id="study-projects-title">Study projects</h2>
+        </div>
+        <SupportingProjects kind="study" />
       </section>
 
       <section
