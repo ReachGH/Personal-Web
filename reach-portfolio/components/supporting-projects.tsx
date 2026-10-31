@@ -71,7 +71,6 @@ export function SupportingProjects({ kind }: { kind: "personal" | "study" }) {
           >
             <ProjectSketch kind={project.icon} />
             <div className="other-project-content">
-              <span className="small-label">{project.category}</span>
               <h3>{project.name}</h3>
               <p>{project.description}</p>
               <div className="other-project-footer">

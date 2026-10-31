@@ -22,15 +22,8 @@ export function ProjectCard({
         <ProjectVisual slug={project.slug} />
       </Link>
       <div className="project-card-content">
-        <div className="project-category">
-          <span>{project.category}</span>
-          {project.year && <span>{project.year}</span>}
-        </div>
         <Link className="project-title-link" href={`/projects/${project.slug}`}>
           <h3>{project.name}</h3>
-          <span className="project-arrow">
-            <ArrowUpRight size={24} />
-          </span>
         </Link>
         <p>{project.summary}</p>
         <div className="tags">
