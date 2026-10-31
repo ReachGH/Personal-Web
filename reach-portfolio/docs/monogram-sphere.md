@@ -1,14 +1,18 @@
 # Three.js monogram sphere
 
-The orbiting `r.` is a matte Three.js sphere with soft diffuse shading and no specular reflection. It keeps a fixed, front-facing orientation so the visible monogram stays readable. Matching monograms remain on opposite hemispheres. The sphere follows the existing 24-second tilted CSS orbit, including its near/far size changes and occlusion behind the portrait. Pausing stops the orbit; resuming preserves its position.
+The orbiting `r.` is a matte Three.js sphere with very light diffuse shading, without reflections or cast shadows. Strong ambient fill (0.94π) and a weak directional light (0.10π) compensate for Lambert's 1/π response, keeping brightness around 94–104% of the base colour in linear space. It spins upright around its vertical axis once every ten seconds, with matching monograms on opposite hemispheres and no tumbling or rocking. Pausing stops both the spin and the orbit; resuming preserves their positions. Reduced motion disables both animations.
+
+The tilted CSS orbit takes 24 seconds. A registered CSS phase drives a smooth speed curve: approximately 20% faster on the near pass and 20% slower on the far pass. Position and scale share the same progress value, with a continuous sine curve ranging from 0.66 at the far side to 1.3 at the near side. This eases into both extremes and joins smoothly across the loop. The trailing dots repeat the exact motion 0.72 and 1.2 seconds behind the moon, naturally spreading out near the viewer and tightening on the far side. The front/back stacking switches at the adjusted path crossings.
+
+The SVG track samples the same ellipse with 96 short, rounded dashes; their length, stroke weight and opacity vary continuously with depth. SVG values are serialized to three decimal places to avoid hydration mismatches from tiny server/browser trigonometric differences. The two track halves share the same formula at their joins and sit behind/in front of the portrait, as does the orbiting sphere. The path, trail and depth animation need no JavaScript frame loop.
 
 ## Rendering budget
 
 - One mesh, one material, one draw call per update, and 1,472 triangles (`SphereGeometry(1, 32, 24)`).
 - A small transparent WebGL canvas follows the badge. Its drawing buffer uses at most 2× device resolution and never exceeds 160 × 160 pixels. The portrait, track and trail remain DOM/CSS.
-- On-demand rendering: draw at initialization and when the theme or drawing-buffer size changes. There is no WebGL animation-frame loop. CSS handles the orbit and pauses when requested, offscreen or in a hidden tab.
-- No specular highlights, shadows, post-processing, environment maps, controls, model loaders or React Three Fiber. Soft diffuse lighting uses one hemisphere light and two directional lights with a Lambert material.
-- One locally generated 512 × 256 texture; no model or texture network requests. Theme changes redraw the existing texture, and a ResizeObserver updates the buffer only when its size changes. No per-frame JavaScript work is needed for the sphere.
+- The spin uses a time-based animation-frame loop capped at 30 fps. WebGL stops when paused, offscreen or in a hidden tab, and for reduced motion. CSS handles the orbit and pauses alongside it.
+- One Lambert material, one ambient light and one weak directional light; no specular highlights, shadow maps, post-processing, environment maps, controls, model loaders or React Three Fiber.
+- One locally generated 512 × 256 texture; no model or texture network requests. Theme changes redraw the existing texture, and a ResizeObserver updates the buffer only when its size changes. Active frames change only the sphere's rotation and render the existing scene.
 - Geometry, material, texture, renderer, WebGL context and observers are released on unmount. Context loss switches to the CSS fallback.
 
 ## Loading and fallback
@@ -21,15 +25,15 @@ Three.js adds JavaScript compared with the earlier CSS-only badge. In the measur
 
 Measured with installed Chrome on Windows on 31 October 2026, using a production build, a 1440 × 900 viewport and device scale factor 2:
 
-| Measurement                                          | Result                                            |
-| ---------------------------------------------------- | ------------------------------------------------- |
-| WebGL redraws while the CSS orbit moves for 1 second | 0                                                 |
-| Draw calls / triangles per update                    | 1 / 1,472                                         |
-| Drawing buffer in this configuration                 | 124 × 124 pixels                                  |
-| Draws during a 200 ms pause                          | 0                                                 |
-| Draws during a 200 ms offscreen interval             | 0                                                 |
-| Cleanup after client navigation                      | 4 buffers, 1 texture and 1 shader program deleted |
-| Initial reduced-motion page                          | No WebGL canvas or deferred sphere chunks         |
+| Measurement                              | Result                                            |
+| ---------------------------------------- | ------------------------------------------------- |
+| Active spin rendering budget             | Capped at 30 frames per second                    |
+| Draw calls / triangles per update        | 1 / 1,472                                         |
+| Drawing buffer in this configuration     | 124 × 124 pixels                                  |
+| Draws during a 200 ms pause              | 0                                                 |
+| Draws during a 200 ms offscreen interval | 0                                                 |
+| Cleanup after client navigation          | 4 buffers, 1 texture and 1 shader program deleted |
+| Initial reduced-motion page              | No WebGL canvas or deferred sphere chunks         |
 
 These measurements check the rendering budget and lifecycle behavior; they are not a battery benchmark or a guarantee of frame rate on every device. The browser tests additionally check hidden-tab event handling, live reduced-motion changes, unavailable WebGL, context loss and remounting after navigation. The hidden-tab test dispatches a visibility-change event with an overridden visibility value, so it exercises the handler without depending on headless tab focus.
 

@@ -23,12 +23,12 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
-test("sphere stays front-facing without continuous WebGL redraws", async ({
+test("sphere spin has bounded rendering cost and pauses when inactive", async ({
   page,
 }) => {
   await page.goto("/");
   const canvas = page.locator(".monogram-sphere canvas");
-  await expect(canvas).toHaveAttribute("data-render-state", "static", {
+  await expect(canvas).toHaveAttribute("data-render-state", "running", {
     timeout: 20000,
   });
   await expect(canvas).toHaveAttribute("data-draw-calls", "1");
@@ -40,11 +40,15 @@ test("sphere stays front-facing without continuous WebGL redraws", async ({
   ).toBeLessThanOrEqual(160);
 
   const before = await countDraws(page);
+  const started = Date.now();
   const moon = page.locator(".portrait-moon");
   const firstPosition = await moon.boundingBox();
   await page.waitForTimeout(1000);
   const draws = (await countDraws(page)) - before;
-  expect(draws).toBe(0);
+  expect(draws).toBeGreaterThan(0);
+  expect(draws).toBeLessThanOrEqual(
+    Math.ceil(((Date.now() - started) * 30) / 1000) + 2,
+  );
   const nextPosition = await moon.boundingBox();
   expect(
     Math.hypot(
@@ -53,11 +57,18 @@ test("sphere stays front-facing without continuous WebGL redraws", async ({
     ),
   ).toBeGreaterThan(2);
 
+  expect(
+    await page
+      .locator(".monogram-sphere")
+      .evaluate((element) => element.getAnimations().length),
+  ).toBe(0);
+
   await page.getByRole("button", { name: "Pause orbit animation" }).click();
   await expect(page.locator(".portrait-orbit-shell")).toHaveAttribute(
     "data-orbit-paused",
     "true",
   );
+  await expect(canvas).toHaveAttribute("data-render-state", "idle");
   const pausedDraws = await countDraws(page);
   await page.waitForTimeout(200);
   expect(await countDraws(page)).toBe(pausedDraws);
@@ -67,12 +78,14 @@ test("sphere stays front-facing without continuous WebGL redraws", async ({
     "data-orbit-paused",
     "false",
   );
+  await expect(canvas).toHaveAttribute("data-render-state", "running");
   await page.locator("#contact").scrollIntoViewIfNeeded();
   await expect(page.locator(".portrait-orbit-shell")).toHaveAttribute(
     "data-orbit-suspended",
     "true",
   );
   const offscreenDraws = await countDraws(page);
+  await expect(canvas).toHaveAttribute("data-render-state", "idle");
   await page.waitForTimeout(200);
   expect(await countDraws(page)).toBe(offscreenDraws);
   await page.locator(".hero").scrollIntoViewIfNeeded();
@@ -94,6 +107,7 @@ test("sphere stays front-facing without continuous WebGL redraws", async ({
     "true",
   );
   const hiddenDraws = await countDraws(page);
+  await expect(canvas).toHaveAttribute("data-render-state", "idle");
   await page.waitForTimeout(200);
   expect(await countDraws(page)).toBe(hiddenDraws);
   await page.evaluate(() => {
@@ -115,16 +129,19 @@ test("sphere uses the static fallback for reduced motion and follows live change
   await expect(host).toHaveAttribute("data-sphere-state", "fallback");
   await expect(host.locator("canvas")).toHaveCount(0);
   await expect(host.locator(".monogram-sphere-fallback")).toBeVisible();
+  expect(await host.evaluate((element) => element.getAnimations().length)).toBe(
+    0,
+  );
 
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await expect(host).toHaveAttribute("data-sphere-state", "ready", {
     timeout: 20000,
   });
   const canvas = host.locator("canvas");
-  await expect(canvas).toHaveAttribute("data-render-state", "static");
+  await expect(canvas).toHaveAttribute("data-render-state", "running");
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(canvas).toBeHidden();
-  await expect(canvas).toHaveAttribute("data-render-state", "static");
+  await expect(canvas).toHaveAttribute("data-render-state", "idle");
   await expect(host.locator(".monogram-sphere-fallback")).toBeVisible();
 });
 

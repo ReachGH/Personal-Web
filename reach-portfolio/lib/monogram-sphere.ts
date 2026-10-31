@@ -1,7 +1,7 @@
 import {
+  AmbientLight,
   CanvasTexture,
   DirectionalLight,
-  HemisphereLight,
   Mesh,
   MeshLambertMaterial,
   OrthographicCamera,
@@ -32,6 +32,7 @@ export function createMonogramSphere(
   // Three.js sets an inline display value; leave visibility to our motion CSS.
   canvas.style.display = "";
   canvas.setAttribute("aria-hidden", "true");
+  canvas.dataset.maxFps = "30";
   renderer.setClearColor(0x000000, 0);
   const scene = new Scene();
   const camera = new OrthographicCamera(-1.12, 1.12, 1.12, -1.12, 0.1, 10);
@@ -40,18 +41,26 @@ export function createMonogramSphere(
   const texture = new CanvasTexture(textureCanvas);
   texture.colorSpace = SRGBColorSpace;
   const geometry = new SphereGeometry(1, 32, 24);
+  // Mostly ambient fill keeps the shadow side only slightly darker.
+  // Lambert shading adds form without reflective highlights or shadow maps.
   const material = new MeshLambertMaterial({ map: texture });
   const sphere = new Mesh(geometry, material);
-  sphere.rotation.set(0, 0, 0);
+  sphere.rotation.set(0, 0, -0.08);
   scene.add(sphere);
-  scene.add(new HemisphereLight(0xffffff, 0xaeb99d, 2));
-  const key = new DirectionalLight(0xfff8ed, 1.1);
-  key.position.set(-3, 4, 5);
-  const rim = new DirectionalLight(0xf1d2b3, 0.35);
-  rim.position.set(3, 1, -2);
-  scene.add(key, rim);
+  // Compensate for Lambert's 1/PI response: roughly 94–104% base colour.
+  scene.add(new AmbientLight(0xffffff, Math.PI * 0.94));
+  const light = new DirectionalLight(0xffffff, Math.PI * 0.1);
+  light.position.set(-3, 4, 5);
+  scene.add(light);
 
   let disposed = false;
+  let active = false;
+  let frame = 0;
+  let lastFrame = 0;
+  let lastDraw = 0;
+  const frameInterval = 1000 / 30;
+  const fullTurn = Math.PI * 2;
+  const spinDuration = 10000;
 
   function render() {
     if (!disposed) renderer.render(scene, camera);
@@ -67,7 +76,7 @@ export function createMonogramSphere(
     context!.textBaseline = "middle";
     const letterWidth = context!.measureText("r").width;
     const dotWidth = context!.measureText(".").width;
-    // Keep the two-sided branding while the visible mark faces the viewer.
+    // Opposite marks return every half-turn while the sphere spins upright.
     for (const centre of [128, 384]) {
       const left = centre - (letterWidth + dotWidth) / 2;
       context!.fillStyle = "#252e21";
@@ -91,6 +100,32 @@ export function createMonogramSphere(
     }
   }
 
+  function animate(now: number) {
+    if (!active || disposed) return;
+    frame = requestAnimationFrame(animate);
+    const elapsed = now - lastFrame;
+    if (elapsed < frameInterval) return;
+    lastFrame = now - (elapsed % frameInterval);
+    sphere.rotation.y =
+      (sphere.rotation.y +
+        (Math.min(now - lastDraw, 100) / spinDuration) * fullTurn) %
+      fullTurn;
+    lastDraw = now;
+    render();
+  }
+
+  function setActive(next: boolean) {
+    if (disposed || active === next) return;
+    active = next;
+    canvas.dataset.renderState = next ? "running" : "idle";
+    if (next) {
+      lastFrame = lastDraw = performance.now();
+      frame = requestAnimationFrame(animate);
+    } else {
+      cancelAnimationFrame(frame);
+    }
+  }
+
   const resizeObserver = new ResizeObserver(resize);
   const themeObserver = new MutationObserver(updateTheme);
   themeObserver.observe(document.documentElement, {
@@ -104,11 +139,13 @@ export function createMonogramSphere(
   resizeObserver.observe(host);
   canvas.dataset.drawCalls = String(renderer.info.render.calls);
   canvas.dataset.triangles = String(renderer.info.render.triangles);
-  canvas.dataset.renderState = "static";
+  canvas.dataset.renderState = "idle";
 
   return {
+    setActive,
     dispose() {
       if (disposed) return;
+      setActive(false);
       disposed = true;
       resizeObserver.disconnect();
       themeObserver.disconnect();
