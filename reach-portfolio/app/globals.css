@@ -797,9 +797,10 @@ h2 {
   border-radius: 4px;
   transition: background 150ms;
 }
-.other-project:hover,
-.other-project:focus-within {
-  background: color-mix(in srgb, var(--sage) 55%, transparent);
+@media (hover: hover) and (pointer: fine) {
+  .other-project:hover {
+    background: color-mix(in srgb, var(--sage) 55%, transparent);
+  }
 }
 .other-project-toggle {
   display: flex;
