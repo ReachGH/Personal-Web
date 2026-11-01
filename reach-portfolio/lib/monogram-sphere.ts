@@ -61,6 +61,7 @@ export function createMonogramSphere(
   const frameInterval = 1000 / 30;
   const fullTurn = Math.PI * 2;
   const spinDuration = 10000;
+  let spinPhase = 0;
 
   function render() {
     if (!disposed) renderer.render(scene, camera);
@@ -106,10 +107,12 @@ export function createMonogramSphere(
     const elapsed = now - lastFrame;
     if (elapsed < frameInterval) return;
     lastFrame = now - (elapsed % frameInterval);
-    sphere.rotation.y =
-      (sphere.rotation.y +
-        (Math.min(now - lastDraw, 100) / spinDuration) * fullTurn) %
+    spinPhase =
+      (spinPhase + (Math.min(now - lastDraw, 100) / spinDuration) * fullTurn) %
       fullTurn;
+    // Linger on the readable front/back marks, then move faster through
+    // edge-on views. The spin stays continuous and never reverses direction.
+    sphere.rotation.y = spinPhase - 0.38 * Math.sin(2 * spinPhase);
     lastDraw = now;
     render();
   }
