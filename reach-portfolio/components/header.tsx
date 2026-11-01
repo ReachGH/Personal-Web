@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Brand } from "./brand";
 import { profile } from "@/data/profile";
 import { ThemeToggle } from "./theme-toggle";
@@ -14,33 +14,8 @@ const links = [
   { href: "/#contact", label: "Contact" },
 ];
 
-let headerScrolled = false;
-
-function subscribeToScroll(onChange: () => void) {
-  const update = () => {
-    // Separate thresholds prevent flickering when scrolling around the trigger.
-    const next = headerScrolled ? window.scrollY > 32 : window.scrollY > 96;
-    if (next !== headerScrolled) {
-      headerScrolled = next;
-      onChange();
-    }
-  };
-  window.addEventListener("scroll", update, { passive: true });
-  update();
-  return () => window.removeEventListener("scroll", update);
-}
-
-const getScrolled = () => headerScrolled;
-const getServerScrolled = () => false;
-
 export function Header() {
   const pathname = usePathname();
-  const scrolled = useSyncExternalStore(
-    subscribeToScroll,
-    getScrolled,
-    getServerScrolled,
-  );
-  const compact = pathname === "/" && !scrolled;
   const BrandLink = pathname === "/" ? "a" : Link;
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
@@ -75,14 +50,12 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="site-header" data-compact={compact}>
+    <header className="site-header">
       <div className="header-surface">
         <div className="container header-inner">
           <BrandLink
             href={pathname === "/" ? "#top" : "/"}
             className="brand-link"
-            aria-hidden={compact}
-            tabIndex={compact ? -1 : undefined}
             onClick={() => setOpen(false)}
           >
             <Brand />
@@ -98,9 +71,6 @@ export function Header() {
               onClick={() => setOpen(!open)}
             >
               {open ? <X size={20} /> : <Menu size={20} />}
-              <span className="menu-label" aria-hidden="true">
-                {open ? "Close" : "Menu"}
-              </span>
             </button>
             <nav
               ref={nav}

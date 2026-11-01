@@ -198,7 +198,9 @@ test("sphere releases a lost context and can be recreated after navigation", asy
   await expect(host).toHaveAttribute("data-sphere-state", "fallback");
   await expect(host.locator("canvas")).toHaveCount(0);
   await page.getByRole("link", { name: "OnboardHQ", exact: true }).click();
-  await page.getByRole("link", { name: "Reach, home", exact: true }).click();
+  await page
+    .getByRole("link", { name: "sovanreach in, home", exact: true })
+    .click();
   await page.locator(".hero").scrollIntoViewIfNeeded();
   await expect(host).toHaveAttribute("data-sphere-state", "ready", {
     timeout: 20000,

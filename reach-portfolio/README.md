@@ -32,7 +32,7 @@ Dark colours are in `app/themes.css`; shared light colours and layout styles rem
 
 ## Header navigation
 
-The homepage starts with a compact, centered pill and no wordmark or reserved logo space. Section links form one group; the résumé button and theme control form a second group. Beyond 96 pixels of scroll, the bar expands across the viewport and reveals `reach.`; returning within 32 pixels of the top restores the compact version. These separate thresholds prevent repeated toggling around the trigger. The 0.9-second transition uses gentle easing in both directions, with synchronized shape changes and a staged logo fade. Its reserved layout height prevents the hero from jumping during the transition. Case-study pages always show the full header. On mobile, a labelled menu replaces the section links, while the résumé and theme controls stay visible. Reduced-motion preferences disable the transition and its delays, and the hidden wordmark is removed from keyboard navigation.
+Every page uses the same full-width sticky header with the lowercase `sovanreach in.` wordmark always visible. Scrolling does not change its size or layout. The wordmark scrolls to the top on the homepage and links home from case studies. Section links form one group; the résumé button and theme control form a second group. On mobile, the name uses two lines and a menu button replaces the section links, while the résumé and theme controls stay visible.
 
 ## Hero portrait
 

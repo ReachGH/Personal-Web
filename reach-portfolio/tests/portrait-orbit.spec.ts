@@ -28,7 +28,7 @@ test("orbit SVG matches server and browser despite tiny trig differences", async
   // when production React leaves mismatched hydration attributes untouched.
   await page.getByRole("link", { name: "OnboardHQ", exact: true }).click();
   await page.waitForURL("**/projects/onboardhq");
-  await page.getByRole("link", { name: "Reach, home" }).click();
+  await page.getByRole("link", { name: "sovanreach in, home" }).click();
   await expect(page.locator(".portrait-orbit-track path")).toHaveCount(96);
   const attributes = await page.evaluate((serverHtml) => {
     const server = new DOMParser().parseFromString(serverHtml, "text/html");
