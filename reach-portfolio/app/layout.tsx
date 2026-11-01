@@ -36,7 +36,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Hi, I’m Reach. I take my side quests seriously.",
+        alt: "Hi, I’m Reach. From talking with farmers to integrating systems.",
       },
     ],
   },

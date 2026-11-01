@@ -55,6 +55,16 @@ function InfrastructureVisual() {
           </div>
         </div>
       </div>
+      <div className="infra-mobile-paths">
+        <div>
+          <strong>Minecraft</strong>
+          <span>VPS + SSH tunnel</span>
+        </div>
+        <div>
+          <strong>Palworld</strong>
+          <span>Windows + Docker</span>
+        </div>
+      </div>
       <span className="scene-caption">
         TWO SETUPS. DIFFERENT ENGINEERING CHALLENGES.
       </span>

@@ -35,7 +35,7 @@ export const projects: Project[] = [
     year: "2026",
     status: "Internship project · Demonstrated prototype",
     summary:
-      "A client onboarding platform connecting tasks, documents and progress with an existing CRM. Built collaboratively during my Carelever internship.",
+      "A client onboarding platform linked to an existing CRM. During my Carelever internship, I contributed to the integration, interface development and regression testing.",
     role: "Software Development Intern",
     organisation: "Carelever",
     period: "Jul — Oct 2026",
@@ -104,7 +104,7 @@ export const projects: Project[] = [
     year: "2021 — 2022",
     status: "Investor-funded prototype · Not publicly launched",
     summary:
-      "A grocery marketplace mobile prototype connecting customers with farmers. React Native development shaped by conversations with the people growing the produce.",
+      "EzePick, a grocery marketplace prototype built at Sabai Code. I led React Native mobile development and gathered requirements through conversations with farmers.",
     role: "Full Stack Developer (Lead Developer)",
     organisation: "Sabai Code",
     period: "Jul 2021 — Jun 2022",
@@ -211,7 +211,7 @@ export const otherProjects: SupportingProject[] = [
     category: "Personal project",
     icon: "bot",
     description:
-      "A Node.js Discord bot for checking server availability and reporting status, built alongside my self-hosting projects.",
+      "A Node.js Discord bot that checks Minecraft server availability and reports its status in Discord. Built alongside my self-hosting experiments to make it easier to keep track of the server.",
     stack: ["Node.js", "Discord", "Monitoring"],
     href: null,
   },
@@ -221,7 +221,7 @@ export const otherProjects: SupportingProject[] = [
     category: "Study project",
     icon: "tasks",
     description:
-      "A mobile task manager with input validation, completion states, deletion and local persistence between sessions.",
+      "A React Native and Expo coursework app for adding, completing and deleting tasks. Includes input validation and uses AsyncStorage to keep the task list between sessions.",
     stack: ["React Native", "Expo", "AsyncStorage"],
     href: null,
   },
@@ -231,7 +231,7 @@ export const otherProjects: SupportingProject[] = [
     category: "University coursework",
     icon: "image",
     description:
-      "PyTorch experiments comparing CNN depth, learning rates and regularisation, with separate training, validation and test sets.",
+      "University coursework exploring image classification with PyTorch. I compared CNN depths, learning rates and regularisation settings, using separate training, validation and test sets to evaluate the experiments.",
     stack: ["Python", "PyTorch", "CNNs"],
     href: "https://github.com/ReachGH/CIFAR-10-Image-Classifier",
   },

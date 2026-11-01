@@ -29,12 +29,18 @@ export default function Home() {
               </span>
               <span className="orange">.</span>
             </h1>
-            <p className="hero-intro">I take my side quests seriously.</p>
-            <p className="hero-description">
-              I’m studying Computer Science on the Gold Coast. Outside class, I
-              build apps, tinker with game servers, and chase ideas just to see
-              where they go.
-            </p>
+            <div className="hero-description">
+              <p className="hero-intro">Nice to meet you :)</p>
+              <p className="hero-story">
+                From talking with <strong>farmers in Cambodia</strong> to
+                integrating <strong>business systems in Australia</strong>.
+              </p>
+              <p>
+                These days, I’m studying Computer Science on the Gold Coast.
+                Outside class, I build apps, tinker with game servers, and
+                follow ideas to see where they lead.
+              </p>
+            </div>
           </div>
           <figure className="hero-portrait">
             <PortraitOrbit>
@@ -85,19 +91,8 @@ export default function Home() {
             .map((project) => (
               <ProjectCard key={project.slug} project={project} />
             ))}
-          <SupportingProjects kind="personal" />
+          <SupportingProjects />
         </div>
-      </section>
-
-      <section
-        id="study-projects"
-        className="container project-collection study-projects"
-        aria-labelledby="study-projects-title"
-      >
-        <div className="section-heading">
-          <h2 id="study-projects-title">Study projects</h2>
-        </div>
-        <SupportingProjects kind="study" />
       </section>
 
       <section
@@ -110,12 +105,10 @@ export default function Home() {
             <h2 id="experience-title">Experience</h2>
           </div>
           <div className="experience-list">
-            {experience.map((job, index) => (
+            {experience.map((job) => (
               <article className="experience-row" key={job.company}>
                 <div className="experience-date">
-                  <span
-                    className={`timeline-dot ${index === 0 ? "active-dot" : ""}`}
-                  />
+                  <span className="timeline-dot" aria-hidden="true" />
                   <span>{job.period}</span>
                 </div>
                 <div className="experience-role">
@@ -148,7 +141,9 @@ export default function Home() {
               <div className="skill-group" key={group.title}>
                 <div>
                   <h3>{group.title}</h3>
-                  <p className="skill-context">{group.context}</p>
+                  {group.context && (
+                    <p className="skill-context">{group.context}</p>
+                  )}
                   <div className="skill-items">
                     {group.items.map((item) => (
                       <span key={item}>{item}</span>
@@ -193,8 +188,8 @@ export default function Home() {
                 <span className="small-label">GRIFFITH UNIVERSITY / 2025</span>
                 <h3>Academic Excellence Award</h3>
                 <p>
-                  Recognised among the top 5% of Griffith students for academic
-                  achievement.
+                  Recognised among the <strong>top 5%</strong> of Griffith
+                  students for academic achievement.
                 </p>
               </div>
             </div>

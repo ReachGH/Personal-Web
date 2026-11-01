@@ -46,7 +46,6 @@
 }
 
 :root[data-theme="dark"] .tags > span,
-:root[data-theme="dark"] .other-stack,
 :root[data-theme="dark"] .skill-context,
 :root[data-theme="dark"] .skill-items,
 :root[data-theme="dark"] .degree-card > svg,
@@ -74,16 +73,4 @@
 }
 :root[data-theme="dark"] .scene-caption {
   color: #c0cdb0;
-}
-:root[data-theme="dark"] .supporting-sketch-bot {
-  background: #2b3728;
-}
-:root[data-theme="dark"] .supporting-sketch-tasks {
-  background: #3c3027;
-}
-:root[data-theme="dark"] .supporting-sketch-image {
-  background: #293640;
-}
-:root[data-theme="dark"] .sketch-connection {
-  color: #c1cdb9;
 }

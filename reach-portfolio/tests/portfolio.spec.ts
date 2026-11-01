@@ -47,10 +47,6 @@ test("all three case studies open and cycle to the next project", async ({
     name: "Personal projects",
     exact: true,
   });
-  const study = page.getByRole("region", {
-    name: "Study projects",
-    exact: true,
-  });
   await expect(professional.locator(".project-title-link")).toHaveText([
     "OnboardHQ",
     "Sabai Code",
@@ -60,11 +56,10 @@ test("all three case studies open and cycle to the next project", async ({
   ]);
   await expect(personal.locator(".other-project h3")).toHaveText([
     "Minecraft status bot",
-  ]);
-  await expect(study.locator(".other-project h3")).toHaveText([
     "React Native To-Do App",
     "CIFAR-10 Image Classification",
   ]);
+  await expect(page.locator("#study-projects")).toHaveCount(0);
   for (const route of routes.slice(1)) {
     await page.goto("/");
     await page.locator(`.project-visual-link[href="${route}"]`).click();

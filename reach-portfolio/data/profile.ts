@@ -23,7 +23,7 @@ export const experience = [
     company: "K9 Security Services",
     role: "Website & IT Support · Volunteer",
     period: "Jul 2026 — Present",
-    location: "Australia",
+    location: "Gold Coast,  Australia",
     description:
       "Helped a small security business establish its website. Provide practical technology advice and troubleshooting as the owner’s primary IT contact.",
   },
@@ -40,7 +40,6 @@ export const experience = [
 export const skills = [
   {
     title: "Web & mobile",
-    context: "Commercial projects, coursework & this portfolio",
     items: [
       "React",
       "React Native",
@@ -54,7 +53,6 @@ export const skills = [
   },
   {
     title: "Languages & data",
-    context: "Application development & study",
     items: [
       "JavaScript",
       "TypeScript",
@@ -66,12 +64,10 @@ export const skills = [
   },
   {
     title: "Testing & tooling",
-    context: "Internship & personal development",
     items: [
       "Git & GitHub",
       "Regression testing",
       "API testing",
-      "Debugging",
       "AI-assisted development",
     ],
   },

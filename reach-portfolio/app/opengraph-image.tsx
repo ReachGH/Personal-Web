@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Hi, I’m Reach. I take my side quests seriously.";
+export const alt =
+  "Hi, I’m Reach. From talking with farmers to integrating systems.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -46,8 +47,8 @@ export default function Image() {
           Hi, I’m
           <span style={{ color: "#c55331", marginLeft: 18 }}>Reach.</span>
         </span>
-        <span style={{ marginTop: 24, fontSize: 46, letterSpacing: -1.5 }}>
-          I take my side quests seriously.
+        <span style={{ marginTop: 24, fontSize: 38, letterSpacing: -1 }}>
+          From farmer conversations to connected systems.
         </span>
       </div>
       <div
