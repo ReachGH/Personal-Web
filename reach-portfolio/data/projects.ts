@@ -199,7 +199,8 @@ type SupportingProject = {
   name: string;
   category: string;
   icon: "bot" | "tasks" | "image";
-  description: string;
+  summary: string;
+  description: string[];
   stack: string[];
   href: string | null;
 };
@@ -210,8 +211,11 @@ export const otherProjects: SupportingProject[] = [
     kind: "personal",
     category: "Personal project",
     icon: "bot",
-    description:
-      "A Node.js Discord bot that checks Minecraft server availability and reports its status in Discord. Built alongside my self-hosting experiments to make it easier to keep track of the server.",
+    summary: "Minecraft server status updates in Discord.",
+    description: [
+      "I built this Node.js bot alongside my self-hosted Minecraft setup to bring server availability checks into Discord. It checks whether the server is reachable and reports its status in the same place as the game’s conversations, making it easier to keep track of the server without checking it separately.",
+      "It connects two parts of my self-hosting work: running a game server and building a small tool around it. The focus is practical availability reporting, with Discord providing a familiar interface for the result. It’s a smaller companion to the networking and hosting work in my Gaming Server Hosting project.",
+    ],
     stack: ["Node.js", "Discord", "Monitoring"],
     href: null,
   },
@@ -220,8 +224,11 @@ export const otherProjects: SupportingProject[] = [
     kind: "study",
     category: "Study project",
     icon: "tasks",
-    description:
-      "A React Native and Expo coursework app for adding, completing and deleting tasks. Includes input validation and uses AsyncStorage to keep the task list between sessions.",
+    summary: "A mobile to-do app with tasks saved between sessions.",
+    description: [
+      "A mobile coursework project built with React Native and Expo around a complete task-management flow: adding tasks, marking them as complete and deleting them. Input validation checks new entries, while completion states make it clear which tasks are still outstanding.",
+      "The app uses AsyncStorage to save the task list locally, so it remains available between sessions. This brought together the interface, task state and local persistence in one small application. Rather than stopping at a static screen, the project covers how a user’s actions update the list and how that information is kept for their next visit.",
+    ],
     stack: ["React Native", "Expo", "AsyncStorage"],
     href: null,
   },
@@ -230,8 +237,11 @@ export const otherProjects: SupportingProject[] = [
     kind: "study",
     category: "University coursework",
     icon: "image",
-    description:
-      "University coursework exploring image classification with PyTorch. I compared CNN depths, learning rates and regularisation settings, using separate training, validation and test sets to evaluate the experiments.",
+    summary: "Comparing image-classification models in PyTorch.",
+    description: [
+      "University coursework using PyTorch to explore image classification on CIFAR-10. I compared convolutional neural networks with different depths, learning rates and regularisation settings to investigate how those choices affect training and classification performance.",
+      "The experiments used separate training, validation and test sets: training data to fit the models, validation data to compare configurations, and test data to evaluate the selected approach. The focus was on comparing model choices through experiments and keeping evaluation separate from training. The source repository contains the coursework implementation for a closer look at the project.",
+    ],
     stack: ["Python", "PyTorch", "CNNs"],
     href: "https://github.com/ReachGH/CIFAR-10-Image-Classifier",
   },

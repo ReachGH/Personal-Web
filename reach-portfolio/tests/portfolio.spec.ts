@@ -54,7 +54,9 @@ test("all three case studies open and cycle to the next project", async ({
   await expect(personal.locator(".project-title-link")).toHaveText([
     "Gaming Server Hosting",
   ]);
-  await expect(personal.locator(".other-project h3")).toHaveText([
+  await expect(
+    personal.locator(".other-project-toggle > span:first-child"),
+  ).toHaveText([
     "Minecraft status bot",
     "React Native To-Do App",
     "CIFAR-10 Image Classification",
