@@ -16,7 +16,8 @@ const links = [
 
 export function Header() {
   const pathname = usePathname();
-  const BrandLink = pathname === "/" ? "a" : Link;
+  const isHome = pathname === "/";
+  const HeaderLink = isHome ? "a" : Link;
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   const nav = useRef<HTMLElement>(null);
@@ -53,13 +54,13 @@ export function Header() {
     <header className="site-header">
       <div className="header-surface">
         <div className="container header-inner">
-          <BrandLink
-            href={pathname === "/" ? "#top" : "/"}
+          <HeaderLink
+            href={isHome ? "#top" : "/"}
             className="brand-link"
             onClick={() => setOpen(false)}
           >
             <Brand />
-          </BrandLink>
+          </HeaderLink>
           <div className="header-actions">
             <button
               ref={toggle}
@@ -86,13 +87,13 @@ export function Header() {
               }}
             >
               {links.map((link) => (
-                <Link
+                <HeaderLink
                   key={link.href}
-                  href={link.href}
+                  href={isHome ? link.href.slice(1) : link.href}
                   onClick={() => setOpen(false)}
                 >
                   {link.label}
-                </Link>
+                </HeaderLink>
               ))}
             </nav>
             <div className="header-utilities">
