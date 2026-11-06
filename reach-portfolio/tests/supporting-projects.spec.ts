@@ -73,6 +73,65 @@ test("touch users can tap to open and close a description", async ({
     "aria-hidden",
     "false",
   );
-  await toggle.tap();
+  await page
+    .locator("#project-details-tasks .other-project-overview")
+    .last()
+    .tap();
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+});
+
+test("the whole row toggles while source links and text selection stay independent", async ({
+  page,
+  context,
+}) => {
+  await page.goto("/");
+  const toggle = page.getByRole("button", {
+    name: "CIFAR-10 Image Classification",
+  });
+  const row = page.locator(".other-project").filter({ has: toggle });
+  await page.locator("#project-summary-image").click();
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  await row.locator(".other-project-overview").last().click();
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await expect(toggle).toBeFocused();
+
+  await toggle.click();
+  await row
+    .locator(".other-project-overview")
+    .first()
+    .evaluate((element) => {
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      const selection = window.getSelection()!;
+      selection.removeAllRanges();
+      selection.addRange(range);
+      element.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    });
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  await page.evaluate(() => window.getSelection()?.removeAllRanges());
+
+  await context.route(
+    "https://github.com/ReachGH/CIFAR-10-Image-Classifier",
+    (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "text/html",
+        body: "Project source",
+      }),
+  );
+  const popupPromise = page.waitForEvent("popup");
+  await row.getByRole("link", { name: /source on GitHub/ }).click();
+  const popup = await popupPromise;
+  await popup.waitForLoadState();
+  await expect(popup).toHaveURL(
+    "https://github.com/ReachGH/CIFAR-10-Image-Classifier",
+  );
+  await popup.close();
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+
+  // Exercise empty row padding, outside the heading and source link.
+  await row.click({
+    position: { x: 2, y: (await row.boundingBox())!.height - 3 },
+  });
   await expect(toggle).toHaveAttribute("aria-expanded", "false");
 });

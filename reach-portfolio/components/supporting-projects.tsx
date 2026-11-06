@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { otherProjects } from "@/data/projects";
 
@@ -10,6 +10,7 @@ function SupportingProject({
   project: (typeof otherProjects)[number];
 }) {
   const [open, setOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const buttonId = `project-toggle-${project.icon}`;
   const summaryId = `project-summary-${project.icon}`;
   const detailsId = `project-details-${project.icon}`;
@@ -17,15 +18,26 @@ function SupportingProject({
   return (
     <li
       className="other-project"
+      onClick={(event) => {
+        if (
+          (event.target as HTMLElement).closest("a, button") ||
+          window.getSelection()?.isCollapsed === false
+        ) {
+          return;
+        }
+        toggleRef.current?.focus({ preventScroll: true });
+        setOpen((previous) => !previous);
+      }}
       onKeyDown={(event) => {
         if (event.key === "Escape" && open) {
           setOpen(false);
-          event.currentTarget.querySelector("button")?.focus();
+          toggleRef.current?.focus({ preventScroll: true });
         }
       }}
     >
       <h3>
         <button
+          ref={toggleRef}
           id={buttonId}
           type="button"
           className="other-project-toggle"

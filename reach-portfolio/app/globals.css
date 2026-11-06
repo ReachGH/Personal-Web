@@ -795,6 +795,7 @@ h2 {
 .other-project {
   border-bottom: 1px solid var(--line);
   border-radius: 4px;
+  cursor: pointer;
   transition: background 150ms;
 }
 @media (hover: hover) and (pointer: fine) {
