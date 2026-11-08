@@ -16,24 +16,30 @@ export const experience = [
     role: "Software Development Intern",
     period: "Jul — Oct 2026",
     location: "Brisbane, Australia",
-    description:
-      "Contributed to a client onboarding platform and its CRM integration. Worked across React, Angular and Rails, investigated data consistency issues, and expanded regression tests with senior developers and business stakeholders.",
+    highlights: [
+      "Contributed to a client onboarding platform and CRM integration across React, Angular and Rails.",
+      "Investigated data consistency issues and expanded regression tests with senior developers and business stakeholders.",
+    ],
   },
   {
     company: "K9 Security Services",
     role: "Website & IT Support · Volunteer",
     period: "Jul 2026 — Present",
-    location: "Gold Coast,  Australia",
-    description:
-      "Helped a small security business establish its website. Provide practical technology advice and troubleshooting as the owner’s primary IT contact.",
+    location: "Gold Coast, Australia",
+    highlights: [
+      "Helped a small security business establish its website.",
+      "Provide ongoing technology advice and troubleshooting as the owner’s primary IT contact.",
+    ],
   },
   {
     company: "Sabai Code",
     role: "Full Stack Developer (Lead Developer)",
     period: "Jul 2021 — Jun 2022",
     location: "Phnom Penh, Cambodia",
-    description:
-      "Led mobile development for a grocery marketplace prototype and contributed to the backend. Met farmers and business stakeholders to turn day-to-day challenges into application requirements.",
+    highlights: [
+      "Led mobile development for a grocery marketplace prototype and contributed to the backend.",
+      "Met farmers and business stakeholders to turn day-to-day challenges into application requirements.",
+    ],
   },
 ];
 

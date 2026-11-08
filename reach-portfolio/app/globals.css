@@ -894,48 +894,65 @@ h2 {
   border-top: 1px solid var(--line);
 }
 .experience-row {
-  position: relative;
   display: grid;
-  grid-template-columns: 0.8fr 1.1fr 1.5fr;
-  gap: 35px;
-  padding-block: 34px;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: start;
+  gap: clamp(32px, 5vw, 72px);
+  padding-block: clamp(28px, 3vw, 40px);
   border-bottom: 1px solid var(--line);
 }
-.experience-date {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  font-size: 0.8125rem;
-  color: var(--muted);
-  padding-top: 5px;
-}
-.timeline-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #b6bbae;
-}
 .experience-role h3 {
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.25;
   letter-spacing: -0.5px;
 }
 .experience-role p {
-  font-size: var(--text-supporting);
-  margin-top: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-top: 8px;
 }
-.experience-role > span {
+.experience-meta {
   display: flex;
-  align-items: center;
-  gap: 4px;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 18px;
   color: var(--muted);
   font-size: 13px;
-  margin-top: 12px;
+  line-height: 1.5;
 }
-.experience-detail p {
+.experience-meta > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.experience-period {
+  font-variant-numeric: tabular-nums;
+}
+.experience-highlights {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
   color: var(--muted);
   font-size: var(--text-body);
-  line-height: 1.8;
+  line-height: 1.75;
+}
+.experience-highlights li {
+  position: relative;
+  padding-left: 18px;
+}
+.experience-highlights li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.75em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
 }
 .skills-section {
   background: var(--section-tint);
@@ -1441,10 +1458,6 @@ h2 {
     font-size: 5.5px;
     gap: 4px;
   }
-  .experience-row {
-    grid-template-columns: 0.7fr 1.1fr 1.4fr;
-    gap: 20px;
-  }
   .contact-inner {
     gap: 60px;
   }
@@ -1516,16 +1529,8 @@ h2 {
     font-size: 5.5px;
   }
   .experience-row {
-    grid-template-columns: 0.8fr 1.5fr;
-  }
-  .experience-detail {
-    grid-column: 2;
-  }
-  .experience-role h3 {
-    font-size: 21px;
-  }
-  .experience-date {
-    align-self: start;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
   }
   .skills-intro h2 {
     font-size: 37px;
@@ -1761,38 +1766,11 @@ h2 {
   .case-link {
     margin-top: 17px;
   }
-  .experience-section .section-heading {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
-  }
-  .experience-section .section-heading .text-link {
-    font-size: 11px;
-  }
   .experience-row {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding-block: 29px;
-  }
-  .experience-date {
-    font-size: 13px;
-    gap: 11px;
-  }
-  .experience-role {
-    padding-left: 17px;
+    gap: 20px;
   }
   .experience-role h3 {
     font-size: 23px;
-  }
-  .experience-role p {
-    font-size: 14px;
-  }
-  .experience-detail {
-    grid-column: 1;
-    padding-left: 17px;
-  }
-  .experience-detail p {
-    font-size: 16px;
   }
   .skills-list {
     grid-template-columns: 1fr;

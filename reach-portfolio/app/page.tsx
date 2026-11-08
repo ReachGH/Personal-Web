@@ -109,20 +109,21 @@ export default function Home() {
           <div className="experience-list">
             {experience.map((job) => (
               <article className="experience-row" key={job.company}>
-                <div className="experience-date">
-                  <span className="timeline-dot" aria-hidden="true" />
-                  <span>{job.period}</span>
-                </div>
                 <div className="experience-role">
                   <h3>{job.company}</h3>
                   <p>{job.role}</p>
-                  <span>
-                    <MapPin size={12} /> {job.location}
-                  </span>
+                  <div className="experience-meta">
+                    <span className="experience-period">{job.period}</span>
+                    <span>
+                      <MapPin size={13} aria-hidden="true" /> {job.location}
+                    </span>
+                  </div>
                 </div>
-                <div className="experience-detail">
-                  <p>{job.description}</p>
-                </div>
+                <ul className="experience-highlights">
+                  {job.highlights.map((highlight) => (
+                    <li key={highlight}>{highlight}</li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>
