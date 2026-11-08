@@ -60,7 +60,7 @@ export default function Home() {
 
       <section
         id="work"
-        className="work-section section-pad"
+        className="work-section page-section"
         aria-labelledby="work-title"
       >
         <div className="container">
@@ -79,25 +79,27 @@ export default function Home() {
 
       <section
         id="personal-projects"
-        className="container project-collection"
+        className="project-collection page-section"
         aria-labelledby="personal-projects-title"
       >
-        <div className="section-heading">
-          <h2 id="personal-projects-title">Personal projects</h2>
-        </div>
-        <div className="personal-projects-grid">
-          {projects
-            .filter((project) => project.kind === "personal")
-            .map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
-          <SupportingProjects />
+        <div className="container">
+          <div className="section-heading">
+            <h2 id="personal-projects-title">Personal projects</h2>
+          </div>
+          <div className="personal-projects-grid">
+            {projects
+              .filter((project) => project.kind === "personal")
+              .map((project) => (
+                <ProjectCard key={project.slug} project={project} />
+              ))}
+            <SupportingProjects />
+          </div>
         </div>
       </section>
 
       <section
         id="experience"
-        className="experience-section section-pad"
+        className="experience-section page-section"
         aria-labelledby="experience-title"
       >
         <div className="container">
@@ -129,7 +131,7 @@ export default function Home() {
 
       <section
         id="skills"
-        className="skills-section section-pad"
+        className="skills-section page-section"
         aria-labelledby="skills-title"
       >
         <div className="container skills-layout">
@@ -158,7 +160,7 @@ export default function Home() {
 
       <section
         id="education"
-        className="education-section section-pad"
+        className="education-section page-section"
         aria-labelledby="education-title"
       >
         <div className="container">

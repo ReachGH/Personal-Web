@@ -7,6 +7,7 @@
   --line: #3b4538;
   --accent: #ec9876;
   --sage: #2b3529;
+  --section-tint: var(--paper);
 }
 
 :root[data-theme="dark"] .button-dark {
@@ -30,9 +31,6 @@
 
 :root[data-theme="dark"] .project-card-featured {
   background: #242c23;
-}
-:root[data-theme="dark"] .skills-section {
-  background: #1d251e;
 }
 :root[data-theme="dark"] .award-card,
 :root[data-theme="dark"] .contribution-box {

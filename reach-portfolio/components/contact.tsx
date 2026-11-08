@@ -3,7 +3,7 @@ import { profile } from "@/data/profile";
 
 export function Contact() {
   return (
-    <section id="contact" className="contact-section">
+    <section id="contact" className="contact-section page-section">
       <div className="container contact-inner">
         <div>
           <h2>Let’s talk.</h2>
