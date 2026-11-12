@@ -1,20 +1,20 @@
 import { expect, test, type Page } from "@playwright/test";
-
 async function countDraws(page: Page) {
   return page.evaluate(() =>
     Number(document.documentElement.dataset.testSphereDraws || 0),
   );
 }
-
 test.beforeEach(async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.emulateMedia({
+    reducedMotion: "no-preference",
+  });
   await page.addInitScript(() => {
     const original = WebGL2RenderingContext.prototype.drawElements;
     let draws = 0;
     WebGL2RenderingContext.prototype.drawElements = function (...args) {
       if (
         this.canvas instanceof HTMLCanvasElement &&
-        this.canvas.closest(".monogram-sphere")
+        this.canvas.closest('[data-ui~="monogram-sphere"]')
       ) {
         document.documentElement.dataset.testSphereDraws = String(++draws);
       }
@@ -22,12 +22,11 @@ test.beforeEach(async ({ page }) => {
     };
   });
 });
-
 test("sphere spin has bounded rendering cost and pauses when inactive", async ({
   page,
 }) => {
   await page.goto("/");
-  const canvas = page.locator(".monogram-sphere canvas");
+  const canvas = page.locator('[data-ui~="monogram-sphere"] canvas');
   await expect(canvas).toHaveAttribute("data-render-state", "running", {
     timeout: 20000,
   });
@@ -38,10 +37,9 @@ test("sphere spin has bounded rendering cost and pauses when inactive", async ({
       Math.max(element.width, element.height),
     ),
   ).toBeLessThanOrEqual(160);
-
   const before = await countDraws(page);
   const started = Date.now();
-  const moon = page.locator(".portrait-moon");
+  const moon = page.locator('[data-ui~="portrait-moon"]');
   const firstPosition = await moon.boundingBox();
   await page.waitForTimeout(1000);
   const draws = (await countDraws(page)) - before;
@@ -56,43 +54,44 @@ test("sphere spin has bounded rendering cost and pauses when inactive", async ({
       nextPosition!.y - firstPosition!.y,
     ),
   ).toBeGreaterThan(2);
-
   expect(
     await page
-      .locator(".monogram-sphere")
+      .locator('[data-ui~="monogram-sphere"]')
       .evaluate((element) => element.getAnimations().length),
   ).toBe(0);
-
-  await page.getByRole("button", { name: "Pause orbit animation" }).click();
-  await expect(page.locator(".portrait-orbit-shell")).toHaveAttribute(
-    "data-orbit-paused",
-    "true",
-  );
+  await page
+    .getByRole("button", {
+      name: "Pause orbit animation",
+    })
+    .click();
+  await expect(
+    page.locator('[data-ui~="portrait-orbit-shell"]'),
+  ).toHaveAttribute("data-orbit-paused", "true");
   await expect(canvas).toHaveAttribute("data-render-state", "idle");
   const pausedDraws = await countDraws(page);
   await page.waitForTimeout(200);
   expect(await countDraws(page)).toBe(pausedDraws);
-
-  await page.getByRole("button", { name: "Play orbit animation" }).click();
-  await expect(page.locator(".portrait-orbit-shell")).toHaveAttribute(
-    "data-orbit-paused",
-    "false",
-  );
+  await page
+    .getByRole("button", {
+      name: "Play orbit animation",
+    })
+    .click();
+  await expect(
+    page.locator('[data-ui~="portrait-orbit-shell"]'),
+  ).toHaveAttribute("data-orbit-paused", "false");
   await expect(canvas).toHaveAttribute("data-render-state", "running");
   await page.locator("#contact").scrollIntoViewIfNeeded();
-  await expect(page.locator(".portrait-orbit-shell")).toHaveAttribute(
-    "data-orbit-suspended",
-    "true",
-  );
+  await expect(
+    page.locator('[data-ui~="portrait-orbit-shell"]'),
+  ).toHaveAttribute("data-orbit-suspended", "true");
   const offscreenDraws = await countDraws(page);
   await expect(canvas).toHaveAttribute("data-render-state", "idle");
   await page.waitForTimeout(200);
   expect(await countDraws(page)).toBe(offscreenDraws);
-  await page.locator(".hero").scrollIntoViewIfNeeded();
-  await expect(page.locator(".portrait-orbit-shell")).toHaveAttribute(
-    "data-orbit-suspended",
-    "false",
-  );
+  await page.locator('[data-ui~="hero"]').scrollIntoViewIfNeeded();
+  await expect(
+    page.locator('[data-ui~="portrait-orbit-shell"]'),
+  ).toHaveAttribute("data-orbit-suspended", "false");
 
   // Exercise the visibility-change handler without depending on headless tab focus.
   await page.evaluate(() => {
@@ -102,10 +101,9 @@ test("sphere spin has bounded rendering cost and pauses when inactive", async ({
     });
     document.dispatchEvent(new Event("visibilitychange"));
   });
-  await expect(page.locator(".portrait-orbit-shell")).toHaveAttribute(
-    "data-orbit-suspended",
-    "true",
-  );
+  await expect(
+    page.locator('[data-ui~="portrait-orbit-shell"]'),
+  ).toHaveAttribute("data-orbit-suspended", "true");
   const hiddenDraws = await countDraws(page);
   await expect(canvas).toHaveAttribute("data-render-state", "idle");
   await page.waitForTimeout(200);
@@ -114,37 +112,43 @@ test("sphere spin has bounded rendering cost and pauses when inactive", async ({
     Reflect.deleteProperty(document, "hidden");
     document.dispatchEvent(new Event("visibilitychange"));
   });
-  await expect(page.locator(".portrait-orbit-shell")).toHaveAttribute(
-    "data-orbit-suspended",
-    "false",
-  );
+  await expect(
+    page.locator('[data-ui~="portrait-orbit-shell"]'),
+  ).toHaveAttribute("data-orbit-suspended", "false");
 });
-
 test("sphere uses the static fallback for reduced motion and follows live changes", async ({
   page,
 }) => {
-  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.emulateMedia({
+    reducedMotion: "reduce",
+  });
   await page.goto("/");
-  const host = page.locator(".monogram-sphere");
+  const host = page.locator('[data-ui~="monogram-sphere"]');
   await expect(host).toHaveAttribute("data-sphere-state", "fallback");
   await expect(host.locator("canvas")).toHaveCount(0);
-  await expect(host.locator(".monogram-sphere-fallback")).toBeVisible();
+  await expect(
+    host.locator('[data-ui~="monogram-sphere-fallback"]'),
+  ).toBeVisible();
   expect(await host.evaluate((element) => element.getAnimations().length)).toBe(
     0,
   );
-
-  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.emulateMedia({
+    reducedMotion: "no-preference",
+  });
   await expect(host).toHaveAttribute("data-sphere-state", "ready", {
     timeout: 20000,
   });
   const canvas = host.locator("canvas");
   await expect(canvas).toHaveAttribute("data-render-state", "running");
-  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.emulateMedia({
+    reducedMotion: "reduce",
+  });
   await expect(canvas).toBeHidden();
   await expect(canvas).toHaveAttribute("data-render-state", "idle");
-  await expect(host.locator(".monogram-sphere-fallback")).toBeVisible();
+  await expect(
+    host.locator('[data-ui~="monogram-sphere-fallback"]'),
+  ).toBeVisible();
 });
-
 test("sphere falls back when WebGL is unavailable", async ({ page }) => {
   await page.addInitScript(() => {
     const original = HTMLCanvasElement.prototype.getContext;
@@ -166,22 +170,27 @@ test("sphere falls back when WebGL is unavailable", async ({ page }) => {
   await expect(page.locator("html")).toHaveAttribute(
     "data-test-webgl-attempted",
     "true",
-    { timeout: 20000 },
+    {
+      timeout: 20000,
+    },
   );
-  await expect(page.locator(".monogram-sphere")).toHaveAttribute(
+  await expect(page.locator('[data-ui~="monogram-sphere"]')).toHaveAttribute(
     "data-sphere-state",
     "fallback",
   );
-  await expect(page.locator(".monogram-sphere canvas")).toHaveCount(0);
-  await expect(page.locator(".monogram-sphere-fallback")).toBeVisible();
+  await expect(page.locator('[data-ui~="monogram-sphere"] canvas')).toHaveCount(
+    0,
+  );
+  await expect(
+    page.locator('[data-ui~="monogram-sphere-fallback"]'),
+  ).toBeVisible();
   expect(errors).toEqual([]);
 });
-
 test("sphere releases a lost context and can be recreated after navigation", async ({
   page,
 }) => {
   await page.goto("/");
-  const host = page.locator(".monogram-sphere");
+  const host = page.locator('[data-ui~="monogram-sphere"]');
   await expect(host).toHaveAttribute("data-sphere-state", "ready", {
     timeout: 20000,
   });
@@ -197,11 +206,19 @@ test("sphere releases a lost context and can be recreated after navigation", asy
   expect(supported).toBe(true);
   await expect(host).toHaveAttribute("data-sphere-state", "fallback");
   await expect(host.locator("canvas")).toHaveCount(0);
-  await page.getByRole("link", { name: "OnboardHQ", exact: true }).click();
   await page
-    .getByRole("link", { name: "sovanreach in, home", exact: true })
+    .getByRole("link", {
+      name: "OnboardHQ",
+      exact: true,
+    })
     .click();
-  await page.locator(".hero").scrollIntoViewIfNeeded();
+  await page
+    .getByRole("link", {
+      name: "sovanreach in, home",
+      exact: true,
+    })
+    .click();
+  await page.locator('[data-ui~="hero"]').scrollIntoViewIfNeeded();
   await expect(host).toHaveAttribute("data-sphere-state", "ready", {
     timeout: 20000,
   });

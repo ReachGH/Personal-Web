@@ -1,9 +1,15 @@
+import styles from "./brand.module.css";
+
 export function Brand() {
   return (
-    <span className="brand" aria-label="sovanreach in, home">
+    <span
+      className={styles["brand"]}
+      aria-label="sovanreach in, home"
+      data-ui="brand"
+    >
       sovanreach{" "}
-      <span className="brand-surname">
-        in<span className="brand-dot">.</span>
+      <span className={styles["brand-surname"]}>
+        in<span className={styles["brand-dot"]}>.</span>
       </span>
     </span>
   );

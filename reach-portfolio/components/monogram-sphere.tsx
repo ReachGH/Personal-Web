@@ -2,22 +2,21 @@
 
 import { useEffect, useRef } from "react";
 import type { MonogramSphereScene } from "@/lib/monogram-sphere";
+import styles from "./monogram-sphere.module.css";
 
 export function MonogramSphere({ paused }: { paused: boolean }) {
   const hostRef = useRef<HTMLSpanElement>(null);
   const pausedRef = useRef(paused);
   const refreshRef = useRef<() => void>(() => {});
-
   useEffect(() => {
     pausedRef.current = paused;
     refreshRef.current();
   }, [paused]);
-
   useEffect(() => {
     const host = hostRef.current;
     if (!host) return;
-    const stage = host.closest(".portrait-stage")!;
-    const shell = host.closest<HTMLElement>(".portrait-orbit-shell")!;
+    const stage = host.closest("[data-orbit-stage]")!;
+    const shell = host.closest<HTMLElement>("[data-orbit-shell]")!;
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
     let scene: MonogramSphereScene | undefined;
     let inView = false;
@@ -26,17 +25,14 @@ export function MonogramSphere({ paused }: { paused: boolean }) {
     let loading = false;
     let idle: number | undefined;
     let timer: number | undefined;
-
     const shouldRun = () =>
       inView && !document.hidden && !motion.matches && !pausedRef.current;
-
     function fail() {
       failed = true;
       scene?.dispose();
       scene = undefined;
       host!.dataset.sphereState = "fallback";
     }
-
     async function initialise() {
       idle = undefined;
       timer = undefined;
@@ -58,7 +54,6 @@ export function MonogramSphere({ paused }: { paused: boolean }) {
         loading = false;
       }
     }
-
     function refresh() {
       shell.dataset.orbitSuspended = String(!inView || document.hidden);
       const running = shouldRun();
@@ -83,7 +78,6 @@ export function MonogramSphere({ paused }: { paused: boolean }) {
         }
       }
     }
-
     refreshRef.current = refresh;
     const observer = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting;
@@ -92,7 +86,6 @@ export function MonogramSphere({ paused }: { paused: boolean }) {
     observer.observe(stage);
     document.addEventListener("visibilitychange", refresh);
     motion.addEventListener("change", refresh);
-
     return () => {
       cancelled = true;
       refreshRef.current = () => {};
@@ -104,14 +97,17 @@ export function MonogramSphere({ paused }: { paused: boolean }) {
       scene?.dispose();
     };
   }, []);
-
   return (
     <span
       ref={hostRef}
-      className="monogram-sphere"
+      className={styles["monogram-sphere"]}
       data-sphere-state="fallback"
+      data-ui="monogram-sphere"
     >
-      <span className="monogram-sphere-fallback">
+      <span
+        className={styles["monogram-sphere-fallback"]}
+        data-ui="monogram-sphere-fallback"
+      >
         r<span>.</span>
       </span>
     </span>

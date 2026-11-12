@@ -1,13 +1,11 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-
 const routes = [
   "/",
   "/projects/onboardhq",
   "/projects/sabai-code",
   "/projects/self-hosted-infrastructure",
 ];
-
 for (const route of routes) {
   test(`${route} is accessible and fits its viewport`, async ({
     page,
@@ -23,7 +21,9 @@ for (const route of routes) {
     );
     expect(overflow, "No horizontal overflow").toBe(false);
     expect(errors, "No client runtime errors").toEqual([]);
-    const audit = await new AxeBuilder({ page })
+    const audit = await new AxeBuilder({
+      page,
+    })
       .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
       .analyze();
     expect(audit.violations).toEqual([]);
@@ -33,12 +33,11 @@ for (const route of routes) {
     });
   });
 }
-
 test("all three case studies open and cycle to the next project", async ({
   page,
 }) => {
   await page.goto("/");
-  await expect(page.locator(".project-card")).toHaveCount(3);
+  await expect(page.locator('[data-ui~="project-card"]')).toHaveCount(3);
   const professional = page.getByRole("region", {
     name: "Professional work",
     exact: true,
@@ -47,15 +46,14 @@ test("all three case studies open and cycle to the next project", async ({
     name: "Personal projects",
     exact: true,
   });
-  await expect(professional.locator(".project-title-link")).toHaveText([
-    "OnboardHQ",
-    "Sabai Code",
-  ]);
-  await expect(personal.locator(".project-title-link")).toHaveText([
+  await expect(
+    professional.locator('[data-ui~="project-title-link"]'),
+  ).toHaveText(["OnboardHQ", "Sabai Code"]);
+  await expect(personal.locator('[data-ui~="project-title-link"]')).toHaveText([
     "Gaming Server Hosting",
   ]);
   await expect(
-    personal.locator(".other-project-toggle > span:first-child"),
+    personal.locator('[data-ui~="other-project-toggle"] > span:first-child'),
   ).toHaveText([
     "Minecraft status bot",
     "React Native To-Do App",
@@ -64,32 +62,46 @@ test("all three case studies open and cycle to the next project", async ({
   await expect(page.locator("#study-projects")).toHaveCount(0);
   for (const route of routes.slice(1)) {
     await page.goto("/");
-    await page.locator(`.project-visual-link[href="${route}"]`).click();
+    await page
+      .locator(`[data-ui~="project-visual-link"][href="${route}"]`)
+      .click();
     await expect(page).toHaveURL(route);
-    await expect(page.locator(".case-takeaway")).toBeVisible();
-    await page.locator(".next-project > a").click();
-    await expect(page.locator(".case-hero h1")).toBeVisible();
-    await page.getByRole("link", { name: "All selected work" }).click();
+    await expect(page.locator('[data-ui~="case-takeaway"]')).toBeVisible();
+    await page.locator('[data-ui~="next-project"] > a').click();
+    await expect(page.locator('[data-ui~="case-hero"] h1')).toBeVisible();
+    await page
+      .getByRole("link", {
+        name: "All selected work",
+      })
+      .click();
     await expect(page).toHaveURL("/#work");
   }
 });
-
 test("project screenshots load as inline images", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".project-card .screenshot-preview")).toHaveCount(
-    2,
-  );
-  await expect(page.locator(".project-card .concept-label")).toHaveCount(1);
-
+  await expect(
+    page.locator('[data-ui~="project-card"] [data-ui~="screenshot-art"]'),
+  ).toHaveCount(2);
+  await expect(
+    page.locator('[data-ui~="project-card"] [data-ui~="concept-label"]'),
+  ).toHaveCount(1);
   for (const [slug, count] of [
     ["onboardhq", 4],
     ["sabai-code", 3],
   ] as const) {
     await page.goto(`/projects/${slug}`);
-    const images = page.locator(".case-figure img, .screenshot-gallery img");
+    const images = page.locator(
+      '[data-ui~="case-figure"] img, [data-ui~="screenshot-gallery"] img',
+    );
     await expect(images).toHaveCount(count);
-    await expect(page.getByText("Full size", { exact: true })).toHaveCount(0);
-    await expect(page.locator(".case-figure .concept-label")).toHaveCount(0);
+    await expect(
+      page.getByText("Full size", {
+        exact: true,
+      }),
+    ).toHaveCount(0);
+    await expect(
+      page.locator('[data-ui~="case-figure"] [data-ui~="concept-label"]'),
+    ).toHaveCount(0);
     for (const image of await images.all()) {
       await image.scrollIntoViewIfNeeded();
       await expect(image).toBeVisible();
@@ -110,13 +122,12 @@ test("project screenshots load as inline images", async ({ page }) => {
     }
   }
 });
-
 test("navigation, contact and resume links work", async ({
   page,
 }, testInfo) => {
   await page.goto("/");
   if (testInfo.project.name === "mobile") {
-    const toggle = page.locator(".menu-toggle");
+    const toggle = page.locator('[data-ui~="menu-toggle"]');
     await toggle.click();
     await expect(toggle).toHaveAttribute("aria-expanded", "true");
     await page.keyboard.press("Escape");
@@ -125,34 +136,44 @@ test("navigation, contact and resume links work", async ({
     await toggle.click();
   }
   await page
-    .getByRole("navigation", { name: "Primary navigation" })
-    .getByRole("link", { name: "Contact", exact: true })
+    .getByRole("navigation", {
+      name: "Primary navigation",
+    })
+    .getByRole("link", {
+      name: "Contact",
+      exact: true,
+    })
     .click();
   await expect(page).toHaveURL("/#contact");
   await expect(page.locator("#contact h2")).toBeInViewport();
-  await expect(page.locator(".contact-email")).toHaveAttribute(
+  await expect(page.locator('[data-ui~="contact-email"]')).toHaveAttribute(
     "href",
     "mailto:Justreach555@gmail.com",
   );
   await expect(
-    page.locator(".contact-side").getByRole("link", { name: "GitHub" }),
+    page.locator('[data-ui~="contact-side"]').getByRole("link", {
+      name: "GitHub",
+    }),
   ).toHaveAttribute("href", "https://github.com/ReachGH");
   await expect(
-    page.locator(".contact-side").getByRole("link", { name: "LinkedIn" }),
+    page.locator('[data-ui~="contact-side"]').getByRole("link", {
+      name: "LinkedIn",
+    }),
   ).toHaveAttribute(
     "href",
     "https://www.linkedin.com/in/sovanreach-in-261477226/",
   );
   const downloadEvent = page.waitForEvent("download");
   await page
-    .locator(".contact-side")
-    .getByRole("link", { name: "Download résumé" })
+    .locator('[data-ui~="contact-side"]')
+    .getByRole("link", {
+      name: "Download résumé",
+    })
     .click();
   const download = await downloadEvent;
   expect(download.suggestedFilename()).toBe("Sovanreach_In_Resume.pdf");
   expect(await download.failure()).toBeNull();
 });
-
 test("metadata, review defaults, assets and missing routes", async ({
   page,
   request,
@@ -181,18 +202,23 @@ test("metadata, review defaults, assets and missing routes", async ({
   const missing = await page.goto("/projects/does-not-exist");
   expect(missing?.status()).toBe(404);
   await expect(
-    page.getByRole("link", { name: "Back to the portfolio" }),
+    page.getByRole("link", {
+      name: "Back to the portfolio",
+    }),
   ).toBeVisible();
 });
-
 test("keyboard skip link and reduced motion are supported", async ({
   page,
 }) => {
-  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.emulateMedia({
+    reducedMotion: "reduce",
+  });
   await page.goto("/");
   await page.keyboard.press("Tab");
   await expect(
-    page.getByRole("link", { name: "Skip to content" }),
+    page.getByRole("link", {
+      name: "Skip to content",
+    }),
   ).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL("/#main-content");
@@ -202,9 +228,11 @@ test("keyboard skip link and reduced motion are supported", async ({
     ),
   ).toBe("auto");
 });
-
 test("narrow screens have no overflow", async ({ page }) => {
-  await page.setViewportSize({ width: 320, height: 800 });
+  await page.setViewportSize({
+    width: 320,
+    height: 800,
+  });
   for (const route of routes) {
     await page.goto(route);
     expect(

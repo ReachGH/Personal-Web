@@ -7,11 +7,22 @@ import { useEffect, useRef, useState } from "react";
 import { Brand } from "./brand";
 import { profile } from "@/data/profile";
 import { ThemeToggle } from "./theme-toggle";
+import styles from "./header.module.css";
+import { cn } from "@/lib/classnames";
 
 const links = [
-  { href: "/#work", label: "Work" },
-  { href: "/#experience", label: "Experience" },
-  { href: "/#contact", label: "Contact" },
+  {
+    href: "/#work",
+    label: "Work",
+  },
+  {
+    href: "/#experience",
+    label: "Experience",
+  },
+  {
+    href: "/#contact",
+    label: "Contact",
+  },
 ];
 
 export function Header() {
@@ -21,7 +32,6 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   const nav = useRef<HTMLElement>(null);
-
   useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
@@ -49,27 +59,28 @@ export function Header() {
       window.removeEventListener("resize", onResize);
     };
   }, [open]);
-
   return (
-    <header className="site-header">
-      <div className="header-surface">
-        <div className="container header-inner">
+    <header className={styles["site-header"]} data-ui="site-header">
+      <div className={styles["header-surface"]} data-ui="header-surface">
+        <div className={cn("container", styles["header-inner"])}>
           <HeaderLink
             href={isHome ? "#top" : "/"}
-            className="brand-link"
+            className={styles["brand-link"]}
             onClick={() => setOpen(false)}
+            data-ui="brand-link"
           >
             <Brand />
           </HeaderLink>
-          <div className="header-actions">
+          <div className={styles["header-actions"]} data-ui="header-actions">
             <button
               ref={toggle}
               type="button"
-              className="menu-toggle"
+              className={styles["menu-toggle"]}
               aria-controls="primary-navigation"
               aria-expanded={open}
               aria-label={open ? "Close navigation" : "Open navigation"}
               onClick={() => setOpen(!open)}
+              data-ui="menu-toggle"
             >
               {open ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -77,7 +88,10 @@ export function Header() {
               ref={nav}
               id="primary-navigation"
               aria-label="Primary navigation"
-              className={`primary-nav ${open ? "is-open" : ""}`}
+              className={cn(
+                styles["primary-nav"],
+                open ? styles["is-open"] : "",
+              )}
               onBlur={(event) => {
                 if (
                   !event.currentTarget.contains(event.relatedTarget as Node) &&
@@ -96,16 +110,20 @@ export function Header() {
                 </HeaderLink>
               ))}
             </nav>
-            <div className="header-utilities">
+            <div
+              className={styles["header-utilities"]}
+              data-ui="header-utilities"
+            >
               <a
-                className="nav-resume"
+                className={styles["nav-resume"]}
                 href={profile.resume}
                 download
                 onClick={() => setOpen(false)}
+                data-ui="nav-resume"
               >
                 Résumé <ArrowUpRight size={15} />
               </a>
-              <ThemeToggle />
+              <ThemeToggle className={styles["header-theme-toggle"]} />
             </div>
           </div>
         </div>

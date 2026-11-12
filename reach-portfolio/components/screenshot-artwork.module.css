@@ -1,17 +1,29 @@
-.project-visual.screenshot-art {
+.screenshot-art img {
   display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 10px 30px #18251b1a;
+}
+
+.screenshot-art {
+  display: block;
+  align-items: center;
+  justify-content: center;
   padding: 0;
   background: #e1e8db;
   --art-orbit: #7e936e40;
   --art-frame: #f9fbf4;
   --art-shadow: #263b2e30;
 }
+
 .screenshot-art::before,
 .screenshot-art::after {
   content: "";
   position: absolute;
   pointer-events: none;
 }
+
 .screenshot-art::before {
   width: 72%;
   aspect-ratio: 1;
@@ -23,12 +35,14 @@
     0 0 0 38px #81966e0a,
     0 0 0 78px #81966e08;
 }
+
 .art-onboarding::after {
   inset: 0;
   background-image: radial-gradient(var(--art-orbit) 0.7px, transparent 0.7px);
   background-size: 23px 23px;
   mask-image: linear-gradient(120deg, #000, transparent 75%);
 }
+
 .screenshot-art > .screenshot-art-canvas {
   position: absolute;
   inset: auto;
@@ -41,6 +55,7 @@
   transform: translate(-50%, -50%);
   z-index: 1;
 }
+
 .art-app-window {
   position: absolute;
   padding: 5px;
@@ -50,6 +65,7 @@
   box-shadow: 0 18px 36px var(--art-shadow);
   transition: transform 0.45s ease;
 }
+
 .art-app-window img {
   display: block;
   width: 100%;
@@ -57,27 +73,33 @@
   border-radius: 4px;
   box-shadow: none;
 }
+
 .art-app-dashboard {
   width: 80%;
   left: 7%;
   top: 14%;
   transform: perspective(1200px) rotateY(-7deg) rotateZ(-5deg);
 }
+
 .art-app-client {
   width: 49%;
   right: 5%;
   bottom: 11%;
   transform: perspective(1000px) rotateY(-6deg) rotateZ(5deg);
 }
-.project-visual-link:is(:hover, :focus-visible) .art-app-dashboard {
+
+a:is(:hover, :focus-visible) .art-app-dashboard {
   transform: perspective(1200px) rotateY(-2deg) rotateZ(-3deg) translateY(-5px);
 }
-.project-visual-link:is(:hover, :focus-visible) .art-app-client {
+
+a:is(:hover, :focus-visible) .art-app-client {
   transform: perspective(1000px) rotateY(-2deg) rotateZ(3deg) translateY(5px);
 }
-.project-visual.art-marketplace {
+
+.art-marketplace {
   background: #e9eae1;
 }
+
 .art-marketplace::before {
   width: 58%;
   height: 78%;
@@ -90,6 +112,7 @@
   box-shadow: none;
   transform: rotate(-12deg);
 }
+
 .art-phone {
   position: absolute;
   padding: 6px;
@@ -99,12 +122,14 @@
   box-shadow: 0 18px 28px var(--art-shadow);
   transition: transform 0.45s ease;
 }
+
 .art-phone-screen {
   position: relative;
   overflow: hidden;
   border-radius: 15px;
   background: white;
 }
+
 .art-phone-screen img {
   position: absolute;
   max-width: none;
@@ -112,6 +137,7 @@
   border-radius: 0;
   box-shadow: none;
 }
+
 .art-phone-home {
   width: 28%;
   max-width: 174px;
@@ -120,14 +146,17 @@
   z-index: 2;
   transform: translateY(-50%) rotate(-5deg);
 }
+
 .art-phone-home .art-phone-screen {
   aspect-ratio: 296 / 625;
 }
+
 .art-phone-home img {
   width: 119.6%;
   left: -11.8%;
   top: -5.76%;
 }
+
 .art-product-detail {
   position: absolute;
   width: 28%;
@@ -143,6 +172,7 @@
   transform: translateY(-35%) rotate(4deg);
   transition: transform 0.45s ease;
 }
+
 .art-product-screen {
   position: relative;
   overflow: hidden;
@@ -150,6 +180,7 @@
   border-radius: 7px;
   background: white;
 }
+
 .art-product-screen img {
   position: absolute;
   width: 113.55%;
@@ -160,35 +191,43 @@
   border-radius: 0;
   box-shadow: none;
 }
-.project-visual-link:is(:hover, :focus-visible) .art-phone-home {
+
+a:is(:hover, :focus-visible) .art-phone-home {
   transform: translateY(-50%) rotate(-2deg) translateY(-4px);
 }
-.project-visual-link:is(:hover, :focus-visible) .art-product-detail {
+
+a:is(:hover, :focus-visible) .art-product-detail {
   transform: translateY(-35%) rotate(2deg) translateY(4px);
 }
-:root[data-theme="dark"] .screenshot-art {
+
+/* Dark theme */
+
+:global(:root[data-theme="dark"]) .screenshot-art {
   background: #2c3b2d;
   --art-orbit: #b4c79e30;
   --art-frame: #e0e5d9;
   --art-shadow: #080f0a70;
 }
-:root[data-theme="dark"] .art-marketplace {
+
+:global(:root[data-theme="dark"]) .art-marketplace {
   background: #29342a;
 }
-:root[data-theme="dark"] .art-marketplace::before {
+
+:global(:root[data-theme="dark"]) .art-marketplace::before {
   background: #3d4d35;
 }
+
+/* Responsive layout */
+
 @media (max-width: 1000px) {
-  .professional-projects .project-card-featured {
-    display: block;
-  }
-  .professional-projects .project-visual.screenshot-art {
+  .screenshot-art.screenshot-art-featured {
     height: 400px;
     min-height: 0;
   }
 }
+
 @media (max-width: 767px) {
-  .project-card-featured .project-visual.screenshot-art {
+  .screenshot-art.screenshot-art-featured {
     height: 340px;
     min-height: 0;
     padding: 0;

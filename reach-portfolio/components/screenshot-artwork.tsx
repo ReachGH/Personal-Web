@@ -1,6 +1,8 @@
 import Image from "next/image";
 import type { ProjectSlug } from "@/data/projects";
 import { projectScreenshots, type ProjectScreenshot } from "@/data/screenshots";
+import styles from "./screenshot-artwork.module.css";
+import { cn } from "@/lib/classnames";
 
 function PhoneScreen({
   screenshot,
@@ -10,8 +12,8 @@ function PhoneScreen({
   className: string;
 }) {
   return (
-    <div className={`art-phone ${className}`}>
-      <div className="art-phone-screen">
+    <div className={cn(styles["art-phone"], className)}>
+      <div className={styles["art-phone-screen"]}>
         <Image
           src={screenshot.image}
           alt={screenshot.alt}
@@ -22,24 +24,37 @@ function PhoneScreen({
   );
 }
 
-export function ScreenshotArtwork({ slug }: { slug: ProjectSlug }) {
+export function ScreenshotArtwork({
+  slug,
+  className,
+  featured,
+}: {
+  slug: ProjectSlug;
+  className: string;
+  featured: boolean;
+}) {
   const screenshots = projectScreenshots[slug];
   if (!screenshots) return null;
   const mobile = slug === "sabai-code";
-
   return (
     <div
-      className={`project-visual screenshot-preview screenshot-art ${mobile ? "art-marketplace" : "art-onboarding"}`}
+      className={cn(
+        className,
+        styles["screenshot-art"],
+        mobile ? styles["art-marketplace"] : styles["art-onboarding"],
+        featured ? styles["screenshot-art-featured"] : "",
+      )}
+      data-ui="project-visual screenshot-art"
     >
-      <div className="screenshot-art-canvas">
+      <div className={styles["screenshot-art-canvas"]}>
         {mobile ? (
           <>
             <PhoneScreen
               screenshot={screenshots[0]}
-              className="art-phone-home"
+              className={styles["art-phone-home"]}
             />
-            <div className="art-product-detail">
-              <div className="art-product-screen">
+            <div className={styles["art-product-detail"]}>
+              <div className={styles["art-product-screen"]}>
                 <Image
                   src={screenshots[2].image}
                   alt="Spring onions and their price in riel in the EzePick product screen."
@@ -50,14 +65,21 @@ export function ScreenshotArtwork({ slug }: { slug: ProjectSlug }) {
           </>
         ) : (
           <>
-            <div className="art-app-window art-app-dashboard">
+            <div
+              className={cn(
+                styles["art-app-window"],
+                styles["art-app-dashboard"],
+              )}
+            >
               <Image
                 src={screenshots[0].image}
                 alt={screenshots[0].alt}
                 sizes="(max-width: 767px) 80vw, (max-width: 1400px) 45vw, 620px"
               />
             </div>
-            <div className="art-app-window art-app-client">
+            <div
+              className={cn(styles["art-app-window"], styles["art-app-client"])}
+            >
               <Image
                 src={screenshots[1].image}
                 alt={screenshots[1].alt}

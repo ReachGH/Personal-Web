@@ -1,0 +1,36 @@
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.theme-toggle:hover {
+  background: var(--sage);
+  border-color: var(--muted);
+}
+
+.theme-toggle:disabled {
+  cursor: wait;
+}
+
+/* Dark theme */
+
+.theme-sun,
+:global(:root[data-theme="dark"]) .theme-moon {
+  display: none;
+}
+
+:global(:root[data-theme="dark"]) .theme-sun {
+  display: block;
+}

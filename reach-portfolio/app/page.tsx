@@ -1,73 +1,30 @@
-import Image from "next/image";
-import { GraduationCap, MapPin, Trophy } from "lucide-react";
-import portrait from "@/public/images/reach-portrait.png";
 import { Contact } from "@/components/contact";
-import { PortraitOrbit } from "@/components/portrait-orbit";
+import { Hero } from "@/components/hero";
+import { Experience } from "@/components/experience";
+import { Skills } from "@/components/skills";
+import { Education } from "@/components/education";
 import { ProjectCard } from "@/components/project-card";
 import { SupportingProjects } from "@/components/supporting-projects";
-import { experience, skills } from "@/data/profile";
 import { projects } from "@/data/projects";
+import styles from "./home.module.css";
+import { cn } from "@/lib/classnames";
 
 export default function Home() {
   return (
     <main id="main-content">
-      <section className="hero container" aria-labelledby="hero-title">
-        <div className="hero-grid">
-          <div className="hero-copy">
-            <h1 id="hero-title">
-              Hi, I’m{" "}
-              <span className="hero-name">
-                Reach
-                <svg viewBox="0 0 430 18" fill="none" aria-hidden="true">
-                  <path
-                    d="M3 12C112 2 290 1 427 8M35 16c103-6 211-7 338-3"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
-              <span className="orange">.</span>
-            </h1>
-            <div className="hero-description">
-              <p className="hero-intro">Nice to meet you :)</p>
-              <p className="hero-story">
-                From talking with <strong>farmers in Cambodia</strong> to
-                integrating <strong>business systems in Australia</strong>.
-              </p>
-              <p>
-                These days, I’m studying Computer Science on the Gold Coast.
-                Outside class, I build apps, tinker with game servers, and
-                follow ideas to see where they lead.
-              </p>
-            </div>
-          </div>
-          <figure className="hero-portrait">
-            <PortraitOrbit>
-              <div className="portrait-frame">
-                <Image
-                  src={portrait}
-                  alt="Reach smiling, wearing glasses and a light blue shirt."
-                  className="portrait-image"
-                  sizes="(max-width: 767px) 220px, (max-width: 900px) 270px, (max-width: 1100px) 330px, 360px"
-                  preload
-                />
-              </div>
-            </PortraitOrbit>
-          </figure>
-        </div>
-      </section>
-
+      <Hero />
       <section
         id="work"
-        className="work-section page-section"
+        className={cn(styles["work-section"], "page-section")}
         aria-labelledby="work-title"
       >
         <div className="container">
           <div className="section-heading">
-            <h2 id="work-title">Professional work</h2>
+            <h2 id="work-title" className="section-title">
+              Professional work
+            </h2>
           </div>
-          <div className="projects-grid professional-projects">
+          <div className={styles["projects-grid"]}>
             {projects
               .filter((project) => project.kind === "professional")
               .map((project) => (
@@ -76,17 +33,18 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <section
         id="personal-projects"
-        className="project-collection page-section"
+        className={cn(styles["project-collection"], "page-section")}
         aria-labelledby="personal-projects-title"
       >
         <div className="container">
           <div className="section-heading">
-            <h2 id="personal-projects-title">Personal projects</h2>
+            <h2 id="personal-projects-title" className="section-title">
+              Personal projects
+            </h2>
           </div>
-          <div className="personal-projects-grid">
+          <div className={styles["personal-projects-grid"]}>
             {projects
               .filter((project) => project.kind === "personal")
               .map((project) => (
@@ -96,109 +54,9 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <section
-        id="experience"
-        className="experience-section page-section"
-        aria-labelledby="experience-title"
-      >
-        <div className="container">
-          <div className="section-heading">
-            <h2 id="experience-title">Experience</h2>
-          </div>
-          <div className="experience-list">
-            {experience.map((job) => (
-              <article className="experience-row" key={job.company}>
-                <div className="experience-role">
-                  <h3>{job.company}</h3>
-                  <p>{job.role}</p>
-                  <div className="experience-meta">
-                    <span className="experience-period">{job.period}</span>
-                    <span>
-                      <MapPin size={13} aria-hidden="true" /> {job.location}
-                    </span>
-                  </div>
-                </div>
-                <ul className="experience-highlights">
-                  {job.highlights.map((highlight) => (
-                    <li key={highlight}>{highlight}</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="skills"
-        className="skills-section page-section"
-        aria-labelledby="skills-title"
-      >
-        <div className="container skills-layout">
-          <div className="skills-intro">
-            <h2 id="skills-title">Skills & tools</h2>
-          </div>
-          <div className="skills-list">
-            {skills.map((group) => (
-              <div className="skill-group" key={group.title}>
-                <div>
-                  <h3>{group.title}</h3>
-                  {group.context && (
-                    <p className="skill-context">{group.context}</p>
-                  )}
-                  <div className="skill-items">
-                    {group.items.map((item) => (
-                      <span key={item}>{item}</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="education"
-        className="education-section page-section"
-        aria-labelledby="education-title"
-      >
-        <div className="container">
-          <div className="education-heading">
-            <h2 id="education-title">Education & recognition</h2>
-          </div>
-          <div className="education-grid">
-            <div className="degree-card">
-              <GraduationCap size={25} strokeWidth={1.5} />
-              <div>
-                <h3>Bachelor of Computer Science</h3>
-                <p>Griffith University</p>
-                <span>Expected completion · November 2026</span>
-              </div>
-            </div>
-            <div className="degree-card">
-              <GraduationCap size={25} strokeWidth={1.5} />
-              <div>
-                <h3>Diploma of Information Technology</h3>
-                <p>Griffith College</p>
-                <span>Completed · 2025</span>
-              </div>
-            </div>
-            <div className="award-card">
-              <Trophy size={25} strokeWidth={1.5} />
-              <div>
-                <span className="small-label">GRIFFITH UNIVERSITY / 2025</span>
-                <h3>Academic Excellence Award</h3>
-                <p>
-                  Recognised among the <strong>top 5%</strong> of Griffith
-                  students for academic achievement.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Experience />
+      <Skills />
+      <Education />
       <Contact />
     </main>
   );

@@ -1,0 +1,43 @@
+.monogram-sphere {
+  position: absolute;
+  inset: 0;
+}
+
+.monogram-sphere-fallback {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  height: 100%;
+  padding-right: 3px;
+}
+
+.monogram-sphere-fallback > span {
+  color: var(--accent);
+}
+
+.monogram-sphere canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.monogram-sphere[data-sphere-state="ready"] .monogram-sphere-fallback {
+  visibility: hidden;
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .monogram-sphere {
+    animation: none;
+    transform: none;
+  }
+  .monogram-sphere canvas {
+    display: none;
+  }
+  .monogram-sphere[data-sphere-state="ready"] .monogram-sphere-fallback {
+    visibility: visible;
+  }
+}

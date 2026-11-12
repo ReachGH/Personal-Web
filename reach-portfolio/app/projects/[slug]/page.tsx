@@ -6,15 +6,23 @@ import { ProjectVisual } from "@/components/project-visual";
 import { ProjectScreenshotGallery } from "@/components/project-screenshots";
 import { Contact } from "@/components/contact";
 import { projects } from "@/data/projects";
+import styles from "./project.module.css";
+import { cn } from "@/lib/classnames";
 
 export const dynamicParams = false;
+
 export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+  return projects.map((project) => ({
+    slug: project.slug,
+  }));
 }
+
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{
+    slug: string;
+  }>;
 }): Promise<Metadata> {
   const { slug } = await params;
   const project = projects.find((project) => project.slug === slug);
@@ -22,7 +30,9 @@ export async function generateMetadata({
   return {
     title: project.name,
     description: project.summary,
-    alternates: { canonical: `/projects/${slug}` },
+    alternates: {
+      canonical: `/projects/${slug}`,
+    },
     openGraph: {
       title: `${project.name} — Reach`,
       description: project.summary,
@@ -35,7 +45,9 @@ export async function generateMetadata({
 export default async function ProjectPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{
+    slug: string;
+  }>;
 }) {
   const { slug } = await params;
   const index = projects.findIndex((project) => project.slug === slug);
@@ -45,11 +57,14 @@ export default async function ProjectPage({
   return (
     <main id="main-content">
       <article>
-        <div className="container case-hero">
-          <Link href="/#work" className="text-link case-back">
+        <div
+          className={cn("container", styles["case-hero"])}
+          data-ui="container case-hero"
+        >
+          <Link href="/#work" className={cn("text-link", styles["case-back"])}>
             <ArrowLeft size={16} /> All selected work
           </Link>
-          <div className="case-kicker">
+          <div className={styles["case-kicker"]}>
             <span className="small-label">
               {project.kind === "professional"
                 ? "Professional work"
@@ -62,12 +77,12 @@ export default async function ProjectPage({
             {project.name}
             <span className="orange">.</span>
           </h1>
-          <p className="case-subtitle">{project.subtitle}</p>
-          <span className="case-status">
+          <p className={styles["case-subtitle"]}>{project.subtitle}</p>
+          <span className={styles["case-status"]}>
             <span />
             {project.status}
           </span>
-          <dl className="case-facts">
+          <dl className={styles["case-facts"]}>
             <div>
               <dt>MY ROLE</dt>
               <dd>{project.role}</dd>
@@ -90,12 +105,20 @@ export default async function ProjectPage({
             </div>
           </dl>
         </div>
-        <figure className="container case-figure">
-          <ProjectVisual slug={project.slug} large />
+        <figure
+          className={cn(
+            cn("container", styles["case-figure"]),
+            project.slug !== "self-hosted-infrastructure"
+              ? styles["case-figure-screenshots"]
+              : "",
+          )}
+          data-ui={`container case-figure ${project.slug !== "self-hosted-infrastructure" ? "case-figure-screenshots" : ""}`}
+        >
+          <ProjectVisual slug={project.slug} presentation="case" />
           <figcaption>{project.visualNote}</figcaption>
         </figure>
-        <div className="container case-body">
-          <aside className="case-aside">
+        <div className={cn("container", styles["case-body"])}>
+          <aside className={styles["case-aside"]}>
             <span className="eyebrow">IN THIS CASE STUDY</span>
             <nav aria-label="Case study sections">
               <a href="#overview">The overview</a>
@@ -110,11 +133,13 @@ export default async function ProjectPage({
               )}
             </nav>
           </aside>
-          <div className="case-content">
-            <section id="overview" className="case-overview">
-              <h2>Overview</h2>
-              <p className="case-introduction">{project.introduction}</p>
-              <div className="contribution-box">
+          <div className={styles["case-content"]}>
+            <section id="overview" className={styles["case-overview"]}>
+              <h2 className="section-title">Overview</h2>
+              <p className={styles["case-introduction"]}>
+                {project.introduction}
+              </p>
+              <div className={styles["contribution-box"]}>
                 <h3>Where I contributed</h3>
                 <ul>
                   {project.contributions.map((item) => (
@@ -129,15 +154,15 @@ export default async function ProjectPage({
             {project.sections.map((section, index) => (
               <section
                 id={`section-${index + 1}`}
-                className="case-section"
+                className={styles["case-section"]}
                 key={section.title}
               >
-                <h2>{section.title}</h2>
+                <h2 className="section-title">{section.title}</h2>
                 {section.paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
                 {section.points && (
-                  <ul className="case-points">
+                  <ul className={styles["case-points"]}>
                     {section.points.map((point) => (
                       <li key={point}>{point}</li>
                     ))}
@@ -145,14 +170,21 @@ export default async function ProjectPage({
                 )}
               </section>
             ))}
-            <section id="takeaway" className="case-takeaway">
+            <section
+              id="takeaway"
+              className={styles["case-takeaway"]}
+              data-ui="case-takeaway"
+            >
               <span className="eyebrow">WHAT I TOOK AWAY</span>
               <p>{project.takeaway}</p>
             </section>
           </div>
         </div>
         <ProjectScreenshotGallery slug={project.slug} />
-        <div className="container next-project">
+        <div
+          className={cn("container", styles["next-project"])}
+          data-ui="container next-project"
+        >
           <span className="eyebrow">NEXT CASE STUDY</span>
           <Link href={`/projects/${next.slug}`}>
             <span>

@@ -1,0 +1,33 @@
+.not-found {
+  padding-block: 130px 150px;
+  min-height: 65vh;
+}
+
+.not-found h1 {
+  font-size: 56px;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin-top: 25px;
+}
+
+.not-found p {
+  font-size: 15px;
+  line-height: 1.8;
+  margin-top: var(--space-5);
+  color: var(--muted);
+}
+
+.not-found :global(.button) {
+  margin-top: 30px;
+}
+
+/* Responsive layout */
+
+@media (max-width: 760px) {
+  .not-found {
+    padding-block: 90px;
+  }
+  .not-found h1 {
+    font-size: 43px;
+  }
+}

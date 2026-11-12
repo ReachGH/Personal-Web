@@ -1,0 +1,181 @@
+.portrait-orbit-shell {
+  position: relative;
+}
+
+.portrait-stage {
+  position: relative;
+  isolation: isolate;
+}
+
+@property --portrait-orbit-phase {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0.12;
+}
+
+.portrait-orbit-track {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform: rotate(-28deg);
+  fill: none;
+  stroke: var(--ink);
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+.portrait-orbit-track-front {
+  z-index: 3;
+}
+
+.portrait-orbit-plane {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-28deg);
+  pointer-events: none;
+  animation: portrait-orbit-depth 24s linear infinite;
+}
+
+.portrait-moon,
+.portrait-moon-trail {
+  /* Continuous speed variation: about 20% faster near, 20% slower far.
+     The cosine offset preserves the initial position and seamless loop. */
+  --orbit-progress: calc(
+    var(--portrait-orbit-phase) + 0.032 *
+      (cos(43.2deg) - cos(calc(var(--portrait-orbit-phase) * 360deg)))
+  );
+  --portrait-orbit-angle: calc(var(--orbit-progress) * 360deg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  offset-path: ellipse(56% 40% at 50% 48%);
+  offset-distance: calc(var(--orbit-progress) * 100%);
+  offset-rotate: 0deg;
+  animation: portrait-orbit 24s linear infinite;
+  transform: rotate(28deg)
+    scale(calc(0.98 + 0.32 * sin(var(--portrait-orbit-angle))));
+}
+
+.portrait-moon {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  width: clamp(42px, 18%, 64px);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  border-radius: 50%;
+  background: var(--sage);
+  color: var(--ink);
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -3px;
+  padding-right: 3px;
+}
+
+.portrait-moon::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+  border-radius: 50%;
+}
+
+.portrait-moon-trail {
+  /* Follow the moon's exact motion, 0.72 seconds behind it. */
+  animation-delay: -23.28s;
+  width: 4px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.65;
+}
+
+.portrait-moon-trail-faint {
+  /* The second dot follows 1.2 seconds behind the moon. */
+  animation-delay: -22.8s;
+  width: 3px;
+  opacity: 0.3;
+}
+
+.portrait-moon:has([data-sphere-state="ready"]) {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+@keyframes portrait-orbit {
+  0% {
+    --portrait-orbit-phase: 0.12;
+  }
+  100% {
+    --portrait-orbit-phase: 1.12;
+  }
+}
+
+@keyframes portrait-orbit-depth {
+  /* Crossings of the variable-speed path at its left/right ends. */
+  0%,
+  32.6466% {
+    z-index: 3;
+  }
+  32.6467%,
+  88.8626% {
+    z-index: 1;
+  }
+  88.8627%,
+  100% {
+    z-index: 3;
+  }
+}
+
+[data-orbit-paused="true"] .portrait-orbit-plane,
+[data-orbit-paused="true"] .portrait-orbit-plane > span,
+[data-orbit-suspended="true"] .portrait-orbit-plane,
+[data-orbit-suspended="true"] .portrait-orbit-plane > span {
+  animation-play-state: paused;
+}
+
+.orbit-toggle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.orbit-toggle:hover {
+  color: var(--ink);
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait-moon:has([data-sphere-state="ready"]) {
+    background: var(--sage);
+    border-color: var(--line);
+  }
+  .portrait-orbit-plane,
+  .portrait-orbit-plane > span {
+    animation: none;
+  }
+  .portrait-orbit-plane {
+    z-index: 3;
+  }
+  .portrait-moon-trail {
+    display: none;
+  }
+  .orbit-toggle {
+    display: none;
+  }
+}

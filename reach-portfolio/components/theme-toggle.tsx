@@ -3,8 +3,11 @@
 import { Moon, Sun } from "lucide-react";
 import { useSyncExternalStore } from "react";
 import { themeColours, themeStorageKey, type Theme } from "@/lib/theme";
+import styles from "./theme-toggle.module.css";
+import { cn } from "@/lib/classnames";
 
 const themeEvent = "reach-theme-change";
+
 let inMemoryTheme: Theme | null = null;
 
 function savedTheme(): Theme | null {
@@ -55,7 +58,7 @@ function getServerSnapshot(): null {
   return null;
 }
 
-export function ThemeToggle() {
+export function ThemeToggle({ className = "" }: { className?: string }) {
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const toggle = () => {
     if (theme === null) return;
@@ -69,25 +72,25 @@ export function ThemeToggle() {
     }
     window.dispatchEvent(new Event(themeEvent));
   };
-
   return (
     <button
       type="button"
-      className="theme-toggle"
+      className={cn(styles["theme-toggle"], className)}
       aria-label="Dark mode"
       aria-pressed={theme === "dark"}
       disabled={theme === null}
       title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
       onClick={toggle}
+      data-ui="theme-toggle"
     >
       <Moon
-        className="theme-moon"
+        className={styles["theme-moon"]}
         size={18}
         strokeWidth={1.7}
         aria-hidden="true"
       />
       <Sun
-        className="theme-sun"
+        className={styles["theme-sun"]}
         size={18}
         strokeWidth={1.7}
         aria-hidden="true"

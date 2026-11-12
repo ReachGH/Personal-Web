@@ -1,0 +1,125 @@
+.other-projects {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.other-project {
+  border-bottom: 1px solid var(--line);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 150ms;
+}
+
+.other-project-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3) 2px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+}
+
+.other-project-affordance {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.other-project-chevron {
+  transition: transform 200ms ease;
+}
+
+.other-project-toggle[aria-expanded="true"] .other-project-chevron {
+  transform: rotate(180deg);
+}
+
+.other-project-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 200ms ease,
+    opacity 150ms ease;
+}
+
+.other-project-details[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.other-project-details-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.other-project-body {
+  padding: var(--space-1) var(--space-3) var(--space-4);
+}
+
+.other-project h3 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.2px;
+}
+
+.other-project p {
+  font-size: 14px;
+  line-height: var(--leading-compact);
+  color: var(--muted);
+}
+
+.other-project-summary {
+  padding: 0 var(--space-3) 10px;
+  text-wrap: pretty;
+}
+
+.other-project .other-project-overview {
+  max-width: 72ch;
+  font-size: 15px;
+  line-height: var(--leading-body);
+  text-wrap: pretty;
+}
+
+.other-project-overview + .other-project-overview {
+  margin-top: var(--space-3);
+}
+
+.other-project p.other-project-stack {
+  margin-top: var(--space-3);
+  font-size: 13px;
+}
+
+.other-source {
+  display: inline-block;
+  margin-top: var(--space-2);
+  flex-shrink: 0;
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.other-source:hover {
+  color: var(--accent);
+}
+
+/* Responsive layout */
+
+@media (hover: hover) and (pointer: fine) {
+  .other-project:hover {
+    background: color-mix(in srgb, var(--sage) 55%, transparent);
+  }
+}

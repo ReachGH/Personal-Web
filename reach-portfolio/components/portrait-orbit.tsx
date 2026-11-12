@@ -4,6 +4,9 @@ import { useState, type ReactNode } from "react";
 import { Pause, Play } from "lucide-react";
 import { MonogramSphere } from "@/components/monogram-sphere";
 
+import styles from "./portrait-orbit.module.css";
+import { cn } from "@/lib/classnames";
+
 // Sample the same ellipse as the moon. Size and opacity follow its depth,
 // including the joins between the front and back halves.
 const orbitDashes = Array.from({ length: 96 }, (_, index) => {
@@ -30,9 +33,13 @@ const orbitDashes = Array.from({ length: 96 }, (_, index) => {
 function OrbitTrack({ front = false }: { front?: boolean }) {
   return (
     <svg
-      className={`portrait-orbit-track${front ? " portrait-orbit-track-front" : ""}`}
+      className={cn(
+        styles["portrait-orbit-track"],
+        front ? styles["portrait-orbit-track-front"] : "",
+      )}
       viewBox="0 0 1000 1200"
       aria-hidden="true"
+      data-ui={`portrait-orbit-track${front ? " portrait-orbit-track-front" : ""}`}
     >
       {orbitDashes.map((dash, index) =>
         dash.front === front ? (
@@ -50,24 +57,41 @@ function OrbitTrack({ front = false }: { front?: boolean }) {
 
 export function PortraitOrbit({ children }: { children: ReactNode }) {
   const [paused, setPaused] = useState(false);
-
   return (
-    <div className="portrait-orbit-shell" data-orbit-paused={paused}>
-      <div className="portrait-stage">
+    <div
+      className={styles["portrait-orbit-shell"]}
+      data-orbit-shell
+      data-orbit-paused={paused}
+      data-ui="portrait-orbit-shell"
+    >
+      <div
+        className={styles["portrait-stage"]}
+        data-orbit-stage
+        data-ui="portrait-stage"
+      >
         <OrbitTrack />
         <OrbitTrack front />
-        <span className="portrait-orbit-plane" aria-hidden="true">
-          <span className="portrait-moon">
+        <span className={styles["portrait-orbit-plane"]} aria-hidden="true">
+          <span className={styles["portrait-moon"]} data-ui="portrait-moon">
             <MonogramSphere paused={paused} />
           </span>
-          <span className="portrait-moon-trail" />
-          <span className="portrait-moon-trail portrait-moon-trail-faint" />
+          <span
+            className={styles["portrait-moon-trail"]}
+            data-ui="portrait-moon-trail"
+          />
+          <span
+            className={cn(
+              styles["portrait-moon-trail"],
+              styles["portrait-moon-trail-faint"],
+            )}
+            data-ui="portrait-moon-trail portrait-moon-trail-faint"
+          />
         </span>
         {children}
       </div>
       <button
         type="button"
-        className="orbit-toggle"
+        className={styles["orbit-toggle"]}
         aria-label={paused ? "Play orbit animation" : "Pause orbit animation"}
         onClick={() => setPaused(!paused)}
       >

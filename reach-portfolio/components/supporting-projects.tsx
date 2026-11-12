@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { otherProjects } from "@/data/projects";
+import styles from "./supporting-projects.module.css";
 
 function SupportingProject({
   project,
@@ -14,10 +15,9 @@ function SupportingProject({
   const buttonId = `project-toggle-${project.icon}`;
   const summaryId = `project-summary-${project.icon}`;
   const detailsId = `project-details-${project.icon}`;
-
   return (
     <li
-      className="other-project"
+      className={styles["other-project"]}
       onClick={(event) => {
         if (
           (event.target as HTMLElement).closest("a, button") ||
@@ -25,34 +25,46 @@ function SupportingProject({
         ) {
           return;
         }
-        toggleRef.current?.focus({ preventScroll: true });
+        toggleRef.current?.focus({
+          preventScroll: true,
+        });
         setOpen((previous) => !previous);
       }}
       onKeyDown={(event) => {
         if (event.key === "Escape" && open) {
           setOpen(false);
-          toggleRef.current?.focus({ preventScroll: true });
+          toggleRef.current?.focus({
+            preventScroll: true,
+          });
         }
       }}
+      data-ui="other-project"
     >
       <h3>
         <button
           ref={toggleRef}
           id={buttonId}
           type="button"
-          className="other-project-toggle"
+          className={styles["other-project-toggle"]}
           aria-expanded={open}
           aria-controls={detailsId}
           aria-describedby={summaryId}
           onClick={() => setOpen((previous) => !previous)}
+          data-ui="other-project-toggle"
         >
           <span>{project.name}</span>
-          <span className="other-project-affordance" aria-hidden="true">
-            <ChevronDown size={16} className="other-project-chevron" />
+          <span
+            className={styles["other-project-affordance"]}
+            aria-hidden="true"
+          >
+            <ChevronDown
+              size={16}
+              className={styles["other-project-chevron"]}
+            />
           </span>
         </button>
       </h3>
-      <p id={summaryId} className="other-project-summary">
+      <p id={summaryId} className={styles["other-project-summary"]}>
         {project.summary}
       </p>
       <div
@@ -61,20 +73,26 @@ function SupportingProject({
         aria-labelledby={buttonId}
         aria-hidden={!open}
         inert={!open}
-        className="other-project-details"
+        className={styles["other-project-details"]}
         data-open={open}
       >
-        <div className="other-project-details-inner">
-          <div className="other-project-body">
+        <div className={styles["other-project-details-inner"]}>
+          <div className={styles["other-project-body"]}>
             {project.description.map((paragraph) => (
-              <p className="other-project-overview" key={paragraph}>
+              <p
+                className={styles["other-project-overview"]}
+                key={paragraph}
+                data-ui="other-project-overview"
+              >
                 {paragraph}
               </p>
             ))}
-            <p className="other-project-stack">{project.stack.join(" · ")}</p>
+            <p className={styles["other-project-stack"]}>
+              {project.stack.join(" · ")}
+            </p>
             {project.href && (
               <a
-                className="other-source"
+                className={styles["other-source"]}
                 href={project.href}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -92,7 +110,7 @@ function SupportingProject({
 
 export function SupportingProjects() {
   return (
-    <ul className="other-projects" aria-label="More projects">
+    <ul className={styles["other-projects"]} aria-label="More projects">
       {otherProjects.map((project) => (
         <SupportingProject project={project} key={project.name} />
       ))}
